@@ -1,0 +1,349 @@
+<div class="col-md-12">
+	<div class="row" id="homeMain">
+		<div class="col-md-12">
+			<div class="row" id="homeHead" ng-show="bigScreen">
+				<h1>Current Hot Ticket Reservations</h1>
+			</div>
+			<div class="row" id="homeHead" ng-show="!bigScreen">
+				<h3>Hot Ticket Reservations</h3>
+			</div>
+			<div class="row" id="homeBody">
+				<div class="col-md-12">
+					<div class="row" ng-repeat="row in rowsData" track by $index>
+						<div class="col-md-6">
+				 			<div 
+								class="row" 
+								id="{{row[0].activity}}_small"
+							>
+								<div class="col-md-10 col-md-offset-1 greyBg">
+									<div class="row">
+										<div class="col-md-12">
+											<span class="hotBoxHeading" ng-show="bigScreen">
+												<a 
+													href="/app/championship/{{row[0].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[0].tagline}}
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="row" ng-show="bigScreen">
+										<div class="col-md-4">
+											<span class="hotBoxSubHeading">
+												<a 
+													href="/app/championship/{{row[0].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[0].date}}
+												</a>
+											</span>
+										</div>
+										<div class="col-md-4">
+											<span class="hotBoxSubHeading">
+												<a 
+													href="/app/championship/{{row[0].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[0].location}}
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="row" ng-show="bigScreen">
+										<br/>
+										<br/>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+												<div 
+													class="col-md-5 col-md-offset-1"
+													ng-repeat="pool in row[0].pools"
+												>
+													<div class="row" ng-show="bigScreen">
+														<span class="homePoolName">{{pool.name}}</span>
+													</div>
+													<div class="row" ng-show="bigScreen">
+														<br/>
+													</div>
+													<div 
+														class="row" 
+														ng-repeat="reservation in pool.hotReservations"
+														ng-show="bigScreen"
+													>
+														<div class="col-md-8">
+															<span 
+																class="hotReservation" 
+																style="cursor: pointer;"
+																ng-click="reserve(
+																	pool.id, 
+																	reservation.id, 
+																	1, 
+																	reservation.cost, 
+																	reservation.name,
+																	reservation.eOds,
+																	reservation.eeCount
+																)">
+																	{{reservation.mascot}}
+															</span>
+														</div>
+														<div class="col-md-4" style="text-align: right;">
+															<span 
+																class="hotReservation" 
+																style="cursor: pointer;"
+																ng-click="reserve(
+																	pool.id, 
+																	reservation.id, 
+																	1, 
+																	reservation.cost, 
+																	reservation.name,
+																	reservation.eOds,
+																	reservation.eeCount
+																)">
+																	${{reservation.cost}}
+															</span>
+														</div>
+													</div>
+													<div 
+														class="row" 
+														ng-repeat="reservation in pool.hotReservations"
+														ng-show="!bigScreen"
+													>
+														<div 
+															class="col-sm-8 col-xs-8"
+															style="
+																top: 6px;
+																position: relative;
+															"
+														>
+															<span 
+																class="hotReservation" 
+																style="
+																	cursor: pointer;
+																"
+																ng-click="
+																	reserve(
+																		pool.id, 
+																		reservation.id, 
+																		1, 
+																		reservation.cost, 
+																		reservation.name,
+																		reservation.eOds,
+																		reservation.eeCount
+																	)
+																"
+															>
+																{{reservation.mascot}}
+															</span>
+														</div>
+														<div 
+															class="col-sm-4 col-xs-4"
+															style="
+																top: 6px;
+																position: relative;
+																text-align: right;
+															"
+														>
+															<span 
+																class="hotReservation" 
+																style="
+																	cursor: pointer;
+																"
+																ng-click="
+																	reserve(
+																		pool.id, 
+																		reservation.id, 
+																		1, 
+																		reservation.cost, 
+																		reservation.name,
+																		reservation.eOds,
+																		reservation.eeCount
+																	)
+																"
+															>
+																${{reservation.cost}}
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<br/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+				 			<div 
+								class="row" 
+								id="{{row[1].activity}}_small"
+							>
+								<div class="col-md-12 greyBg">
+									<div class="row">
+										<div class="col-md-12">
+											<span class="hotBoxHeading" ng-show="bigScreen">
+												<a 
+													href="/app/championship/{{row[1].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[1].tagline}}
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="row" ng-show="bigScreen">
+										<div class="col-md-4">
+											<span class="hotBoxSubHeading">
+												<a 
+													href="/app/championship/{{row[1].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[1].date}}
+												</a>
+											</span>
+										</div>
+										<div class="col-md-4">
+											<span class="hotBoxSubHeading">
+												<a 
+													href="/app/championship/{{row[1].id}}" 
+													style="color: white; text-decoration: none;"
+												>
+													{{row[1].location}}
+												</a>
+											</span>
+										</div>
+									</div>
+									<div class="row" ng-show="bigScreen">
+										<br/>
+										<br/>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="row">
+												<div 
+													class="col-md-5 col-md-offset-1"
+													ng-repeat="pool in row[1].pools"
+												>
+													<div class="row" ng-show="bigScreen">
+														<span class="homePoolName">{{pool.name}}</span>
+													</div>
+													<div class="row" ng-show="bigScreen">
+														<br/>
+													</div>
+													<div 
+														class="row" 
+														ng-repeat="reservation in pool.hotReservations"
+														ng-show="bigScreen"
+													>
+														<div class="col-md-8">
+															<span 
+																class="hotReservation" 
+																style="cursor: pointer;"
+																ng-click="reserve(
+																	pool.id, 
+																	reservation.id, 
+																	1, 
+																	reservation.cost, 
+																	reservation.name,
+																	reservation.eOds,
+																	reservation.eeCount
+																)">
+																	{{reservation.mascot}}
+															</span>
+														</div>
+														<div class="col-md-4" style="text-align: right;">
+															<span 
+																class="hotReservation" 
+																style="cursor: pointer;"
+																ng-click="reserve(
+																	pool.id, 
+																	reservation.id, 
+																	1, 
+																	reservation.cost, 
+																	reservation.name,
+																	reservation.eOds,
+																	reservation.eeCount
+																)">
+																	${{reservation.cost}}
+															</span>
+														</div>
+													</div>
+													<div 
+														class="row" 
+														ng-repeat="reservation in pool.hotReservations"
+														ng-show="!bigScreen"
+													>
+														<div 
+															class="col-sm-8 col-xs-8"
+															style="
+																top: 6px;
+																position: relative;
+															"
+														>
+															<span 
+																class="hotReservation" 
+																style="
+																	cursor: pointer;
+																"
+																ng-click="
+																	reserve(
+																		pool.id, 
+																		reservation.id, 
+																		1, 
+																		reservation.cost, 
+																		reservation.name,
+																		reservation.eOds,
+																		reservation.eeCount
+																	)
+																"
+															>
+																{{reservation.mascot}}
+															</span>
+														</div>
+														<div 
+															class="col-sm-4 col-xs-4"
+															style="
+																top: 6px;
+																position: relative;
+																text-align: right;
+															"
+														>
+															<span 
+																class="hotReservation" 
+																style="
+																	cursor: pointer;
+																"
+																ng-click="
+																	reserve(
+																		pool.id, 
+																		reservation.id, 
+																		1, 
+																		reservation.cost, 
+																		reservation.name,
+																		reservation.eOds,
+																		reservation.eeCount
+																	)
+																"
+															>
+																${{reservation.cost}}
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<br/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<br/>
+				</div>
+			</div>
+			<br/>
+		</div>
+	</div>
+</div>

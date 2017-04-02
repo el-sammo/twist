@@ -1,0 +1,48 @@
+<div class="col-md-2">
+	<span 
+		ng-class="getClass()" 
+		ng-style="getStyle()" 
+	>
+		{{getNumberPost(entry)}}
+		<br ng-show="entry.altRunner">
+		<span ng-if="entry.altRunner">
+			{{getNumberPost(entry.altRunner)}}
+		</span>
+	</span>
+</div>
+<div class="col-md-3">
+	<span 
+		ng-class="getClass()" 
+		ng-style="getStyle()" 
+	>
+		{{getName(entry)}}
+		<br ng-show="entry.altRunner">
+		<span ng-if="entry.altRunner">
+			{{getName(entry.altRunner)}}
+		</span>
+	</span>
+</div>
+<div class="col-md-3">
+	<span 
+		ng-class="getClass()" 
+		ng-style="getStyle()" 
+	>
+		{{getJockey(entry)}}
+		<br ng-show="entry.altRunner">
+		<span ng-if="entry.altRunner">
+			{{getJockey(entry.altRunner)}}
+		</span>
+	</span>
+</div>
+<div class="col-md-2">
+	<span 
+		ng-class="getClass()" 
+		ng-style="getStyle()" 
+	>
+		{{getTrainer(entry)}}
+		<br ng-show="entry.altRunner">
+		<span ng-if="entry.altRunner">
+			{{getTrainer(entry.altRunner)}}
+		</span>
+	</span>
+</div>

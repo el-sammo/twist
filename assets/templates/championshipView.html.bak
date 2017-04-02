@@ -1,0 +1,831 @@
+<div class="col-md-12" ng-show="bigScreen">
+	<div class="row" id="championshipViewMain">
+		<div class="col-md-12">
+			<div class="row" id="championshipViewHead">
+				<h1>{{championshipData.tagline}}</h1>
+			</div>
+			<div class="row" id="championshipViewBody_{{championshipData.activity}}">
+				<div class="col-md-12 greyBgChamp">
+					<div class="row" ng-repeat="pool in poolData track by $index">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<span class="hotBoxHeading">{{pool.name}}</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span class="hotBoxSubHeading">Date: {{championshipData.date}}</span>
+								</div>
+								<div class="col-md-4">
+									<span class="hotBoxSubHeading">Location: {{championshipData.location}}</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-md-2">
+									<span class="hotBoxMiniHeading">Team</span>
+								</div>
+								<div class="col-md-1 col-md-offset-1">
+									<p class="text-right">
+										<span class="hotBoxMiniHeading">1 Ticket</span>
+									</p>
+								</div>
+								<div class="col-md-1 col-md-offset-1">
+									<p class="text-right">
+										<span class="hotBoxMiniHeading">2 Tickets</span>
+									</p>
+								</div>
+								<div class="col-md-1 col-md-offset-1">
+									<p class="text-right">
+										<span class="hotBoxMiniHeading">4 Tickets</span>
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-md-offset-4">
+									<p>
+										<span class="hotBoxMiniHeading">Click on the Dollar Amount to Start a Reservation</span>
+									</p>
+								</div>
+							</div>
+							<br/>
+							<div class="row" ng-repeat="entity in pool.entities">
+								<div 
+									class="col-md-12" 
+									style="height: 24px; margin: 0px 0px 8px 0px;"
+								>
+									<div 
+										class="row" 
+									>
+										<div class="col-md-2" style="height: 24px;">
+											<span class="hotBoxSubHeading">
+												{{entity.mascot}}
+											</span>
+										</div>
+										<div 
+											class="col-md-1 col-md-offset-1" 
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<p class="text-right">
+												<span 
+													ng-show="
+														entity.color2 === 'FFFFFF' || 
+														entity.color2 === 'ffffff' ||
+														entity.color2 === 'CCCCCC' ||
+														entity.color2 === 'cccccc' ||
+														entity.color2 === '8FBCE6' ||
+														entity.color2 === '8fbce6' ||
+														entity.color2 === 'E3D4AD' ||
+														entity.color2 === 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #{{entity.color1}}; 
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 1 Ticket for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															1, 
+															entity.nextCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.nextCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															1, 
+															entity.nextCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.nextCost}}
+													</span>
+												</span>
+												<span 
+													ng-show="
+														entity.color2 !== 'FFFFFF' && 
+														entity.color2 !== 'ffffff' &&
+														entity.color2 !== 'CCCCCC' &&
+														entity.color2 !== 'cccccc' &&
+														entity.color2 !== '8FBCE6' &&
+														entity.color2 !== '8fbce6' &&
+														entity.color2 !== 'E3D4AD' &&
+														entity.color2 !== 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #FFFFFF;
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 1 Ticket for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															1, 
+															entity.nextCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.nextCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															1, 
+															entity.nextCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.nextCost}}
+													</span>
+												</span>
+											</p>
+										</div>
+										<div 
+											class="col-md-1 col-md-offset-1" 
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<p class="text-right">
+												<span 
+													ng-show="
+														entity.color2 === 'FFFFFF' || 
+														entity.color2 === 'ffffff' ||
+														entity.color2 === 'CCCCCC' ||
+														entity.color2 === 'cccccc' ||
+														entity.color2 === '8FBCE6' ||
+														entity.color2 === '8fbce6' ||
+														entity.color2 === 'E3D4AD' ||
+														entity.color2 === 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #{{entity.color1}}; 
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 2 Tickets for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															2, 
+															entity.doubleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.doubleCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															2, 
+															entity.doubleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.doubleCost}}
+													</span>
+												</span>
+												<span 
+													ng-show="
+														entity.color2 !== 'FFFFFF' && 
+														entity.color2 !== 'ffffff' &&
+														entity.color2 !== 'CCCCCC' &&
+														entity.color2 !== 'cccccc' &&
+														entity.color2 !== '8FBCE6' &&
+														entity.color2 !== '8fbce6' &&
+														entity.color2 !== 'E3D4AD' &&
+														entity.color2 !== 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #FFFFFF;
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 2 Tickets for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															2, 
+															entity.doubleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.doubleCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															2, 
+															entity.doubleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.doubleCost}}
+													</span>
+												</span>
+											</p>
+										</div>
+										<div 
+											class="col-md-1 col-md-offset-1" 
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<p class="text-right">
+												<span 
+													ng-show="
+														entity.color2 === 'FFFFFF' || 
+														entity.color2 === 'ffffff' ||
+														entity.color2 === 'CCCCCC' ||
+														entity.color2 === 'cccccc' ||
+														entity.color2 === '8FBCE6' ||
+														entity.color2 === '8fbce6' ||
+														entity.color2 === 'E3D4AD' ||
+														entity.color2 === 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #{{entity.color1}}; 
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 4 Tickets for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															4, 
+															entity.quadrupleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.quadrupleCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															4, 
+															entity.quadrupleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.quadrupleCost}}
+													</span>
+												</span>
+												<span 
+													ng-show="
+														entity.color2 !== 'FFFFFF' && 
+														entity.color2 !== 'ffffff' &&
+														entity.color2 !== 'CCCCCC' &&
+														entity.color2 !== 'cccccc' &&
+														entity.color2 !== '8FBCE6' &&
+														entity.color2 !== '8fbce6' &&
+														entity.color2 !== 'E3D4AD' &&
+														entity.color2 !== 'e3d4ad'
+													"
+													style="
+														font-size: 16px; 
+														font-weight: 700; 
+														text-decoration: none; 
+														color: #FFFFFF;
+														cursor: pointer;
+													"
+													title="
+														Click Here to Reserve 4 Tickets for the {{entity.entityName}} {{entity.mascot}}
+													"
+												>
+													<span 
+														ng-show="
+															entity.color2 === 'EFB21E' ||
+															entity.color2 === 'efb21e' ||
+															entity.color2 === 'FEC325' ||
+															entity.color2 === 'fec325'
+														"
+														class="reservationBlack"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															4, 
+															entity.quadrupleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.quadrupleCost}}
+													</span>
+													<span 
+														ng-show="
+															entity.color2 !== 'EFB21E' &&
+															entity.color2 !== 'efb21e' &&
+															entity.color2 !== 'FEC325' &&
+															entity.color2 !== 'fec325'
+														"
+														class="reservationYellow"
+														ng-click="reserve(
+															pool.id, 
+															entity.entityId, 
+															4, 
+															entity.quadrupleCost, 
+															entity.entityName,
+															entity.eOds,
+															entity.eeCount
+														)"
+													>
+														${{entity.quadrupleCost}}
+													</span>
+												</span>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+		</div>
+	</div>
+</div>
+<div class="col-md-12" ng-show="!bigScreen">
+	<div class="row" id="championshipViewMain">
+		<div class="col-md-12">
+			<div class="row" id="championshipViewHead">
+				<h1>{{championshipData.tagline}}</h1>
+			</div>
+			<div class="row" id="championshipViewBody_{{championshipData.activity}}">
+				<div class="col-md-12 greyBgChamp">
+					<div class="row" ng-repeat="pool in poolData track by $index">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-12">
+									<span class="hotBoxHeading">{{pool.name}}</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<span 
+										class="hotBoxSubHeading"
+										style="font-size: 16px;"
+									>
+										Date: {{championshipData.date}}
+									</span>
+								</div>
+								<div class="col-md-4">
+									<span 
+										class="hotBoxSubHeading"
+										style="font-size: 16px;"
+									>
+										Location: {{championshipData.location}}
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-sm-5 col-sm-offset-6 col-xs-5 col-xs-offset-6">
+									<p class="text-right">
+										<span 
+											class="hotBoxMiniHeading"
+											style="font-size: 10px;"
+										>
+											# of Reservations
+										</span>
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-xs-6">
+									<span class="hotBoxMiniHeading">Team</span>
+								</div>
+								<div 
+									class="col-sm-2 col-xs-2"
+									style="text-align: center;"
+								>
+									<span class="hotBoxMiniHeading">1</span>
+								</div>
+								<div 
+									class="col-sm-2 col-xs-2"
+									style="text-align: center;"
+								>
+									<span class="hotBoxMiniHeading">2</span>
+								</div>
+								<div 
+									class="col-sm-2 col-xs-2"
+									style="text-align: center;"
+								>
+									<span class="hotBoxMiniHeading">4</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row" ng-repeat="entity in pool.entities">
+								<div 
+									class="col-sm-12 col-xs-12" 
+									style="height: 24px; margin: 0px 0px 8px 0px;"
+								>
+									<div 
+										class="row" 
+									>
+										<div class="col-sm-6 col-xs-6" style="height: 24px;">
+											<span 
+												class="hotBoxSubHeading"
+												style="font-size: 14px;"
+											>
+												{{entity.mascot}}
+											</span>
+										</div>
+										<div 
+											class="col-sm-2 col-xs-2" 
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<span 
+												ng-show="
+													entity.color2 === 'FFFFFF' || 
+													entity.color2 === 'ffffff' ||
+													entity.color2 === 'CCCCCC' ||
+													entity.color2 === 'cccccc' ||
+													entity.color2 === '8FBCE6' ||
+													entity.color2 === '8fbce6' ||
+													entity.color2 === 'E3D4AD' ||
+													entity.color2 === 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #{{entity.color1}};
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 1 Ticket for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													1, 
+													entity.nextCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.nextCostInt}}
+											</span>
+											<span 
+												ng-show="
+													entity.color2 !== 'FFFFFF' && 
+													entity.color2 !== 'ffffff' &&
+													entity.color2 !== 'CCCCCC' &&
+													entity.color2 !== 'cccccc' &&
+													entity.color2 !== '8FBCE6' &&
+													entity.color2 !== '8fbce6' &&
+													entity.color2 !== 'E3D4AD' &&
+													entity.color2 !== 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #FFFFFF;
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 1 Ticket for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													1, 
+													entity.nextCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.nextCostInt}}
+											</span>
+										</div>
+										<div 
+											class="col-sm-2 col-xs-2"
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<span 
+												ng-show="
+													entity.color2 === 'FFFFFF' || 
+													entity.color2 === 'ffffff' ||
+													entity.color2 === 'CCCCCC' ||
+													entity.color2 === 'cccccc' ||
+													entity.color2 === '8FBCE6' ||
+													entity.color2 === '8fbce6' ||
+													entity.color2 === 'E3D4AD' ||
+													entity.color2 === 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #{{entity.color1}};
+													cursor: pointer;
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 2 Tickets for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													2, 
+													entity.doubleCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.doubleCostInt}}
+											</span>
+											<span 
+												ng-show="
+													entity.color2 !== 'FFFFFF' && 
+													entity.color2 !== 'ffffff' &&
+													entity.color2 !== 'CCCCCC' &&
+													entity.color2 !== 'cccccc' &&
+													entity.color2 !== '8FBCE6' &&
+													entity.color2 !== '8fbce6' &&
+													entity.color2 !== 'E3D4AD' &&
+													entity.color2 !== 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #FFFFFF;
+													cursor: pointer;
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 2 Tickets for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													2, 
+													entity.doubleCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.doubleCostInt}}
+											</span>
+										</div>
+										<div 
+											class="col-sm-2 col-xs-2"
+											style="
+												height: 24px;
+												background-color: #{{entity.color2}}; 
+												border: 2px solid #{{entity.color3}};
+												border-radius: 25px;
+											"
+										>
+											<span 
+												ng-show="
+													entity.color2 === 'FFFFFF' || 
+													entity.color2 === 'ffffff' ||
+													entity.color2 === 'CCCCCC' ||
+													entity.color2 === 'cccccc' ||
+													entity.color2 === '8FBCE6' ||
+													entity.color2 === '8fbce6' ||
+													entity.color2 === 'E3D4AD' ||
+													entity.color2 === 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #{{entity.color1}};
+													cursor: pointer;
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 4 Tickets for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													4, 
+													entity.quadrupleCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.quadrupleCostInt}}
+											</span>
+											<span 
+												ng-show="
+													entity.color2 !== 'FFFFFF' && 
+													entity.color2 !== 'ffffff' &&
+													entity.color2 !== 'CCCCCC' &&
+													entity.color2 !== 'cccccc' &&
+													entity.color2 !== '8FBCE6' &&
+													entity.color2 !== '8fbce6' &&
+													entity.color2 !== 'E3D4AD' &&
+													entity.color2 !== 'e3d4ad'
+												"
+												style="
+													font-size: 12px; 
+													font-weight: 500; 
+													text-decoration: none; 
+													color: #FFFFFF;
+													cursor: pointer;
+													cursor: pointer;
+													left: -40%;
+													position: relative;
+												"
+												title="
+													Click Here to Reserve 4 Tickets for the {{entity.entityName}} {{entity.mascot}}
+												"
+												ng-click="reserve(
+													pool.id, 
+													entity.entityId, 
+													4, 
+													entity.quadrupleCost, 
+													entity.entityName,
+													entity.eOds,
+													entity.eeCount
+												)"
+											>
+												${{entity.quadrupleCostInt}}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+		</div>
+	</div>
+</div>

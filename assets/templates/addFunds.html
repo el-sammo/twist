@@ -1,0 +1,46 @@
+<div class="modal-header">
+	<button type="button" class="close pull-right" ng-click="$close('discard')">x</button>
+  <h3 class="modal-title" id="nav-away-modal-title">
+		Add Funds
+	</h3>
+</div>
+<div class="modal-body">
+	<form name="createTournamentForm">
+		<div class="row">
+			<div class="col-md-4">
+				<span class="amountLabel">Deposit Amount:</span>
+			</div>
+			<div class="col-md-8">
+				<input 
+					type="number" name="amount" class="form-control col-md-10"
+					ng-model="amount" id="amount"
+				>
+			</div>
+		</div>
+		<div class="row" ng-show="generalError">
+			<div class="col-md-12">
+				<span class="error">The deposit was not successful. Please refresh your browser and try again.</span>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button 
+		type="button" 
+		class="btn btn-primary pull-left" 
+		ng-click="$close('discard')"
+	>
+    <i class="fa fa-reply"></i> &nbsp; Close
+  </button>
+	<button 
+		type="button" 
+		class="btn btn-success pull-right" 
+		ng-disabled="
+			!selMethod || 
+			!amount
+		"
+		ng-click="addFunds()"
+	>
+	<i class="fa fa-plus"></i> &nbsp; Deposit {{amount}} Now
+	</button>
+</div>

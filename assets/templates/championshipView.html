@@ -1,0 +1,658 @@
+<div class="col-md-12" ng-show="bigScreen">
+	<div id="darkness" class="darkness">
+	</div>
+	<div class="row" id="championshipViewMain">
+		<div 
+			class="championshipContentGreyBg"
+			style="padding-left: 7px; padding-right: 7px;"
+		>
+			<div class="row">
+				<div 
+					class="col-md-8"
+					style="top: 8px;"
+				>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div 
+									class="col-md-12"
+									style="text-align: center;"
+								>
+									<span 
+										class="homeWidgetPoolHeading"
+									>
+										{{championshipData.tagline}}
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div 
+								class="row"
+								style="z-index: 1045;"
+								ng-show="tourStep == 5"
+							>
+								<div 
+									class="col-md-6" 
+									style="z-index: 1045;"
+									ng-repeat="pool in poolData"
+								>
+									<div 
+										class="row"
+										style="z-index: 1045;"
+									>
+										<div 
+											class="col-md-12"
+											style="z-index: 1045;"
+										>
+											<span 
+												class="homeWidgetPoolHeading"
+												style="z-index: 1045;"
+											>
+												{{pool.name}}
+											</span>
+										</div>
+									</div>
+									<br/>
+									<div 
+										class="row" 
+										style="z-index: 1045;"
+										ng-repeat="entity in pool.entities"
+									>
+										<div 
+											class="col-md-7"
+											style="z-index: 1045;" 
+										>
+											<span 
+												class="homeWidgetReservationName reservationYellow" 
+												style="cursor: pointer; z-index: 1045;"
+												ng-click="showEntity(entity.entityId)"
+											>
+												{{entity.entityName}} {{entity.mascot}}
+											</span>
+										</div>
+										<div 
+											class="col-md-5" 
+											style="text-align: right; z-index: 1045;" 
+										>
+											<span 
+												class="homeWidgetReservationCost reservationYellow"
+												style="cursor: pointer; z-index: 1045;"
+												ng-click="showEntity(entity.entityId)"
+											>
+												${{entity.nextCost}} - ${{entity.quadrupleCost}}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div 
+								class="row"
+								ng-show="tourStep != 5"
+							>
+								<div 
+									class="col-md-6" 
+									ng-repeat="pool in poolData"
+								>
+									<div 
+										class="row"
+									>
+										<div 
+											class="col-md-12"
+									>
+										>
+											<span 
+												class="homeWidgetPoolHeading"
+											>
+												{{pool.name}}
+											</span>
+										</div>
+									</div>
+									<br/>
+									<div 
+										class="row" 
+										ng-repeat="entity in pool.entities"
+									>
+										<div 
+											class="col-md-7"
+										>
+											<span 
+												class="homeWidgetReservationName reservationYellow" 
+												ng-click="showEntity(entity.entityId)"
+											>
+												{{entity.entityName}} {{entity.mascot}}
+											</span>
+										</div>
+										<div 
+											class="col-md-5" 
+											style="text-align: right;" 
+										>
+											<span 
+												class="homeWidgetReservationCost reservationYellow"
+												style="cursor: pointer;"
+												ng-click="showEntity(entity.entityId)"
+											>
+												${{entity.nextCost}} - ${{entity.quadrupleCost}}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div 
+							class="col-md-4"
+						>
+							<br/><br/>
+							<div class="row">
+								<div 
+									class="col-md-12" 
+									ng-repeat="pool in poolData"
+								>
+									<div class="row">
+										<div 
+											class="col-md-12" 
+											ng-repeat="entity in pool.entities"
+										>
+											<div class="row">
+												<div 
+													class="col-md-12" 
+													ng-show="entityShow === entity.entityId"
+												>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="row">
+																<div 
+																	class="col-md-12"
+																	style="text-align: center;"
+																>
+																	<span class="homeWidgetPoolHeading">
+																		{{entity.entityName}} {{entity.mascot}}
+																	</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<br/>
+													<div class="row">
+														<div 
+															class="col-md-8" 
+															style="text-align: left;"
+														>
+															<span 
+																class="homeWidgetReservationName reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	1, 
+																	entity.nextCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																Reserve 1 Ticket
+															</span>
+														</div>
+														<div 
+															class="col-md-4" 
+															style="text-align: right;"
+														>
+															<span 
+																class="homeWidgetReservationCost reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	1, 
+																	entity.nextCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																{{entity.nextCost}}
+															</span>
+														</div>
+													</div>
+													<div class="row">
+														<div 
+															class="col-md-8" 
+															style="text-align: left;"
+														>
+															<span 
+																class="homeWidgetReservationName reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	2, 
+																	entity.doubleCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																Reserve 2 Tickets
+															</span>
+														</div>
+														<div 
+															class="col-md-4" 
+															style="text-align: right;"
+														>
+															<span 
+																class="homeWidgetReservationCost reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	2, 
+																	entity.doubleCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																{{entity.doubleCost}}
+															</span>
+														</div>
+													</div>
+													<div class="row">
+														<div 
+															class="col-md-8" 
+															style="text-align: left;"
+														>
+															<span 
+																class="homeWidgetReservationName reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	4, 
+																	entity.quadrupleCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																Reserve 4 Tickets
+															</span>
+														</div>
+														<div 
+															class="col-md-4" 
+															style="text-align: right;"
+														>
+															<span 
+																class="homeWidgetReservationCost reservationYellow" 
+																ng-click="reserve(
+																	pool.id, 
+																	entity.entityId, 
+																	4, 
+																	entity.quadrupleCost, 
+																	entity.entityName,
+																	entity.eOds,
+																	entity.eeCount
+																)"
+															>
+																{{entity.quadrupleCost}}
+															</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br/>
+							<br/>
+							<br/>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="homeWidgetPoolHeading">
+										Click on any team to see more details and to place a reservation
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div 
+		ng-show="tourStep == 5"
+		class="samTour005"
+	>
+		<div class="samTourHead">
+			<span class="samTourHeading">
+				Every Team
+			</span>
+		</div>
+		<br/>
+		<div class="samTourBody">
+			<p class="samTourContent">
+				Here you can see reservation costs for every 
+				team for a given championship event. Click on 
+				any of the teams or the 'Next' button below.
+			</p>
+		</div>
+		<br/>
+		<div class="samTourNav">
+			<button 
+				type="button" 
+				class="btn btn-primary btn-xs pull-left" 
+				ng-click="tourDown()"
+				ng-disabled="true"
+			>
+				<i class="fa fa-reply"></i> &nbsp; Previous
+			</button>
+			<button 
+				type="button"
+				class="btn btn-primary btn-xs pull-right" 
+				ng-click="tourUp()"
+			>
+				<i class="fa fa-mail-forward"></i> &nbsp; Next
+			</button>
+		</div>
+	</div>
+	<div 
+		ng-show="tourStep == 6"
+		class="samTour006"
+	>
+		<div class="samTourHead">
+			<span class="samTourHeading">
+				Choose Your Reservation
+			</span>
+		</div>
+		<br/>
+		<div class="samTourBody">
+			<p class="samTourContent">
+				Here you can see prices for 1-, 2-, or 4-ticket 
+				reservations for the selected team. Click on any 
+				of the options or click the 'Next' button below.
+			</p>
+		</div>
+		<br/>
+		<div class="samTourNav">
+			<button 
+				type="button" 
+				class="btn btn-primary btn-xs pull-left" 
+				ng-click="tourDown()"
+			>
+				<i class="fa fa-reply"></i> &nbsp; Previous
+			</button>
+			<button 
+				type="button"
+				class="btn btn-primary btn-xs pull-right" 
+				ng-click="tourUp()"
+			>
+				<i class="fa fa-mail-forward"></i> &nbsp; Next
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-12 col-xs-12" ng-show="!bigScreen">
+	<div class="row" id="championshipViewMain">
+		<div 
+			class="championshipContentGreyBgSm"
+			style="padding-left: 4px; padding-right: 4px;"
+		>
+			<div class="row">
+				<div 
+					class="col-sm-12 col-xs-12"
+					style="text-align: center;"
+				>
+					<span 
+						class="homeWidgetPoolHeading"
+					>
+						{{championshipData.tagline}}
+					</span>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div 
+					class="col-sm-12 col-xs-12" 
+				>
+					<div 
+						class="row"
+						ng-repeat="pool in poolData"
+					>
+						<div 
+							class="col-sm-12 cols-xs-12"
+							style="text-align: center;"
+						>
+							<span 
+								class="homeWidgetPoolHeadingYellow" 
+								ng-click="showPool(pool.id)"
+								ng-show="poolShow === '{{pool.id}}'"
+							>
+								{{pool.name}}
+							</span>
+							<span 
+								class="homeWidgetPoolHeading"
+								ng-click="showPool(pool.id)"
+								ng-show="poolShow !== '{{pool.id}}'"
+							>
+								{{pool.name}}
+							</span>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div 
+							class="col-sm-12 col-xs-12"
+							style="text-align: center;"
+						>
+							<span class="homeWidgetReservationName">
+								(click any team/price to start a reservation)
+							</span>
+						</div>
+					</div>
+					<div 
+						class="row"
+						ng-show="poolShow === '{{pool.id}}'"
+						id="pool.id"
+						ng-repeat="pool in poolData"
+						track by $index
+					>
+						<div class="col-sm-12 cols-xs-12">
+							<div 
+								class="row" 
+								ng-repeat="entity in pool.entities"
+							>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<div 
+											class="col-sm-7 col-xs-7"
+											style="
+												padding-left: 16px!important;
+												padding-right: 0px!important;
+											"
+										>
+											<span 
+												class="homeWidgetReservationName reservationYellow" 
+												style="cursor: pointer;"
+												ng-click="showEntity(entity.entityId)"
+											>
+												{{entity.entityName}} {{entity.mascot}}
+											</span>
+										</div>
+										<div 
+											class="col-sm-5 col-xs-5" 
+											style="
+												text-align: right;
+												padding-left: 8px!important;
+												padding-right: 16px!important;
+											" 
+										>
+											<span 
+												class="homeWidgetReservationCost reservationYellow"
+												style="cursor: pointer;"
+												ng-click="showEntity(entity.entityId)"
+											>
+												${{entity.nextCost}} - ${{entity.quadrupleCost}}
+											</span>
+										</div>
+									</div>
+								</div>
+								<div 
+									class="row"
+									ng-show="entityShow === entity.entityId"
+								>
+									<div 
+										class="col-sm-10 col-xs-10 col-sm-offset-1 col-xs-offset-1" 
+									>
+										<br/>
+										<div class="row">
+											<div class="col-sm-12 col-xs-12">
+												<div class="row">
+													<div 
+														class="col-sm-12 col-xs-12"
+														style="text-align: center;"
+													>
+														<span class="homeWidgetPoolHeading">
+															{{entity.entityName}} {{entity.mascot}}
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<br/>
+										<div class="row">
+											<div 
+												class="col-sm-8 col-xs-8" 
+												style="text-align: left;"
+											>
+												<span 
+													class="homeWidgetReservationName reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														1, 
+														entity.nextCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													Reserve 1 Ticket
+												</span>
+											</div>
+											<div 
+												class="col-sm-4 col-xs-4" 
+												style="text-align: right;"
+											>
+												<span 
+													class="homeWidgetReservationCost reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														1, 
+														entity.nextCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													{{entity.nextCost}}
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div 
+												class="col-sm-8 col-xs-8" 
+												style="text-align: left;"
+											>
+												<span 
+													class="homeWidgetReservationName reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														2, 
+														entity.doubleCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													Reserve 2 Tickets
+												</span>
+											</div>
+											<div 
+												class="col-sm-4 col-xs-4" 
+												style="text-align: right;"
+											>
+												<span 
+													class="homeWidgetReservationCost reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														2, 
+														entity.doubleCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													{{entity.doubleCost}}
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div 
+												class="col-sm-8 col-xs-8" 
+												style="text-align: left;"
+											>
+												<span 
+													class="homeWidgetReservationName reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														4, 
+														entity.quadrupleCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													Reserve 4 Tickets
+												</span>
+											</div>
+											<div 
+												class="col-sm-4 col-xs-4" 
+												style="text-align: right;"
+											>
+												<span 
+													class="homeWidgetReservationCost reservationYellow" 
+													ng-click="reserve(
+														pool.id, 
+														entity.entityId, 
+														4, 
+														entity.quadrupleCost, 
+														entity.entityName,
+														entity.eOds,
+														entity.eeCount
+													)"
+												>
+													{{entity.quadrupleCost}}
+												</span>
+											</div>
+										</div>
+										<br/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div 
+							class="col-sm-12 col-xs-12"
+							style="text-align: center;"
+						>
+							<span class="homeWidgetReservationName">
+								(click any team/price to see details)
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

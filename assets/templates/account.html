@@ -1,0 +1,236 @@
+<div class="hr_wide">
+	<div id="tt-menu">
+		<div 
+			id="menuDisplay" 
+			class="menuDisplay"
+		>
+			<span 
+				class="footerLinkRed"
+			>
+				Today's Tournaments: 
+			</span>
+			<span 
+				class="footerLink reservationYellow" 
+				ng-click="setActiveTournament(tournament)"
+				ng-show="!tournament.custom && tournament.name.indexOf('Daily') > -1"
+				ng-repeat="tournament in currentTournaments" track by $index
+			>
+				{{tournament.name}}
+				<timer
+					ng-if="tournament.mtp >= 0"
+					class="footerLinkSmaller reservationYellow"
+					countdown="tournament.mtp"
+					max-time-unit="'minute'" 
+					interval="1000"
+				>
+					{{mminutes}}M
+				</timer>
+				<span
+					class="footerLinkSmaller reservationYellow"
+					ng-if="tournament.mtp < 0 && tournament.closed && !tournament.scored"
+				>
+					In Progress
+				</span>
+				<span
+					class="footerLinkSmaller reservationYellow"
+					ng-if="tournament.mtp < 0 && tournament.closed && tournament.scored"
+					ng-click="showTournamentLeaders(tournament.id)"
+				>
+					Results
+				</span>
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showSignup"
+				ng-click="signUp()"
+			>
+				Sign Up
+			</span>
+			<span 
+				class="footerLink pull-right"
+				ng-show="!showLogout"
+			>
+				/
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showLogin"
+				ng-click="logIn()"
+			>
+				Log In
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="showLogout"
+				ng-click="logOut()"
+			>
+				Log Out
+			</span>
+			<span 
+				class="footerLink reservationYellow pull-right" 
+				ng-show="customer" 
+				ng-click="account()"
+			>
+				Hi, {{customer.fName}}!
+			</span>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="row" id="homeMain">
+			<div 
+				class="contentGreyBg"
+				style="top: 8px;"
+			>
+				<span us-spinner ng-show="!customer"></span>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="row" id="accountHead">
+							<h3>Account Information</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="row" id="accountBody">
+									{{customer.fName}} {{customer.lName}}
+									<br />{{customer.email}}
+									<br />${{customer.dollars}}
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="accountPayMethsHead">
+											Payment Methods
+										</span>
+									</div>
+								</div>
+								<div 
+									class="row" 
+									ng-show="customer.paymentMethods.length > 0"
+								>
+									<div class="col-md-12">
+										<div 
+											class="row" 
+											ng-repeat="method in customer.paymentMethods"
+										>
+											<div class="col-md-11 col-md-offset-1">
+												<span class="accountBody"><span ng-click="testCharge(method.id)">Card</span> ending in {{method.lastFour}} (expires {{method.expires.substr(5,6)}}-{{method.expires.substr(0, 4)}})</span><!--  - <span class="managementLink" ng-click="removePM(method.id)">Remove</span><br/> -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span 
+											class="managementLinkWhite reservationYellow" 
+											ng-click="addPM()"
+										>
+											Add a Payment Method
+										</span>
+										<br/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-offset-1">
+						<div class="row" id="historyHead">
+							<h3>Tournament History</h3>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div id="historyBody">
+									<div class="row">
+										<div class="col-md-3">
+											<span class="historyBody">Date</span>
+										</div>
+										<div class="col-md-5">
+											<span class="historyBody">Tournament</span>
+										</div>
+										<div 
+											class="col-md-2"
+											style="text-align: right;"
+										>
+											<span class="historyBody">Fee</span>
+										</div>
+										<div class="col-md-2" 
+											style="text-align: right;"
+										>
+											<span class="historyBody">Result</span>
+										</div>
+									</div>
+									<div 
+										class="row" 
+										ng-repeat="result in results"
+									>
+										<div class="col-md-3">
+											<span>
+												<a 
+													href="/app/tournament/{{result.tournamentId}}" 
+													class="orderHistoryLinkWhite reservationYellow"
+												>
+													{{result.tournamentDate}}
+												</a>
+											</span>
+										</div>
+										<div class="col-md-5">
+											<span>
+												<a 
+													href="/app/tournament/{{result.tournamentId}}" 
+													class="orderHistoryLinkWhite reservationYellow"
+												>
+													{{result.tournamentName}}
+												</a>
+											</span>
+										</div>
+										<div 
+											class="col-md-2" 
+											style="text-align: right;"
+										>
+											<span>
+												<a 
+													href="/app/tournament/{{result.tournamentId}}" 
+													class="orderHistoryLinkWhite reservationYellow"
+												>
+													${{result.tournamentEntryFee + result.tournamentSiteFee}}
+												</a>
+											</span>
+										</div>
+										<div 
+											class="col-md-2" 
+											style="text-align: right;"
+										>
+											<span>
+												<a 
+													href="/app/tournament/{{result.tournamentId}}" 
+													class="orderHistoryLinkWhite reservationYellow"
+												>
+													${{result.payout}}
+												</a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2 col-md-offset-1">
+						<div class="row" id="managementHead">
+							<h3>Account Management</h3>
+						</div>
+						<div class="row" id="managementBody">
+						<!--
+						// TODO
+							<span class="managementLink" ng-click="changeAddress(customer.id)">Change Delivery Address</span><br/>
+						-->
+							<span class="managementLinkWhite reservationYellow" ng-click="logOut()">Log Out</span><br/>
+						</div>
+						<!--
+						// TODO
+							<span class="managementLink" ng-init="customerId = customer.id" ng-click="changePwd(customerId)">Change Password</span><br/>
+						-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,457 @@
+<div 
+	class="row"
+	ng-show="wager === 'Exacta'"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetails"
+			style="left: 4%; position: relative;"
+		>
+			1
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 12%; position: relative;"
+		>
+			2
+		</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails"># (PP) (PP)</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Runner</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Jockey</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails">Trainer</span>
+	</div>
+</div>
+<div 
+	class="row"
+	ng-show="wager === 'Trifecta'"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetails"
+			style="left: 4%; position: relative;"
+		>
+			1
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 12%; position: relative;"
+		>
+				2
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 21%; position: relative;"
+		>
+			3
+		</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails"># (PP)</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Runner</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Jockey</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails">Trainer</span>
+	</div>
+</div>
+<div 
+	class="row"
+	ng-show="wager === 'Superfecta'"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetails"
+			style="left: 4%; position: relative;"
+		>
+			1
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 12%; position: relative;"
+		>
+				2
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 21%; position: relative;"
+		>
+			3
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 29%; position: relative;"
+		>
+			4
+		</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails"># (PP)</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Runner</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Jockey</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails">Trainer</span>
+	</div>
+</div>
+<div 
+	class="row"
+	ng-show="wager === 'Pentafecta'"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetails"
+			style="left: 3%; position: relative;"
+		>
+			1
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 9%; position: relative;"
+		>
+			2
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 15%; position: relative;"
+		>
+			3
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 21%; position: relative;"
+		>
+			4
+		</span>
+		<span 
+			class="raceDetails"
+			style="left: 27%; position: relative;"
+		>
+			5
+		</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails"># (PP)</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Runner</span>
+	</div>
+	<div class="col-md-3">
+		<span class="raceDetails">Jockey</span>
+	</div>
+	<div class="col-md-2">
+		<span class="raceDetails">Trainer</span>
+	</div>
+</div>
+<div 
+	class="row"
+	ng-repeat="(idx, entry) in wagerRunners[0]"
+>
+	<div 
+		class="col-md-2"
+		ng-show="wager === 'Exacta'"
+	>
+		<input 
+			type="checkbox"
+			ng-model="firstRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="secondRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+	</div>
+	<div 
+		class="col-md-2"
+		ng-show="wager === 'Trifecta'"
+	>
+		<input 
+			type="checkbox"
+			ng-model="firstRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="secondRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="thirdRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+	</div>
+	<div 
+		class="col-md-2"
+		ng-show="wager === 'Superfecta'"
+	>
+		<input 
+			type="checkbox"
+			ng-model="firstRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="secondRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="thirdRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			ng-model="fourthRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+	</div>
+	<div 
+		class="col-md-2"
+		ng-show="wager === 'Pentafecta'"
+	>
+		<input 
+			type="checkbox"
+			style="margin-left: 0px!important; margin-right: 0px!important"
+			ng-model="firstRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			style="margin-left: 0px!important; margin-right: 0px!important"
+			ng-model="secondRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			style="margin-left: 0px!important; margin-right: 0px!important"
+			ng-model="thirdRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			style="margin-left: 0px!important; margin-right: 0px!important"
+			ng-model="fourthRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+		<input 
+			type="checkbox"
+			style="margin-left: 0px!important; margin-right: 0px!important"
+			ng-model="fifthRunners[idx]"
+			ng-true-value="{{entry.number}}"
+			ng-false-value="false"
+			ng-change="updateSelectedRunnersDisplay()"
+			ng-disabled="!entry.active"
+			ng-show="!race.closed"
+		>
+	</div>
+	<entries entry="entry"></entries>
+</div>
+<div
+	class="row"
+	ng-show="wager === 'Exacta' && !race.closed"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 1%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL1"
+			ng-click="allSelect(wagerRunners[0], 'v', 1)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 6%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL2"
+			ng-click="allSelect(wagerRunners[0], 'v', 2)"
+		>
+			All
+		</span>
+	</div>
+</div>
+<div
+	class="row"
+	ng-show="wager === 'Trifecta' && !race.closed"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 1%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL1"
+			ng-click="allSelect(wagerRunners[0], 'v', 1)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 6%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL2"
+			ng-click="allSelect(wagerRunners[0], 'v', 2)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 11%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL3"
+			ng-click="allSelect(wagerRunners[0], 'v', 3)"
+		>
+			All
+		</span>
+	</div>
+</div>
+<div
+	class="row"
+	ng-show="wager === 'Superfecta' && !race.closed"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 1%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL1"
+			ng-click="allSelect(wagerRunners[0], 'v', 1)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 6%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL2"
+			ng-click="allSelect(wagerRunners[0], 'v', 2)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 11%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL3"
+			ng-click="allSelect(wagerRunners[0], 'v', 3)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 16%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL4"
+			ng-click="allSelect(wagerRunners[0], 'v', 4)"
+		>
+			All
+		</span>
+	</div>
+</div>
+<div
+	class="row"
+	ng-show="wager === 'Pentafecta' && !race.closed"
+>
+	<div class="col-md-2">
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 0%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL1"
+			ng-click="allSelect(wagerRunners[0], 'v', 1)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 3%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL2"
+			ng-click="allSelect(wagerRunners[0], 'v', 2)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 6%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL3"
+			ng-click="allSelect(wagerRunners[0], 'v', 3)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 9%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL4"
+			ng-click="allSelect(wagerRunners[0], 'v', 4)"
+		>
+			All
+		</span>
+		<span 
+			class="raceDetailsSmaller"
+			style="top: -3px; left: 12%; cursor: pointer; position: relative;"
+			ng-model="selectAllVL4"
+			ng-click="allSelect(wagerRunners[0], 'v', 5)"
+		>
+			All
+		</span>
+	</div>
+</div>

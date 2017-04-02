@@ -1,0 +1,60 @@
+<div id="orderDetailsContainer" style="padding-bottom: 80px">
+	<div class="col-md-12 page-header" ng-cloak>
+		<div class="row">
+			<div class="col-md-4">
+				<span 
+					class="orderDetailsDestinationInfo" 
+					style="font-size: 16px; font-weight: bold;"
+				>
+					{{customer.fName}} {{customer.lName}}<br/>
+				</span>
+				<span 
+					class="orderDetailsDestinationInfo"
+				>
+					{{customer.phone}}<br/>
+				</span>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-5">
+						<span 
+							class="orderDetailsDestinationInfo"
+						>
+							Reservation Date:
+						</span>
+						<br/>
+						<span 
+							class="orderDetailsDestinationInfo"
+						>
+							Credit Card Charge:
+						</span>
+					</div>
+					<div class="col-md-3" style="text-align: right">
+						<span 
+							class="orderDetailsDestinationInfo pull-right"
+						>
+							{{reservation.date}}
+						</span>
+						<br/>
+						<span 
+							class="orderDetailsDestinationInfo"
+						>
+							${{reservation.total}}
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				&nbsp;
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-3">
+				<div class="row">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

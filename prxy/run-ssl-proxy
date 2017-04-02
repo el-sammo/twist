@@ -1,0 +1,3 @@
+#!/bin/sh
+CERTPATH=/var/www/cert/www.ticketstycoon.com.crt.key.pem
+( sudo socat OPENSSL-LISTEN:443,cert=$CERTPATH,fork TCP:localhost:3080 ) &

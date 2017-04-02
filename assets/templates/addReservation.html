@@ -1,0 +1,134 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="nav-away-modal-title">
+		Add a reservation for <strong>{{entityName}}</strong>
+  </h3>
+</div>
+<div id="completedOrderError" ng-show="orderCompleted">
+	<span class="errorBig">You have already completed this reservation.</span>
+</div>
+<div class="modal-body">
+	<form name="addItemForm">
+		<div class="row">
+			<div class="col-md-6">
+				Reservations:
+			</div>
+			<div class="col-md-6" style="text-align: right;">
+				<b>{{quantity}}</b>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				Cost:
+			</div>
+			<div class="col-md-6" style="text-align: right;">
+				<b>{{total}}</b>
+			</div>
+		</div>
+		<div class="row" ng-show="paymentFailed">
+			<div class="col-md-12">
+				<span class="error"><strong>{{failMsg}} Please try again...</strong>.</span><br/>
+			</div>
+		</div>
+		<div ng-show="!getMore" class="row no-margin">
+			<h4>Select Your Payment Method</h4>
+			<div class="radio" ng-repeat="method in checkoutPaymentMethods">
+				<label>
+					<input type="radio" name="method" ng-value="method.id" ng-model="$parent.selMethod">
+					{{method.lastFour}}
+				</label>
+			</div>
+		</div>
+
+		<div ng-show="getMore" class="form-section">
+			<ng-include src="'/templates/addBasic.html'"></ng-include>
+		</div>
+
+		<div ng-show="selMethod === 'newCard'" class="form-section">
+			<ng-include src="'/templates/addPMInputs.html'"></ng-include>
+		</div>
+
+		<div ng-show="selMethod !== 'newCard' && !getMore" class="form-section">
+			<div class="row">
+				<div class="col-md-4">
+					<span class="promoLabel">Promo Code?</span>
+				</div>
+				<div class="col-md-8">
+					<input 
+						type="text" class="form-control col-md-10" placeholder=""
+						ng-model="promo" ng-blur="updateCurrentTotal()" id="promo"
+					>
+				</div>
+			</div>
+			<div class="row" ng-show="!validCode">
+				<div class="col-md-12">
+					<span ng-show="reason === 'expired'" class="error">The promo code has expired. Please try again.</span>
+					<span ng-show="reason === 'invalid'" class="error">The promo code entered was not found. Please try again.</span>
+					<span ng-show="reason === 'redeemed'" class="error">Sneaky you - this promo code has been redeemed already! Please try again.</span>
+				</div>
+			</div>
+			<div class="row" ng-show="validCode && codeEffect">
+				<div class="col-md-12">
+					<span class="awesome">{{codeEffect}}</span>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-md-4">
+					<span class="totalLabel">Current Total</span>
+				</div>
+				<div class="col-md-4 col-md-offset-4" style="text-align: right;">
+					<span class="currentTotal">{{currentTotal}}</span>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div ng-show="!getMore && selMethod !== 'newCard'" class="row">
+			<div class="col-md-12">
+				<input type="checkbox" ng-model="agree">
+				<a href="/app/tos" target="_blank" style="color: blue; top: -2px; position: relative; text-decoration: none; cursor: pointer">I have read and agree to the Terms and Conditions</a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<div ng-show="getMore">
+		<button type="button" class="btn btn-primary pull-left" ng-click="closeReservation()">
+			<i class="fa fa-reply"></i> &nbsp; Go Back
+		</button>
+		<button 
+			type="button"
+			class="btn btn-success pull-right" 
+			ng-click="addBasics()" 
+			ng-disabled="
+				!customer.fName || 
+				!customer.lName || 
+				!customer.phone || 
+				!customer.address ||
+				!customer.city ||
+				!customer.state ||
+				!customer.zip 
+			">
+			<i class="fa fa-plus"></i> &nbsp; Continue
+		</button>
+	</div>
+	<div ng-show="selMethod !== 'newCard' && !getMore">
+		<button type="button" class="btn btn-primary pull-left" ng-click="closeReservation()">
+			<i class="fa fa-reply"></i> &nbsp; Go Back
+		</button>
+		<button type="button" class="btn btn-success pull-right" ng-click="addThisReservation()" ng-disabled="!agree || !selMethod || preventClick">
+			<i class="fa fa-plus"></i> &nbsp; Reserve Now
+		</button>
+	</div>
+	<div ng-show="showProcessing">
+		<img src="/images/processingAnimation.gif">
+		<br/>
+	</div>
+	<div ng-show="selMethod === 'newCard'">
+		<button type="button" class="btn btn-primary pull-left" ng-click="selMethod = ''">
+			<i class="fa fa-reply"></i> &nbsp; Go Back
+		</button>
+		<button type="button" class="btn btn-success pull-right" ng-click="addPM()" ng-disabled="!selMethod || !payMethod.cardNumber || !payMethod.month || !payMethod.year || !payMethod.cvv2">
+		 	Next &nbsp; <i class="fa fa-chevron-right"></i>
+		</button>
+	</div>
+</div>

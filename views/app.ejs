@@ -1,0 +1,17 @@
+<div ng-controller="MessageController" id="tt-messenger" ng-cloak>
+  <alert type="{{alertType}}" ng-show="userMessage" close="close()">
+    <strong ng-show="title">{{title}}&nbsp;</strong>
+    {{userMessage}}
+  </alert>
+</div>
+
+<div>
+	<div 
+		ng-view
+	>
+	</div>
+</div>
+
+<!-- Hack for ensuring event-based services are instantiated -->
+<div ng-controller="LoadServices" style="display:none;" aria-hidden="true"></div>
+

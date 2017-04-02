@@ -1,0 +1,215 @@
+<div ng-cloak ng-controller="LayoutController">
+	<!-- BIG Navbar -->
+	<nav id="fms-headbar" class="navbar navbar-default navbar-fixed-top visible-lg-inline">
+		<div class="container-fluid" style="text-align: center;">
+			<span class="footerLink" ng-click="showChampionship(league.id)" ng-repeat="league in leagues" track by $index>{{league.league}}</span>
+			<span ng-show="accessAccount" class="footerLink" ng-click="showAccount()">My Account</span>
+			<span ng-show='showLogout' class="footerLink" ng-click="logOut()">Log Out</span>
+			<span class="footerLink" ng-click="welcome()">How it Works</span>
+			<span class="footerLink" ng-click="contact()">Contact Us</span>
+			<span ng-show='!showLogout && !accessAccount' class="footerLink" ng-click="logIn()">Log In</span>
+			<iframe 
+				src="
+					//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2F1ticketstycoon&amp;
+					width&amp;
+					layout=button_count&amp;
+					action=like&amp;
+					show_faces=true&amp;
+					share=true&amp;
+					height=21&amp;
+					appId=310913685599001
+				"
+				scrolling="no"
+				frameborder="0"
+				style="
+					top: 4px;
+					border: none; 
+					overflow: hidden; 
+					height: 21px;
+					position: relative;
+					width: 130px;
+				"
+				allowTransparency="true"
+			>
+			</iframe>
+		</div>
+	</nav>
+	<!-- /BIG Navbar -->
+
+	<div class="row sunburst" ng-show="bigScreen">
+		<br/>
+		<br/>
+		<div class="col-md-2 col-md-offset-5">
+			<a 
+				href="/" 
+				style="
+					top: -6px; 
+					text-decoration: none; 
+					position: relative;
+				"
+			>
+				<div class="headLogo">
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<!-- Small Navbar -->
+	<nav id="fms-headbar"
+		class="
+			navbar 
+			navbar-default 
+			navbar-fixed-top 
+			visible-md-inline 
+			visible-sm-inline 
+			visible-xs-inline
+		"
+	>
+		<div class="container-fluid">
+			<div>
+				<ul class="nav navbar-nav">
+					<li>
+						<div 
+							class="fms-brand" 
+							style="
+								top: -14px; 
+								margin-right: 18px; 
+								position: relative;
+							"
+						>
+							<a 
+								href="/app/"
+								style="
+									color: #fff !important;
+									weight: 700	!important;
+								"
+							>
+								Tickets Tycoon
+							</a>
+						</div>
+						<a 
+							ng-click="menuClicked()" 
+							class="pull-right" 
+							style="
+								top: -18px; 
+								margin-right: 24px; 
+								position: relative;
+							"
+						>
+							<i class="fa fa-bars fa-lg"><span style="top: -1px; position: relative;"> Menu</span></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!--
+	<div class="visible-md-block visible-sm-block visible-xs-block"
+		style="height: 90px; width: 99%;"
+	></div>
+	-->
+	<ul ng-show="showMenu" 
+		class="list-group visible-md-inline visible-sm-inline visible-xs-inline"
+		style="top: 18px; position: relative;"
+	>
+		<li style="background-color: grey">
+			<span>&nbsp;</span>
+		</li>
+		<li class="list-group-item" ng-repeat="league in leagues" track by $index>
+			<span class="managementLink" ng-click="showChampionship(league.id)">{{league.league}}</span><br/>
+		</li>
+		<li class="list-group-item">
+			<a 
+				style="cursor: pointer; color: #007581;" 
+				href="/app/" ng-click="menuClicked(false)"
+			>Home</a>
+		</li>
+		<li class="list-group-item">
+			<a 
+				ng-show="!accessAccount" 
+				style="cursor: pointer; color: #007581;"
+				ng-click="logIn(); menuClicked(false)"
+			>My Account</a>
+			<a 
+				ng-show="accessAccount" 
+				style="cursor: pointer; color: #007581;" 
+				href="/app/account/" ng-click="menuClicked(false)"
+			>My Account</a>
+		</li>
+		<li class="list-group-item">
+			<span class="managementLink" ng-click="welcome()">How it Works</span><br/>
+		</li>
+		<li class="list-group-item">
+			<span class="managementLink" ng-click="contact()">Contact Us</span><br/>
+		</li>
+		<li class="list-group-item" ng-show="!accessAccount">
+			<span class="managementLink" ng-click="logIn()">Log In</span><br/>
+		</li>
+		<li class="list-group-item" ng-show="accessAccount">
+			<span class="managementLink" ng-click="logOut()">Log Out</span><br/>
+		</li>
+	</ul>
+	<!-- /Small Navbar -->
+</div>
+
+<div ng-controller="MessageController" id="fms-messenger" ng-cloak>
+  <alert type="{{alertType}}" ng-show="userMessage" close="close()">
+    <strong ng-show="title">{{title}}&nbsp;</strong>
+    {{userMessage}}
+  </alert>
+</div>
+
+<div class="container" id="fms-main-container">
+  <div id="fms-main">
+    <div ng-view></div>
+  </div>
+</div>
+
+<div class="sslContainer" ng-cloak ng-controller="LayoutController">
+	<div class="row">
+		<div 
+			class="col-md-2 col-md-offset-5"
+			style="text-align: center; cursor: pointer;"
+			title="CLICK TO VERIFY: This site uses a GlobalSign SSL Certificate to secure your personal information."
+		>
+			<span 
+				id="ss_img_wrapper_gmogs_image_125-50_en_black"
+			>
+				<a 
+					href="https://www.globalsign.com/" 
+					target=_blank 
+					title="GlobalSign Site Seal" 
+					rel="nofollow"
+				>
+					<img 
+						alt="SSL" 
+						border=0 
+						id="ss_img" 
+						src="//seal.globalsign.com/SiteSeal/images/gs_noscript_125-50_en.gif"
+					>
+				</a>
+			</span>
+			<script 
+				type="text/javascript" 
+				src="//seal.globalsign.com/SiteSeal/gmogs_image_125-50_en_black.js"
+			>
+			</script>
+		</div>
+	</div>
+	<div class="row" ng-show="bigScreen">
+		<div class="col-md-6 col-md-offset-3" style="text-align: center; cursor: pointer;">
+			<span>Copyright 2014-2016, Tickets Tycoon, Inc.</span> | 
+			<span ng-click="tos()">Terms of Service & Privacy Policy</span>
+		</div>
+	</div>
+	<div class="row" ng-show="!bigScreen">
+		<div class="col-md-6 col-md-offset-3" style="text-align: center; cursor: pointer;">
+			<span>Copyright 2014-2016, Tickets Tycoon, Inc.</span><br/>
+			<span ng-click="tos()">Terms of Service & Privacy Policy</span>
+		</div>
+	</div>
+</div>
+
+<!-- Hack for ensuring event-based services are instantiated -->
+<div ng-controller="LoadServices" style="display:none;" aria-hidden="true"></div>
+

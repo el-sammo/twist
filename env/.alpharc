@@ -1,0 +1,147 @@
+
+############################################################
+# environments / hosts / directories
+############################################################
+
+# Environments
+export ENV_DEV="dev"
+export ENV_TEST="test"
+export ENV_UAT="uat"
+export ENV_PROD="prod"
+
+# *This* environment
+export ENV=$ENV_DEV
+
+# Hosts
+export DEVHOST="devhost"
+export PRODHOST="prodhost"
+
+# Directories
+export WROOT="/var/www"
+export CFG="$SRC/config/$ENV"
+export DOCS="$SRC/docs"
+export DB="$WROOT/db"
+export DRAW="$WROOT/wyodraw"
+export BLUE="$WROOT/blue"
+export MTS="$WROOT/mantis"
+export CASH="$WROOT/cash"
+export INBD="$WROOT/inbound"
+export PRXY="$WROOT/prxy"
+export TIX="$WROOT/tix"
+export TIXA="$WROOT/tixAdmin"
+export CHES="$WROOT/chess"
+export BIN="$SRC/bin"
+
+export ARC="$HOME/archive/var/www/ALPHADAEMON"
+
+############################################################
+# aliases
+############################################################
+
+MONGO_LIBS=""
+MONGO_LIBS="$MONGO_LIBS $DB/lib/underscore.js"
+MONGO_LIBS="$MONGO_LIBS $DB/lib/jmongo.js"
+MONGO_LIBS="$MONGO_LIBS $DB/lib/jmongo.printers.js"
+MONGO_LIBS="$MONGO_LIBS $DB/lib/jmongo.colltools.js"
+
+alias m="mongo ul --shell $MONGO_LIBS"
+alias todo="grep -rn TODO *"
+alias gb="git branch -av"
+
+alias unixtime="date +%s"
+alias timefile="vi \`date +%s\`"
+
+alias tlp='echo "Teleporting..." && cd `readlink -f .`'
+alias block='for i in `seq 1 50` ; do echo ------------------------------------------------------------- ; done'
+alias cd='pushd . > /dev/null ; cd'
+alias cp='cp -i'
+alias df='df -h'
+alias du='du -h'
+alias grep='grep -Is'
+alias ls='ls -Axph --color=auto'
+alias more='less -R --tabs=8'
+alias zmore='zless -R --tabs=8'
+alias mv='mv -i'
+alias resource='source ~/.alpharc'
+alias rm='rm -i'
+alias popd='popd > /dev/null'
+alias scp='scp -p'
+alias tracepath="tracepath -n"
+alias filter="grep -ve"
+alias vi=vim
+alias ...=popd
+
+alias ports="sudo netstat -tulpn"
+
+# Add colors for filetype and  human-readable sizes by default on 'ls':
+alias ls='ls -hp --color=auto'
+alias lx='ls -lXB'         #  Sort by extension.
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+
+# The ubiquitous 'll': directories first, with alphanumeric sorting:
+alias ll="ls -lav --group-directories-first"
+alias lm='ll |more'        #  Pipe through 'more'
+alias lr='ll -R'           #  Recursive ls.
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
+
+
+############################################################
+# functions
+############################################################
+function mkgo {
+  if [ ! -n "$1" ]; then
+    echo "Enter a directory name"
+  elif [ -d $1 ]; then
+    echo "\`$1' already exists"
+  else
+    mkdir $1 && cd $1
+  fi
+}
+
+# screen
+############################################################
+
+alias screen="/usr/bin/screen"
+alias X="screen -xRRU"
+alias Z="cd $SRC; tmux attach -t Dev || tmux new -s Dev"
+# export TERM=screen-256color
+export TERM=xterm-256color
+
+############################################################
+# NVM
+############################################################
+
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
+
+############################################################
+# variables for apps
+############################################################
+
+eval `dircolors $HOME/.dir_colors`
+
+############################################################
+# variables for apps
+############################################################
+
+export VISUAL='vim'
+export EDITOR='vim'
+export GREP_OPTIONS='--color=auto' GREP_COLOR='1;32'
+export PAGER="less -R"
+export HISTCONTROL=ignoreboth
+export SVN_EDITOR=vi
+
+############################################################
+# set locale to english/us/utf-8
+############################################################
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+
+

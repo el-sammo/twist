@@ -1,0 +1,18 @@
+															<div 
+																class="row"
+																ng-show="legShow == 9"
+																ng-repeat="(idx, entry) in wagerRunners[8]"
+															>
+																<div class="col-md-2">
+																	<input 
+																		type="checkbox"
+																		ng-model="leg9Runners[idx]"
+																		ng-true-value="{{entry.number}}"
+																		ng-false-value="false"
+																		ng-change="updateSelectedRunnersDisplay()"
+																		ng-disabled="!entry.active"
+																		ng-show="!race.closed"
+																	>
+																</div>
+																<entries entry="entry"></entries>
+															</div>

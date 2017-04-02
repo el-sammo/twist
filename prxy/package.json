@@ -1,0 +1,22 @@
+{
+  "name": "proxy-domains",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Proxying to ports based on domains",
+  "keywords": [],
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "bunyan": "^1.5.1",
+    "http-proxy": "^1.12.0",
+    "lodash": "^3.10.1"
+  },
+  "scripts": {},
+  "main": "app.js",
+  "repository": {},
+  "author": "lbarrett",
+  "license": "",
+  "devDependencies": {},
+  "engines": {
+    "npm": "4.1.x"
+  }
+}

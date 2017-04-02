@@ -1,0 +1,38 @@
+															<div 
+																class="row"
+																ng-show="legShow == 5"
+																ng-repeat="(idx, entry) in wagerRunners[4]"
+															>
+																<div class="col-md-2">
+																	<input 
+																		type="checkbox"
+																		ng-model="leg5Runners[idx]"
+																		ng-true-value="{{entry.number}}"
+																		ng-false-value="false"
+																		ng-change="updateSelectedRunnersDisplay()"
+																		ng-disabled="!entry.active"
+																		ng-show="!race.closed"
+																	>
+																</div>
+																<entries entry="entry"></entries>
+															</div>
+															<br / ng-show="legShow == 5">
+															<div 
+																class="row"
+																ng-show="legShow == 5"
+															>
+																<div class="col-md-2">
+																	<input 
+																		type="checkbox"
+																		ng-model="selectAllHL5"
+																		ng-show="!race.closed"
+																		ng-change="allSelect(wagerRunners[4], 'h', 5)"
+																	>
+																	<span 
+																		class="raceDetailsSmaller"
+																		style="top: -3px; cursor: pointer; position: relative;"
+																	>
+																		All
+																	</span>
+																</div>
+															</div>

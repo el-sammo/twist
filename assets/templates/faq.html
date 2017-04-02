@@ -1,0 +1,372 @@
+<ul id="fms-modules-grid" ng-cloak ng-show="bigScreen">
+	<div class="row" style="padding-bottom: 80px">
+		<div class="col-md-12">
+			<div class="row" id="aboutMain">
+				<div class="col-md-6 col-md-offset-3 contentGreyBg">
+					<div class="row" id="aboutStoryHead">
+						<span class="aboutHead">
+							Frequently Asked Questions (FAQ)
+						</span>
+					</div>
+					<div class="row" id="aboutStoryBody" manage-height>
+						<div class="col-md-6">
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('resRef')">
+										Is My Reservation Fee Refundable? 
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('selSeat')">
+										Do I Choose My Seat Location?
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('waitSet')">
+										How Long Can I Wait To Reserve?
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('payFee')">
+										How Do I Pay My Reservation Fee?
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('sourceTix')">
+										How Do You Get The Tickets?
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<span class="linkBold pull-left reservationYellow" ng-click="setShow('siteSafe')">
+										Is This Site Secure?
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div id="resRef" class="faqAnswer" ng-show="showWhat === 'resRef'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											Is My Reservation Fee Refundable?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											Your reservation fee is not refundable, but the cost to purchase the actual ticket ($1) is refundable.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="selSeat" class="faqAnswer" ng-show="showWhat === 'selSeat'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											Do I Choose My Seat Location?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											You don't get to choose your seat at this time. We are, however, working toward this goal.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="waitSet" class="faqAnswer" ng-show="showWhat === 'waitSet'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											How Long Can I Wait To Reserve?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											You can wait until after the opening round of the tournament/playoffs, but the reservation fee will increase throughout the season. It's best to lock in the least expensive reservation fee as soon as possible.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="payFee" class="faqAnswer" ng-show="showWhat === 'payFee'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											How Do I Pay My Reservation Fee?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											We accept all major credit/debit cards, including Visa, MasterCard, American Express, etc.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="sourceTix" class="faqAnswer" ng-show="showWhat === 'sourceTix'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											How Do You Get The Tickets?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											We source the championship tickets through the secondary ticket exchange markets. In the event that we are unable to source your ticket(s) for any reason, we will simply mail you a check/money order for the full face value of the ticket(s).
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="siteSafe" class="faqAnswer" ng-show="showWhat === 'siteSafe'">
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerHeading">
+											Is This Site Secure?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-12">
+										<span class="faqAnswerSmall">
+											This site is safe and secure. All your interactions, including credit/debit card transactions, are secured with the latest SSL security protocols. Additionally, your credit/debit card data is not stored by this site, but rather is encrypted and secured by our payment gateway, Authorize.Net - the industry leader in online payments.
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+  </div>
+</ul>
+
+<ul id="fms-modules-grid" ng-cloak ng-show="!bigScreen">
+	<div class="row" style="padding-bottom: 80px">
+		<div class="col-sm-12 col-xs-12">
+			<div class="row" id="aboutMain">
+				<div class="contentGreyBgSm">
+					<div class="row" id="aboutStoryHead">
+						<span class="aboutHead">
+							Frequently Asked Questions (FAQ)
+						</span>
+					</div>
+					<div class="row" id="aboutStoryBody" manage-height>
+						<div class="col-sm-6 col-xs-6">
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('resRef')"
+									>
+										Is My Reservation Fee Refundable? 
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('selSeat')"
+									>
+										Do I Choose My Seat Location?
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('waitSet')"
+									>
+										How Long Can I Wait To Reserve?
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('payFee')"
+									>
+										How Do I Pay My Reservation Fee?
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('sourceTix')"
+									>
+										How Do You Get The Tickets?
+									</span>
+								</div>
+							</div>
+							<br/>
+							<div class="row">
+								<div 
+									class="col-sm-12 col-xs-12"
+									style="text-align: left!important;"
+								>
+									<span 
+										class="linkBold pull-left reservationYellow" 
+										ng-click="setShow('siteSafe')"
+									>
+										Is This Site Secure?
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-6">
+							<div id="resRef" class="faqAnswer" ng-show="showWhat === 'resRef'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											Is My Reservation Fee Refundable?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											Your reservation fee is not refundable, but the cost to purchase the actual ticket ($1) is refundable.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="selSeat" class="faqAnswer" ng-show="showWhat === 'selSeat'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											Do I Choose My Seat Location?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											You don't get to choose your seat at this time. We are, however, working toward this goal.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="waitSet" class="faqAnswer" ng-show="showWhat === 'waitSet'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											How Long Can I Wait To Reserve?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											You can wait until after the opening round of the tournament/playoffs, but the reservation fee will increase throughout the season. It's best to lock in the least expensive reservation fee as soon as possible.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="payFee" class="faqAnswer" ng-show="showWhat === 'payFee'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											How Do I Pay My Reservation Fee?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											We accept all major credit/debit cards, including Visa, MasterCard, American Express, etc.
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="sourceTix" class="faqAnswer" ng-show="showWhat === 'sourceTix'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											How Do You Get The Tickets?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											We source the championship tickets through the secondary ticket exchange markets. In the event that we are unable to source your ticket(s) for any reason, we will simply mail you a check/money order for the full face value of the ticket(s).
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="siteSafe" class="faqAnswer" ng-show="showWhat === 'siteSafe'">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerHeading">
+											Is This Site Secure?
+										</span>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+										<span class="faqAnswerSmall">
+											This site is safe and secure. All your interactions, including credit/debit card transactions, are secured with the latest SSL security protocols. Additionally, your credit/debit card data is not stored by this site, but rather is encrypted and secured by our payment gateway, Authorize.Net - the industry leader in online payments.
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+  </div>
+</ul>

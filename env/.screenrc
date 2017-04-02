@@ -1,0 +1,88 @@
+################################################################################
+# Screen configuration - Optimized for 2013 version
+# @see http://unix.stackexchange.com/questions/26685/how-to-split-window-vertically-in-gnu-screen
+################################################################################
+
+utf8 on
+#hardstatus alwayslastline "%-Lw%{+b 01}%50>%n %t%{-}%+Lw%<"
+autodetach on
+# hardstatus alwayslastline '%{= Bw}%{+b}%H%{-b}  |  %{= Bk}%{+b}%?%-Lw%?%{= Bw}%{+b}( %{W}%n %t%?(%u)%? )%{k}%?%+Lw%?%?%= %{k}%{-b}|%{+b} %m/%d %{W}%c '
+hardstatus alwayslastline '%{= bw}%{+b}%H%{-b}  |  %{= bk}%{+b}%?%-Lw%?%{= bw}%{+b}( %{W}%n %t%?(%u)%? )%{k}%?%+Lw%?%?%= %{k}%{-b}|%{+b} %m/%d %{W}%c '
+activity "Activity in %t(%n)"
+termcapinfo xterm ti@:te@
+defmonitor on
+altscreen on
+term "screen-256color"
+
+## Screen setup
+
+chdir $DRAW
+screen 0
+title "wyodraw-run"
+
+chdir $TIX
+screen 1
+title "tix-run"
+
+chdir $TIXA
+screen 2
+title "tixAdmin-run"
+
+chdir $WROOT
+screen 3
+title "src"
+
+chdir $PRXY
+screen 4
+title "proxy-run"
+exec forever app.js | bunyan
+
+chdir $DB
+screen 5
+title "db"
+exec mongo
+
+
+## Key bindings
+# <F1>  Show screen man page (in new screen)
+# <F2>  Rename window
+# <F3>  Create new screen
+# <F4>  Kill current window
+# <F5>  OLD - [Intentionally ignored - Same key as refresh in a browser]
+# <F5>  Display help
+# <F6>  OLD - Detach screen from terminal
+# <F6>  Horizontal split screen
+# <F7>  OLD - Split screen
+# <F7>  Vertical split screen
+# <F8>  (Devmode) vi .screenrc (in new screen)
+# <F8>  Remove the current region of split screen
+# <F9>  Screen command mode
+# <F10> List screens
+# <F11> Previous window
+# <F12> Next window
+
+#bindkey -k k1 screen man screen
+bindkey -k k2 title
+bindkey -k k3 screen
+bindkey -k k4 kill
+bindkey -k k5 help
+# bindkey -k k6 detach
+bindkey -k k6 split
+# bindkey -k k7 split
+bindkey -k k7 split -v
+# bindkey -k k8 screen vi $HOME/.screenrc
+bindkey -k k8 remove
+bindkey -k k9 colon
+bindkey -k k; windowlist -b
+bindkey -k F1 prev
+bindkey -k F2 next
+
+## Split screen buttons
+# <Shift-Tab> Switch region
+# <Alt-,> Shrink region
+# <Alt-.> Maximize region
+# <Alt-/> Maximize region
+bindkey "\033[Z" focus
+bindkey "^[," resize 80
+bindkey "^[." resize =
+bindkey "^[/" resize 160

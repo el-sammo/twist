@@ -1,0 +1,158 @@
+<div class="modal-header" ng-show="showCreateTournament && !showAddFunds">
+	<button type="button" class="close pull-right" ng-click="$close('discard')">x</button>
+  <h3 class="modal-title" id="nav-away-modal-title">
+		Create a Custom Tournament
+	</h3>
+</div>
+<div class="modal-body" ng-show="showCreateTournament && !showAddFunds">
+	<form name="createTournamentForm">
+		<div class="row">
+			<div class="col-md-12">
+				<label for="fName">Tournament Name:</label>
+				{{tournament.name}}
+			</div>
+		</div>
+		<div class="row no-margin">
+			<h4>Select the Tournament Track:</h4>
+			<div 
+				class="radio" 
+				ng-repeat="track in tracks"
+			>
+				<label>
+					<input 
+						type="radio" 
+						name="track" 
+						ng-value="track.id" 
+						ng-model="$parent.selTrack"
+						ng-change="updateTournamentName(customer, track)"
+					>
+					{{track.name}}
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<span class="maxLabel">Maximum # of Entrants:</span>
+			</div>
+			<div class="col-md-8">
+				<input 
+					type="number" name="tournament.max" class="form-control col-md-10"
+					ng-model="tournament.max" id="tournament.max"
+				>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<span class="creditsLabel">Starting # of Credits:</span>
+			</div>
+			<div class="col-md-8">
+				<input 
+					type="number" name="tournament.credits" class="form-control col-md-10"
+					ng-model="tournament.credits" id="tournament.credits"
+				>
+			</div>
+		</div>
+		<div class="row no-margin">
+			<h4>Select the Entry Fee:</h4>
+			<div class="radio" ng-repeat="feeOption in feeOptions">
+				<label>
+					<input type="radio" name="tournament.entryFee" ng-value="feeOption" ng-model="$parent.selEntryFee">
+					{{feeOption}}
+				</label>
+			</div>
+		</div>
+		<div class="row no-margin">
+			<h4>Private Tournament?:</h4>
+			<div class="radio" ng-repeat="pubPriv in pubPrivs">
+				<label>
+					<input type="radio" name="tournament.pubPriv" ng-value="pubPriv" ng-model="$parent.selPubPriv">
+					{{pubPriv}}
+				</label>
+			</div>
+		</div>
+		<div class="row" ng-show="generalError">
+			<div class="col-md-12">
+				<span class="error">The tournament was not created. Please refresh your browser and try again.</span>
+			</div>
+		</div>
+		<div class="row" ng-show="insufficientFunds">
+			<div class="col-md-12">
+				<span class="error">
+					Your account balance isn't sufficient to create and join this tournament.
+					<br>
+					Please 
+					<span style="cursor: pointer; color: blue" ng-click="addFunds()"> add funds</span>  and try again.</span>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer" ng-show="showCreateTournament && !showAddFunds">
+	<button 
+		type="button" 
+		class="btn btn-primary pull-left" 
+		ng-click="$close('discard')"
+	>
+    <i class="fa fa-reply"></i> &nbsp; Close
+  </button>
+	<button 
+		type="button" 
+		class="btn btn-success pull-right" 
+		ng-disabled="
+			!tournament.name || 
+			!selTrack ||
+			!tournament.max || 
+			!tournament.credits || 
+			!selEntryFee ||
+			!selPubPriv
+		"
+		ng-click="createTournament()"
+	>
+    <i class="fa fa-plus"></i> &nbsp; Create Tournament
+	</button>
+</div>
+<div class="modal-header" ng-show="!showCreateTournament && showAddFunds">
+	<button type="button" class="close pull-right" ng-click="$close('discard')">x</button>
+  <h3 class="modal-title" id="nav-away-modal-title">
+		Add Funds
+	</h3>
+</div>
+<div class="modal-body" ng-show="!showCreateTournament && showAddFunds">
+	<form name="createTournamentForm">
+		<div class="row">
+			<div class="col-md-4">
+				<span class="amountLabel">Deposit Amount:</span>
+			</div>
+			<div class="col-md-8">
+				<input 
+					type="number" name="amount" class="form-control col-md-10"
+					ng-model="amount" id="amount"
+				>
+			</div>
+		</div>
+		<div class="row" ng-show="generalError">
+			<div class="col-md-12">
+				<span class="error">The deposit was not successful. Please refresh your browser and try again.</span>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer" ng-show="!showCreateTournament && showAddFunds">
+	<button 
+		type="button" 
+		class="btn btn-primary pull-left" 
+		ng-click="$close('discard')"
+	>
+    <i class="fa fa-reply"></i> &nbsp; Close
+  </button>
+	<button 
+		type="button" 
+		class="btn btn-success pull-right" 
+		ng-disabled="
+			!selMethod || 
+			!amount
+		"
+		ng-click="addFunds()"
+	>
+	<i class="fa fa-plus"></i> &nbsp; Deposit {{amount}} Now
+	</button>
+</div>

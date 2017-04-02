@@ -1,0 +1,17 @@
+<label
+	class="raceDetailsSmaller"
+	style="top: -2px; position: relative;"
+>
+	{{getDetail(entry)}}
+</label>
+
+<br ng-show="entry.altRunner">
+
+<label
+	class="raceDetailsSmaller"
+	style="top: -2px; position: relative;"
+	ng-style="getAltRunnerStyle()"
+	ng-if="entry.altRunner"
+>
+	{{getDetail(entry.altRunner)}}
+</label>
