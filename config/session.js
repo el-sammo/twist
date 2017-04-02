@@ -70,7 +70,7 @@ module.exports.session = {
   adapter: 'mongo',
   host: 'localhost',
   port: 27017,
-  db: 'wars',
+  db: 'twist',
   collection: 'sessions',
 
   /***************************************************************************

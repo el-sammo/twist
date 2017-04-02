@@ -14,7 +14,7 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'playerMgmt', 'tournamentMgmt', 'tournamentPlayersMgmt', 
+	'playerMgmt', 'gameMgmt',
 	'messenger', 
 	'lodash',
 	// in angular, there are some angular-defined variables/functions/behaviors
@@ -25,7 +25,7 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	playerMgmt, tournamentMgmt, tournamentPlayersMgmt,
+	playerMgmt, gameMgmt,
 	messenger, 
 	_
 ) {
@@ -39,6 +39,8 @@ function controller(
 	// Run initialization
 	///
 
+	
+
 //	init();
 
 
@@ -47,12 +49,14 @@ function controller(
 	///
 
 	function init() {
-		initDate();
-		initTournaments();
-		showChallenges();
 
-		$scope.tournamentsSortBy = 'name';
-		$scope.tournamentsSortIn = 'asc';
+		if($routeParams.id) {
+			$scope.gameExists = true;
+			$scope.currentGameId = $routeParams.id;
+		} else {
+			$scope.gameExists = false;
+			$scope.currentGameId = '';
+		}
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -192,6 +196,10 @@ function controller(
 	///
 	// View methods
 	///
+
+	$("#alaska").on('click', function () {
+		alert($(this).attr('id')); 
+	});
 
 	function account() {
 		if(!$scope.playerId) {

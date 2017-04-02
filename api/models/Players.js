@@ -23,66 +23,6 @@ module.exports = {
       type: 'string',
       required: true
 		},
-    phone: {
-      type: 'integer',
-      required: false
-		},
-    addressNumber: {
-      type: 'string',
-      required: false
-		},
-    addressApt: {
-      type: 'string',
-      required: false
-		},
-    addressStreet: {
-      type: 'string',
-      required: false
-		},
-    addressCity: {
-      type: 'string',
-      required: false
-		},
-    addressState: {
-      type: 'string',
-      required: false
-		},
-    addressZip: {
-      type: 'string',
-      required: false
-		},
-    uscf: {
-      type: 'integer',
-      required: false
-		},
-    uscfExpiry: {
-      type: 'integer',
-      required: false
-		},
-    uscfState: {
-      type: 'string',
-      required: false
-		},
-    uscfRating: {
-      type: 'integer',
-      required: false
-		},
-    fide: {
-      type: 'integer',
-      required: false
-		},
-    fideExpiry: {
-      type: 'integer',
-      required: false
-		},
-    fideRating: {
-      type: 'integer',
-      required: false
-		},
-    ccomUsername: {
-      type: 'string',
-      required: true
-		},
     username: {
       type: 'string',
       required: true

@@ -98,6 +98,10 @@ input.error {
 
 /** Custom CSS **/
 
+.clickable {
+	cursor: pointer;
+}
+
 #gameContainer {
 	width: 1280px;
 	height: 637px;
@@ -142,6 +146,30 @@ input.error {
 	top: 0px;
 	background-color: black;
 	position: absolute;
+}
+
+#gameCreate {
+	width: 120px;
+	height: 24px;
+	top: 10px;
+	left: 10px;
+	border: 1px solid green;
+	border-radius: 12px;
+	background-color: white;
+	text-align: center;
+	position: relative;
+}
+
+#gameStart {
+	width: 120px;
+	height: 24px;
+	top: 10px;
+	left: 10px;
+	border: 1px solid green;
+	border-radius: 12px;
+	background-color: white;
+	text-align: center;
+	position: relative;
 }
 
 .whiteSquare {

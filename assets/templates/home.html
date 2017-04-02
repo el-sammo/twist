@@ -30,6 +30,19 @@
 				</div>
 			</div>
 			<div id="gamePanel">
-				&nbsp;
+				<div 
+					id="gameCreate"
+					class="clickable"
+					ng-if="!gameExists || currentGameId.length < 16"
+				>
+					<span id="newGame" class="">New Game</span>
+				</div>
+				<div 
+					id="gameStart"
+					class="clickable"
+					ng-if="gameExists && currentGameId.length > 15"
+				>
+					<span id="startGame" class="">Start Game</span>
+				</div>
 			</div>
 		</div>
