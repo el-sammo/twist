@@ -249,6 +249,136 @@ input.error {
 	z-index: 98;
 }
 
+#iceland {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 392px;
+	top: 128px;
+	position: absolute;
+	z-index: 98;
+}
+
+#scandinavia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 470px;
+	top: 92px;
+	position: absolute;
+	z-index: 98;
+}
+
+#russia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 538px;
+	top: 156px;
+	position: absolute;
+	z-index: 98;
+}
+
+#great_britain {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 394px;
+	top: 192px;
+	position: absolute;
+	z-index: 98;
+}
+
+#northern_europe {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 446px;
+	top: 200px;
+	position: absolute;
+	z-index: 98;
+}
+
+#western_europe {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 390px;
+	top: 260px;
+	position: absolute;
+	z-index: 98;
+}
+
+#southern_europe {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 472px;
+	top: 242px;
+	position: absolute;
+	z-index: 98;
+}
+
+#north_africa {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 400px;
+	top: 362px;
+	position: absolute;
+	z-index: 98;
+}
+
+#egypt {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 462px;
+	top: 328px;
+	position: absolute;
+	z-index: 98;
+}
+
+#east_africa {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 506px;
+	top: 396px;
+	position: absolute;
+	z-index: 98;
+}
+
+#central_africa {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 468px;
+	top: 446px;
+	position: absolute;
+	z-index: 98;
+}
+
+#south_africa {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 460px;
+	top: 548px;
+	position: absolute;
+	z-index: 98;
+}
+
+#madagascar {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 536px;
+	top: 526px;
+	position: absolute;
+	z-index: 98;
+}
+
 #gamePanel {
 	width: 320px;
 	height: 637px;

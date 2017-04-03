@@ -252,6 +252,58 @@ console.log('currentGameId', $scope.currentGameId);
 		console.log($(this).attr('id')); 
 	});
 
+	$("#iceland").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#scandinavia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#russia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#great_britain").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#northern_europe").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#western_europe").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#southern_europe").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#north_africa").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#egypt").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#east_africa").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#central_africa").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#south_africa").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#madagascar").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
 	function account() {
 		if(!$scope.playerId) {
 			layoutMgmt.logIn();
