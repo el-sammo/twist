@@ -41,7 +41,7 @@ function controller(
 
 	
 
-//	init();
+	init();
 
 
 	///
@@ -57,6 +57,9 @@ function controller(
 			$scope.gameExists = false;
 			$scope.currentGameId = '';
 		}
+
+console.log('gameExists', $scope.gameExists);
+console.log('currentGameId', $scope.currentGameId);
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -198,7 +201,55 @@ function controller(
 	///
 
 	$("#alaska").on('click', function () {
-		alert($(this).attr('id')); 
+		console.log($(this).attr('id')); 
+	});
+
+	$("#northwest_territory").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#greenland").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#alberta").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#ontario").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#quebec").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#western_us").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#eastern_us").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#central_america").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#venezuela").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#peru").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#brazil").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#argentina").on('click', function () {
+		console.log($(this).attr('id')); 
 	});
 
 	function account() {

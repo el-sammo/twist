@@ -121,20 +121,130 @@ input.error {
 
 #alaska {
 	background-image: url("images/white_circle.png");
-	width: 26px;
-	height: 26px;
-	left: 54px;
-	top: 106px;
+	width: 28px;
+	height: 28px;
+	left: 52px;
+	top: 104px;
 	position: absolute;
 	z-index: 98;
 }
 
 #northwest_territory {
 	background-image: url("images/white_circle.png");
-	width: 26px;
-	height: 26px;
-	left: 152px;
-	top: 114px;
+	width: 28px;
+	height: 28px;
+	left: 150px;
+	top: 112px;
+	position: absolute;
+	z-index: 98;
+}
+
+#greenland {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 364px;
+	top: 62px;
+	position: absolute;
+	z-index: 98;
+}
+
+#alberta {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 144px;
+	top: 158px;
+	position: absolute;
+	z-index: 98;
+}
+
+#ontario {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 214px;
+	top: 170px;
+	position: absolute;
+	z-index: 98;
+}
+
+#quebec {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 284px;
+	top: 164px;
+	position: absolute;
+	z-index: 98;
+}
+
+#western_us {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 148px;
+	top: 218px;
+	position: absolute;
+	z-index: 98;
+}
+
+#eastern_us {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 218px;
+	top: 234px;
+	position: absolute;
+	z-index: 98;
+}
+
+#central_america {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 164px;
+	top: 288px;
+	position: absolute;
+	z-index: 98;
+}
+
+#venezuela {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 194px;
+	top: 356px;
+	position: absolute;
+	z-index: 98;
+}
+
+#peru {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 222px;
+	top: 444px;
+	position: absolute;
+	z-index: 98;
+}
+
+#brazil {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 270px;
+	top: 408px;
+	position: absolute;
+	z-index: 98;
+}
+
+#argentina {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 224px;
+	top: 502px;
 	position: absolute;
 	z-index: 98;
 }
