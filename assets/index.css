@@ -119,6 +119,47 @@ input.error {
 	position: absolute;
 }
 
+.circle-centered {
+	top: 4px;
+	left: 7px;
+	position: relative;
+}
+
+.blueCircle {
+	background-image: url("images/blue.png");
+	width: 28px;
+	height: 28px;
+	position: relative;
+}
+
+.greenCircle {
+	background-image: url("images/green.png");
+	width: 28px;
+	height: 28px;
+	position: relative;
+}
+
+.purpleCircle {
+	background-image: url("images/purple.png");
+	width: 28px;
+	height: 28px;
+	position: relative;
+}
+
+.redCircle {
+	background-image: url("images/red.png");
+	width: 28px;
+	height: 28px;
+	position: relative;
+}
+
+.yellowCircle {
+	background-image: url("images/yellow.png");
+	width: 28px;
+	height: 28px;
+	position: relative;
+}
+
 #alaska {
 	background-image: url("images/white_circle.png");
 	width: 28px;
@@ -375,6 +416,166 @@ input.error {
 	height: 28px;
 	left: 536px;
 	top: 526px;
+	position: absolute;
+	z-index: 98;
+}
+
+#ural {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 632px;
+	top: 158px;
+	position: absolute;
+	z-index: 98;
+}
+
+#siberia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 686px;
+	top: 136px;
+	position: absolute;
+	z-index: 98;
+}
+
+#yakutsk {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 782px;
+	top: 104px;
+	position: absolute;
+	z-index: 98;
+}
+
+#kamchatka {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 870px;
+	top: 108px;
+	position: absolute;
+	z-index: 98;
+}
+
+#irkutsk {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 742px;
+	top: 172px;
+	position: absolute;
+	z-index: 98;
+}
+
+#mongolia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 776px;
+	top: 214px;
+	position: absolute;
+	z-index: 98;
+}
+
+#japan {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 832px;
+	top: 236px;
+	position: absolute;
+	z-index: 98;
+}
+
+#afghanistan {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 602px;
+	top: 226px;
+	position: absolute;
+	z-index: 98;
+}
+
+#china {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 698px;
+	top: 268px;
+	position: absolute;
+	z-index: 98;
+}
+
+#middle_east {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 554px;
+	top: 310px;
+	position: absolute;
+	z-index: 98;
+}
+
+#india {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 640px;
+	top: 332px;
+	position: absolute;
+	z-index: 98;
+}
+
+#southeast_asia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 718px;
+	top: 344px;
+	position: absolute;
+	z-index: 98;
+}
+
+#indonesia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 734px;
+	top: 422px;
+	position: absolute;
+	z-index: 98;
+}
+
+#guinea {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 842px;
+	top: 430px;
+	position: absolute;
+	z-index: 98;
+}
+
+#western_australia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 740px;
+	top: 506px;
+	position: absolute;
+	z-index: 98;
+}
+
+#eastern_australia {
+	background-image: url("images/white_circle.png");
+	width: 28px;
+	height: 28px;
+	left: 824px;
+	top: 516px;
 	position: absolute;
 	z-index: 98;
 }

@@ -35,6 +35,21 @@ function controller(
 
 	var todayDate;
 
+	$scope.alaska = {};
+	$scope.alaska.color = 'blue';
+
+	$scope.northwest_territory = {};
+	$scope.northwest_territory.color = 'green';
+
+	$scope.greenland = {};
+	$scope.greenland.color = 'purple';
+
+	$scope.alberta = {};
+	$scope.alberta.color = 'red';
+
+	$scope.ontario = {};
+	$scope.ontario.color = 'yellow';
+
 	///
 	// Run initialization
 	///
@@ -301,6 +316,70 @@ console.log('currentGameId', $scope.currentGameId);
 	});
 
 	$("#madagascar").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#ural").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#siberia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#yakutsk").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#kamchatka").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#irkutsk").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#mongolia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#japan").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#afghanistan").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#china").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#middle_east").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#india").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#southeast_asia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#indonesia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#guinea").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#western_australia").on('click', function () {
+		console.log($(this).attr('id')); 
+	});
+
+	$("#eastern_australia").on('click', function () {
 		console.log($(this).attr('id')); 
 	});
 
