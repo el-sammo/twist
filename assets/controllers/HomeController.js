@@ -215,7 +215,15 @@ console.log('currentGameId', $scope.currentGameId);
 	// View methods
 	///
 
-	$("#alaska").on('click', function () {
+//	$("#alaska").find(".blueCircle").on('click', function () {
+//		console.log($(this).attr('id')); 
+//	});
+
+//	$(".blueCircle", "#alaska").on('click', function () {
+//		console.log($(this).attr('id')); 
+//	});
+
+	$("#alaska .blueCircle").on('click', function () {
 		console.log($(this).attr('id')); 
 	});
 
