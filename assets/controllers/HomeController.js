@@ -35,26 +35,6 @@ function controller(
 
 	var todayDate;
 
-	$scope.alaska = {};
-	$scope.alaska.color = 'blue';
-	$scope.alaska.units = 23;
-
-	$scope.northwest_territory = {};
-	$scope.northwest_territory.color = 'green';
-	$scope.northwest_territory.units = 16;
-
-	$scope.greenland = {};
-	$scope.greenland.color = 'purple';
-	$scope.greenland.units = 109;
-
-	$scope.alberta = {};
-	$scope.alberta.color = 'red';
-	$scope.alberta.units = 1;
-
-	$scope.ontario = {};
-	$scope.ontario.color = 'yellow';
-	$scope.ontario.units = 55;
-
 	///
 	// Run initialization
 	///
@@ -82,8 +62,31 @@ console.log('gameExists', $scope.gameExists);
 console.log('currentGameId', $scope.currentGameId);
 		}
 
+		$scope.showMenu = false;
+
+		$scope.alaska = {};
+		$scope.alaska.color = 'blue';
+		$scope.alaska.units = 23;
+
+		$scope.northwest_territory = {};
+		$scope.northwest_territory.color = 'green';
+		$scope.northwest_territory.units = 16;
+
+		$scope.greenland = {};
+		$scope.greenland.color = 'purple';
+		$scope.greenland.units = 109;
+
+		$scope.alberta = {};
+		$scope.alberta.color = 'red';
+		$scope.alberta.units = 1;
+
+		$scope.ontario = {};
+		$scope.ontario.color = 'yellow';
+		$scope.ontario.units = 55;
+
 		$scope.territoryClaim = territoryClaim;
 		$scope.territoryMenu = territoryMenu;
+		$scope.menuClose = menuClose;
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -406,11 +409,20 @@ console.log('territory: '+territory);
 	}
 
 	function territoryMenu(obj) {
+		menuShow();
 		var territory = obj.currentTarget.offsetParent.id;
 		var colorPcs = obj.currentTarget.className.split('C');
 		var color = colorPcs[0];
 console.log('territory: '+territory);
 console.log('color: '+color);
+	}
+
+	function menuShow() {
+		$scope.showMenu = true;
+	}
+
+	function menuClose() {
+		$scope.showMenu = false;
 	}
 
 	function account() {

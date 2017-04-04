@@ -13,6 +13,23 @@
 				<!-- Australia -->
 				<ng-include src="'/templates/australia.html'"></ng-include>
 			</div>
+			<div 
+				id="gameMenu"
+				ng-show="showMenu"
+			>
+				<div 
+					id="menuClose"
+					class="clickable"
+				>
+					<span 
+						id="" 
+						class=""
+						ng-click="menuClose()"
+					>
+						Close Menu
+					</span>
+				</div>
+			</div>
 			<div id="gamePanel">
 				<div 
 					id="gameCreate"

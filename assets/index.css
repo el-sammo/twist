@@ -591,6 +591,18 @@ input.error {
 	z-index: 98;
 }
 
+#gameMenu {
+	top: 60px;
+	left: 480px;
+	width: 320px;
+	height: 480px;
+	border: 2px solid grey;
+	border-radius: 12px;
+	background-color: white;
+	position: absolute;
+	z-index: 99;
+}
+
 #gamePanel {
 	width: 320px;
 	height: 637px;
