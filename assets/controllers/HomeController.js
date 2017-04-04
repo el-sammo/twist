@@ -410,10 +410,11 @@ console.log('territory: '+territory);
 
 	function territoryMenu(obj) {
 		menuShow();
-		var territory = obj.currentTarget.offsetParent.id;
+		$scope.territory = {};
+		$scope.territory.name = obj.currentTarget.offsetParent.id;
 		var colorPcs = obj.currentTarget.className.split('C');
 		var color = colorPcs[0];
-console.log('territory: '+territory);
+console.log('territory', $scope.territory);
 console.log('color: '+color);
 	}
 
