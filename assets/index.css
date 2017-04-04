@@ -130,6 +130,7 @@ input.error {
 	width: 28px;
 	height: 28px;
 	position: relative;
+	text-align: center;
 }
 
 .greenCircle {
@@ -137,6 +138,7 @@ input.error {
 	width: 28px;
 	height: 28px;
 	position: relative;
+	text-align: center;
 }
 
 .purpleCircle {
@@ -144,6 +146,7 @@ input.error {
 	width: 28px;
 	height: 28px;
 	position: relative;
+	text-align: center;
 }
 
 .redCircle {
@@ -151,12 +154,20 @@ input.error {
 	width: 28px;
 	height: 28px;
 	position: relative;
+	text-align: center;
 }
 
 .yellowCircle {
 	background-image: url("images/yellow.png");
 	width: 28px;
 	height: 28px;
+	position: relative;
+	text-align: center;
+}
+
+.territoryUnits {
+	top: 4px;
+	font-size: 12px;
 	position: relative;
 }
 

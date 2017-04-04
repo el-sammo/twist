@@ -37,18 +37,23 @@ function controller(
 
 	$scope.alaska = {};
 	$scope.alaska.color = 'blue';
+	$scope.alaska.units = 23;
 
 	$scope.northwest_territory = {};
 	$scope.northwest_territory.color = 'green';
+	$scope.northwest_territory.units = 16;
 
 	$scope.greenland = {};
 	$scope.greenland.color = 'purple';
+	$scope.greenland.units = 109;
 
 	$scope.alberta = {};
 	$scope.alberta.color = 'red';
+	$scope.alberta.units = 1;
 
 	$scope.ontario = {};
 	$scope.ontario.color = 'yellow';
+	$scope.ontario.units = 55;
 
 	///
 	// Run initialization
@@ -68,13 +73,17 @@ function controller(
 		if($routeParams.id) {
 			$scope.gameExists = true;
 			$scope.currentGameId = $routeParams.id;
+console.log('gameExists', $scope.gameExists);
+console.log('currentGameId', $scope.currentGameId);
 		} else {
 			$scope.gameExists = false;
 			$scope.currentGameId = '';
-		}
-
 console.log('gameExists', $scope.gameExists);
 console.log('currentGameId', $scope.currentGameId);
+		}
+
+		$scope.territoryClaim = territoryClaim;
+		$scope.territoryMenu = territoryMenu;
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -223,7 +232,7 @@ console.log('currentGameId', $scope.currentGameId);
 //		console.log($(this).attr('id')); 
 //	});
 
-	$("#alaska .blueCircle").on('click', function () {
+	$("#alaska div.blueCircle").on('click', function () {
 		console.log($(this).attr('id')); 
 	});
 
@@ -390,6 +399,19 @@ console.log('currentGameId', $scope.currentGameId);
 	$("#eastern_australia").on('click', function () {
 		console.log($(this).attr('id')); 
 	});
+
+	function territoryClaim(obj) {
+		var territory = obj.currentTarget.parentNode.id;
+console.log('territory: '+territory);
+	}
+
+	function territoryMenu(obj) {
+		var territory = obj.currentTarget.offsetParent.id;
+		var colorPcs = obj.currentTarget.className.split('C');
+		var color = colorPcs[0];
+console.log('territory: '+territory);
+console.log('color: '+color);
+	}
 
 	function account() {
 		if(!$scope.playerId) {

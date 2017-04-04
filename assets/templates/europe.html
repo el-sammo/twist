@@ -1,161 +1,371 @@
-				<div id="iceland" ng-if="!iceland.color || iceland.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="iceland" ng-if="iceland.color === 'blue'">
-					<div class="blueCircle">
+				<div id="iceland">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!iceland.color || iceland.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="iceland.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{iceland.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="iceland.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{iceland.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="iceland.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{iceland.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="iceland.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{iceland.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="iceland.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{iceland.units}}
+						</span>
 					</div>
 				</div>
-				<div id="iceland" ng-if="iceland.color === 'green'">
-					<div class="greenCircle">
+				<div id="scandinavia">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!scandinavia.color || scandinavia.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="scandinavia.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{scandinavia.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="scandinavia.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{scandinavia.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="scandinavia.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{scandinavia.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="scandinavia.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{scandinavia.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="scandinavia.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{scandinavia.units}}
+						</span>
 					</div>
 				</div>
-				<div id="iceland" ng-if="iceland.color === 'purple'">
-					<div class="purpleCircle">
+				<div id="russia">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!russia.color || russia.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="russia.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{russia.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="russia.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{russia.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="russia.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{russia.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="russia.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{russia.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="russia.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{russia.units}}
+						</span>
 					</div>
 				</div>
-				<div id="iceland" ng-if="iceland.color === 'red'">
-					<div class="redCircle">
+				<div id="great_britain">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!great_britain.color || great_britain.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="great_britain.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{great_britain.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="great_britain.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{great_britain.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="great_britain.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{great_britain.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="great_britain.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{great_britain.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="great_britain.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{great_britain.units}}
+						</span>
 					</div>
 				</div>
-				<div id="iceland" ng-if="iceland.color === 'yellow'">
-					<div class="yellowCircle">
+				<div id="northern_europe">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!northern_europe.color || northern_europe.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="northern_europe.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{northern_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="northern_europe.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{northern_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="northern_europe.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{northern_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="northern_europe.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{northern_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="northern_europe.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{northern_europe.units}}
+						</span>
 					</div>
 				</div>
-				<div id="scandinavia" ng-if="!scandinavia.color || scandinavia.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="scandinavia" ng-if="scandinavia.color === 'blue'">
-					<div class="blueCircle">
+				<div id="western_europe">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!western_europe.color || western_europe.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="western_europe.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{western_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="greenCircle"
+						ng-show="western_europe.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{western_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="purpleCircle"
+						ng-show="western_europe.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{western_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="redCircle"
+						ng-show="western_europe.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{western_europe.units}}
+						</span>
+					</div>
+					<div 
+						class="yellowCircle"
+						ng-show="western_europe.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{western_europe.units}}
+						</span>
 					</div>
 				</div>
-				<div id="scandinavia" ng-if="scandinavia.color === 'green'">
-					<div class="greenCircle">
+				<div id="southern_europe">
+					<i 
+						class="fa fa-flag-o circle-centered" 
+						aria-hidden="true"
+						ng-show="!southern_europe.color || southern_europe.color === ''"
+						ng-click="territoryClaim($event)"
+					></i>
+					<div 
+						class="blueCircle"
+						ng-show="southern_europe.color === 'blue'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{southern_europe.units}}
+						</span>
 					</div>
-				</div>
-				<div id="scandinavia" ng-if="scandinavia.color === 'purple'">
-					<div class="purpleCircle">
+					<div 
+						class="greenCircle"
+						ng-show="southern_europe.color === 'green'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{southern_europe.units}}
+						</span>
 					</div>
-				</div>
-				<div id="scandinavia" ng-if="scandinavia.color === 'red'">
-					<div class="redCircle">
+					<div 
+						class="purpleCircle"
+						ng-show="southern_europe.color === 'purple'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{southern_europe.units}}
+						</span>
 					</div>
-				</div>
-				<div id="scandinavia" ng-if="scandinavia.color === 'yellow'">
-					<div class="yellowCircle">
+					<div 
+						class="redCircle"
+						ng-show="southern_europe.color === 'red'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{southern_europe.units}}
+						</span>
 					</div>
-				</div>
-				<div id="russia" ng-if="!russia.color || russia.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="russia" ng-if="russia.color === 'blue'">
-					<div class="blueCircle">
-					</div>
-				</div>
-				<div id="russia" ng-if="russia.color === 'green'">
-					<div class="greenCircle">
-					</div>
-				</div>
-				<div id="russia" ng-if="russia.color === 'purple'">
-					<div class="purpleCircle">
-					</div>
-				</div>
-				<div id="russia" ng-if="russia.color === 'red'">
-					<div class="redCircle">
-					</div>
-				</div>
-				<div id="russia" ng-if="russia.color === 'yellow'">
-					<div class="yellowCircle">
-					</div>
-				</div>
-				<div id="great_britain" ng-if="!great_britain.color || great_britain.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="great_britain" ng-if="great_britain.color === 'blue'">
-					<div class="blueCircle">
-					</div>
-				</div>
-				<div id="great_britain" ng-if="great_britain.color === 'green'">
-					<div class="greenCircle">
-					</div>
-				</div>
-				<div id="great_britain" ng-if="great_britain.color === 'purple'">
-					<div class="purpleCircle">
-					</div>
-				</div>
-				<div id="great_britain" ng-if="great_britain.color === 'red'">
-					<div class="redCircle">
-					</div>
-				</div>
-				<div id="great_britain" ng-if="great_britain.color === 'yellow'">
-					<div class="yellowCircle">
-					</div>
-				</div>
-				<div id="northern_europe" ng-if="!northern_europe.color || northern_europe.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="northern_europe" ng-if="northern_europe.color === 'blue'">
-					<div class="blueCircle">
-					</div>
-				</div>
-				<div id="northern_europe" ng-if="northern_europe.color === 'green'">
-					<div class="greenCircle">
-					</div>
-				</div>
-				<div id="northern_europe" ng-if="northern_europe.color === 'purple'">
-					<div class="purpleCircle">
-					</div>
-				</div>
-				<div id="northern_europe" ng-if="northern_europe.color === 'red'">
-					<div class="redCircle">
-					</div>
-				</div>
-				<div id="northern_europe" ng-if="northern_europe.color === 'yellow'">
-					<div class="yellowCircle">
-					</div>
-				</div>
-				<div id="western_europe" ng-if="!western_europe.color || western_europe.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="western_europe" ng-if="western_europe.color === 'blue'">
-					<div class="blueCircle">
-					</div>
-				</div>
-				<div id="western_europe" ng-if="western_europe.color === 'green'">
-					<div class="greenCircle">
-					</div>
-				</div>
-				<div id="western_europe" ng-if="western_europe.color === 'purple'">
-					<div class="purpleCircle">
-					</div>
-				</div>
-				<div id="western_europe" ng-if="western_europe.color === 'red'">
-					<div class="redCircle">
-					</div>
-				</div>
-				<div id="western_europe" ng-if="western_europe.color === 'yellow'">
-					<div class="yellowCircle">
-					</div>
-				</div>
-				<div id="southern_europe" ng-if="!southern_europe.color || southern_europe.color === ''">
-					<i class="fa fa-flag-o circle-centered" aria-hidden="true"></i>
-				</div>
-				<div id="southern_europe" ng-if="southern_europe.color === 'blue'">
-					<div class="blueCircle">
-					</div>
-				</div>
-				<div id="southern_europe" ng-if="southern_europe.color === 'green'">
-					<div class="greenCircle">
-					</div>
-				</div>
-				<div id="southern_europe" ng-if="southern_europe.color === 'purple'">
-					<div class="purpleCircle">
-					</div>
-				</div>
-				<div id="southern_europe" ng-if="southern_europe.color === 'red'">
-					<div class="redCircle">
-					</div>
-				</div>
-				<div id="southern_europe" ng-if="southern_europe.color === 'yellow'">
-					<div class="yellowCircle">
+					<div 
+						class="yellowCircle"
+						ng-show="southern_europe.color === 'yellow'"
+						ng-click="territoryMenu($event)"
+					>
+						<span class="territoryUnits">
+							{{southern_europe.units}}
+						</span>
 					</div>
 				</div>
