@@ -9,7 +9,7 @@ var _ = require('lodash');
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
 
-var loginError = 'Invalid username, email, or password.';
+var loginError = 'Invalid username (F), email, or password.';
 var serverError = 'An error occurred. Please try again later.';
 var nextUrl = '/#/';
 var loginUrl = '/login';

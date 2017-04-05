@@ -1,0 +1,37 @@
+			<div 
+				id="gameMenu"
+				ng-show="showMenu"
+			>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 centerBelow">
+								<span class="territoryName">
+									{{territory.name}}
+								</span>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<img 
+									src="/images/{{territory.nameUgly}}.png" 
+									class="img-responsive centerImg"
+								>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 col-md-offset-8">
+								<span 
+									id="" 
+									class="clickable"
+									ng-click="menuClose()"
+								>
+
+									Close Menu
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

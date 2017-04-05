@@ -33,6 +33,8 @@
 		};
 
 		$scope.submit = function(credentials) {
+console.log('credentials:');
+console.log(credentials);
 			$http.post(
 				'/login', credentials
 			).success(function(data, status, headers, config) {

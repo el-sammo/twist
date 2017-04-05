@@ -10,6 +10,171 @@ var _ = require('lodash');
 var serverError = 'An error occurred. Please try again later.';
 
 module.exports = {
+	createNewGame: function(req, res) {
+		var newGameData = req.body;
+		// 42 territories
+		newGameData.territories = [
+			{
+				name: 'alaska'
+			},
+			{
+				name: 'northwest_territory'
+			},
+			{
+				name: 'greenland'
+			},
+			{
+				name: 'alberta'
+			},
+			{
+				name: 'ontario'
+			},
+			{
+				name: 'quebec'
+			},
+			{
+				name: 'western_us'
+			},
+			{
+				name: 'eastern_us'
+			},
+			{
+				name: 'central_america'
+			},
+			{
+				name: 'venezuela'
+			},
+			{
+				name: 'peru'
+			},
+			{
+				name: 'brazil'
+			},
+			{
+				name: 'argentina'
+			},
+			{
+				name: 'iceland'
+			},
+			{
+				name: 'scandinavia'
+			},
+			{
+				name: 'russia'
+			},
+			{
+				name: 'great_britain'
+			},
+			{
+				name: 'northern_europe'
+			},
+			{
+				name: 'western_europe'
+			},
+			{
+				name: 'southern_europe'
+			},
+			{
+				name: 'north_africa'
+			},
+			{
+				name: 'egypt'
+			},
+			{
+				name: 'east_africa'
+			},
+			{
+				name: 'central_africa'
+			},
+			{
+				name: 'south_africa'
+			},
+			{
+				name: 'madagascar'
+			},
+			{
+				name: 'ural'
+			},
+			{
+				name: 'siberia'
+			},
+			{
+				name: 'yakutsk'
+			},
+			{
+				name: 'kamchatka'
+			},
+			{
+				name: 'irkutsk'
+			},
+			{
+				name: 'mongolia'
+			},
+			{
+				name: 'japan'
+			},
+			{
+				name: 'afghanistan'
+			},
+			{
+				name: 'china'
+			},
+			{
+				name: 'middle_east'
+			},
+			{
+				name: 'india'
+			},
+			{
+				name: 'southeast_asia'
+			},
+			{
+				name: 'indonesia'
+			},
+			{
+				name: 'guinea'
+			},
+			{
+				name: 'western_australia'
+			},
+			{
+				name: 'eastern_australia'
+			}
+		];
+		newGameData.started = false;
+		Games.create(newGameData).then(function(gameData) {
+			res.send(JSON.stringify(gameData));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+
+	addCPUPlayers: function(req, res) {
+		var cpuPlayers = [
+			'58e17f53a719ff42d05742d8',
+			'58e17f63a719ff42d05742d9',
+			'58e17f6ea719ff42d05742da',
+			'58e17f7da719ff42d05742db',
+			'58e17f89a719ff42d05742dc'
+		];
+		Games.find({id: req.params.id}).then(function(results) {
+			if(results[0].players && results[0].players.length < 5) {
+				var playersNeeded = 5 - results[0].players.length;
+				while(playersNeeded > 0) {
+					results[0].players.push({playerId: cpuPlayers[playersNeeded - 1]});
+					playersNeeded --;
+				}
+			}
+			res.send(JSON.stringify(results[0]));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	byTournamentId: function(req, res) {
 		Games.find({tournamentId: req.params.id}).sort({
 		}).limit(20).then(function(results) {

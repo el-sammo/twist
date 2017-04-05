@@ -102,6 +102,39 @@ input.error {
 	cursor: pointer;
 }
 
+.centerBelow {
+	text-align: center;
+}
+
+.centerImg {
+	display: block;
+	margin: auto;
+}
+
+.login {
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+}
+
+.whiteMessaging {
+	font-size: 12px;
+	font-weight: 500;
+	color: white;
+}
+
+.territoryName {
+	font-size: 16px;
+	font-weight: 600;
+	color: white;
+}
+
+.colorSelectionHead {
+	font-size: 16px;
+	font-weight: 600;
+	color: black;
+}
+
 #gameContainer {
 	width: 1280px;
 	height: 637px;
@@ -598,6 +631,18 @@ input.error {
 	height: 480px;
 	border: 2px solid grey;
 	border-radius: 12px;
+	background: rgba(54, 25, 25, .4);
+	position: absolute;
+	z-index: 99;
+}
+
+#colorsMenu {
+	top: 60px;
+	left: 320px;
+	width: 640px;
+	height: 320px;
+	border: 2px solid grey;
+	border-radius: 12px;
 	background-color: white;
 	position: absolute;
 	z-index: 99;
@@ -634,6 +679,36 @@ input.error {
 	background-color: white;
 	text-align: center;
 	position: relative;
+}
+
+.twistBlue {
+	font-size: 18px;
+	font-weight: 700;
+	color: #0000CC;
+}
+
+.twistGreen {
+	font-size: 18px;
+	font-weight: 700;
+	color: #00CC33;
+}
+
+.twistPurple {
+	font-size: 18px;
+	font-weight: 700;
+	color: #993399;
+}
+
+.twistRed {
+	font-size: 18px;
+	font-weight: 700;
+	color: #FF0000;
+}
+
+.twistYellow {
+	font-size: 18px;
+	font-weight: 700;
+	color: #FFFF00;
 }
 
 .whiteSquare {

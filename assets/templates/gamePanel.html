@@ -1,0 +1,69 @@
+			<div id="gamePanel">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<span 
+									class="whiteMessaging"
+									ng-show="showLogin"
+								>
+									Already Have an Account? 
+									<span 
+										class="login clickable topDepth" 
+										ng-click="logIn()"
+									>
+										Log In&nbsp;&nbsp;
+									</span> 
+									<br/>
+									Need an Account? 
+									<span 
+										class="login clickable topDepth" 
+										ng-click="signUp()"
+									>
+										Create Account&nbsp;&nbsp;
+									</span>
+								</span>
+								<span 
+									class="whiteMessaging"
+									ng-show="!showLogin"
+								>
+									<span 
+										class="login clickable topDepth" 
+										ng-click="logOut()"
+									>
+										Log Out&nbsp;&nbsp;
+									</span> 
+								</span>
+							<div>
+						</div>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div
+									id="gameCreate"
+									class="clickable"
+									ng-if="!gameExists || gameData.id.length < 16"
+									ng-click="createGame()"
+								>
+									<span id="newGame" class="">New Game</span>
+								</div>
+								<div 
+									id="gameStart"
+									class="clickable"
+									ng-if="gameExists && gameData.id.length > 15 && $scope.gameData.gameCreator === $scope.playerId"
+									ng-click="startGame(gameData)"
+								>
+									<span id="startGame" class="">Start Game</span>
+								</div>
+								<div 
+									id="gameJoin"
+									class="clickable"
+									ng-if="gameExists && gameData.id.length > 15 && $scope.gameData.gameCreator !== $scope.playerId"
+									ng-click="joinGame(gameData)"
+								>
+									<span id="joinGame" class="">Join Game</span>
+								</div>
+							<div>
+						</div>
+					</div>
+				</div>
+			</div>

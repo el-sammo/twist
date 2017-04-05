@@ -13,61 +13,10 @@
 				<!-- Australia -->
 				<ng-include src="'/templates/australia.html'"></ng-include>
 			</div>
-			<div 
-				id="gameMenu"
-				ng-show="showMenu"
-			>
-				<div 
-					id="menuClose"
-					class="clickable"
-				>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-8 col-md-offset-2">
-									<span class="territoryName">
-										{{territory.name}}
-									</span>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-10 col-md-offset-1">
-									<img 
-										src="/images/{{territory.name}}.png" 
-										class="img-responsive"
-									>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 col-md-offset-8">
-									<span 
-										id="" 
-										class=""
-										ng-click="menuClose()"
-									>
-
-										Close Menu
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="gamePanel">
-				<div 
-					id="gameCreate"
-					class="clickable"
-					ng-if="!gameExists || currentGameId.length < 16"
-				>
-					<span id="newGame" class="">New Game</span>
-				</div>
-				<div 
-					id="gameStart"
-					class="clickable"
-					ng-if="gameExists && currentGameId.length > 15"
-				>
-					<span id="startGame" class="">Start Game</span>
-				</div>
-			</div>
+			<!-- Game Menu -->
+			<ng-include src="'/templates/gameMenu.html'"></ng-include>
+			<!-- Colors Menu -->
+			<ng-include src="'/templates/colorsMenu.html'"></ng-include>
+			<!-- Game Panel -->
+			<ng-include src="'/templates/gamePanel.html'"></ng-include>
 		</div>

@@ -18,6 +18,7 @@
 	) {
 		var game;
 		var getGamePromise;
+		var createNewGamepromise;
 
 		var service = {
 			getGame: function(gameId) {
@@ -50,9 +51,60 @@
 				});
 			},
 
+			createNewGame: function(gameData) {
+				var url = '/games/createNewGame';
+				return $http.post(url, gameData).success(
+					function(data, status, headers, config) {
+						if(status >= 400) {
+							return $q.reject(data);
+						}
+						mergeIntoGame(data, true);
+						return game;
+					}
+				).catch(function(err) {
+					console.log('POST ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+			},
+
 			updateGame: function(gameData) {
 				var url = '/games/' + gameData.id;
 				return $http.put(url, gameData).success(
+					function(data, status, headers, config) {
+						if(status >= 400) {
+							return $q.reject(data);
+						}
+						mergeIntoGame(data, true);
+						return game;
+					}
+				).catch(function(err) {
+					console.log('PUT ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+			},
+
+			addPlayer: function(gameData) {
+				var url = '/games/' + gameData.id;
+				return $http.put(url, gameData).success(
+					function(data, status, headers, config) {
+						if(status >= 400) {
+							return $q.reject(data);
+						}
+						mergeIntoGame(data, true);
+						return game;
+					}
+				).catch(function(err) {
+					console.log('PUT ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+			},
+
+			addComputerPlayers: function(gameData) {
+				var url = '/games/addCPUPlayers/' + gameData.id;
+				return $http.get(url).success(
 					function(data, status, headers, config) {
 						if(status >= 400) {
 							return $q.reject(data);

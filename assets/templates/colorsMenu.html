@@ -1,0 +1,91 @@
+			<div 
+				id="colorsMenu"
+				ng-show="showPickColors"
+			>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2 centerBelow">
+								<span class="colorSelectionHead">
+									Color Selection
+								</span>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div 
+								class="col-md-2 col-md-offset-1 centerBelow clickable"
+								ng-click="selectColor('blue')"
+							>
+								<span class="twistBlue">
+									Blue
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow clickable"
+								ng-click="selectColor('green')"
+							>
+								<span class="twistGreen">
+									Green
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow clickable"
+								ng-click="selectColor('purple')"
+							>
+								<span class="twistPurple">
+									Purple
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow clickable"
+								ng-click="selectColor('red')"
+							>
+								<span class="twistRed">
+									Red
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow clickable"
+								ng-click="selectColor('yellow')"
+							>
+								<span class="twistYellow">
+									Yellow
+								</span>
+							</div>
+						</div>
+						<br/>
+						<hr>
+						<br/>
+						<div class="row">
+							<div 
+								class="col-md-1 centerBelow"
+							>
+								<span class="colorPlayerName">
+									&nbsp;
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow"
+								ng-repeat="player in players"
+							>
+								<span class="colorPlayerName">
+									{{player.fName}} {{player.lName}}
+								</span>
+							</div>
+						</div>
+						<br/>
+						<hr>
+						<br/>
+						<div class="row">
+							<div 
+								class="col-md-10 col-md-offset-1 centerBelow"
+							>
+								<span class="colorPlayerName">
+									{{currentColorPicker}} currently choosing...
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>

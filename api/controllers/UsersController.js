@@ -7,7 +7,7 @@
 
 var bcrypt = require('bcrypt');
 
-var loginError = 'Invalid username, email, or password.';
+var loginError = 'Invalid username (U), email, or password.';
 var serverError = 'An error occurred. Please try again later.';
 var nextUrl = '/#/';
 var loginUrl = '/login';
@@ -47,6 +47,7 @@ module.exports = {
 };
 
 function processLogin(req, res, self) {
+console.log('processLogin(U) called');
   Users.findOne({or: [
     {username: req.body.username},
     {email: req.body.username}
