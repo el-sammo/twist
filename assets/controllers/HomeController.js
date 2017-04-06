@@ -131,33 +131,6 @@ function controller(
 		$rootScope.$on('playerLoggedIn', onPlayerLoggedIn);
 	}
 
-	function initDate() {
-		var dateObj = new Date();
-		var year = dateObj.getFullYear();
-		var month = (dateObj.getMonth() + 1);
-		var date = dateObj.getDate();
-
-		if(month < 10) {
-			month = '0' + month;
-		}
-
-		if(date < 10) {
-			date = '0' + date;
-		}
-
-		todayDate = parseInt(year +''+ month +''+ date);
-
-
-		// debug code
-		todayDate = 20161201;
-	}
-
-	function initTournaments() {
-		tournamentMgmt.getTournamentsByDate(todayDate).then(
-			onGetTournaments
-		);
-	}
-
 	///
 	// Event handlers
 	///
@@ -325,10 +298,10 @@ console.log(updatedGameData);
 				gameOptions.assignType = 'random';
 			}
 
-			if($scope.award && $scope.award === 'same') {
-				gameOptions.awardType = 'same';
-			} else {
+			if($scope.award && $scope.award === 'increase') {
 				gameOptions.awardType = 'increase';
+			} else {
+				gameOptions.awardType = 'same';
 			}
 
 			gameMgmt.createNewGame(gameOptions).then(function(gameData) {
@@ -384,45 +357,129 @@ console.log(updatedColorGameData);
 	}
 
 	function pickColors(gameData) {
+		$scope.showPickColors = true;
 		var colorsGameData;
 		if(gameData.data) {
 			colorsGameData = gameData.data;
 		} else {
 			colorsGameData = gameData;
 		}
-console.log('pickColors() called with gameData:');
-console.log(colorsGameData);
-//		$scope.showPickColors = true;
-//		colorsGameData.playerOrder.forEach(function(pOPlayer) {
-//			colorsGameData.players.forEach(function(pPlayer) {
-//				if(pOPlayer.playerId === pPlayer.playerId) {
-//					if(!pPlayer.color || pPlayer.color.length < 1) {
-//						if(!pPlayer.colorOffered) {
-//							pPlayer.colorOffered = true;
-//console.log('colorsGameData 1:');
-//console.log(colorsGameData);
-//							gameMgmt.updateGame(colorsGameData).then(function(res) {
-//								$scope.currentColorPicker = pPlayer.fName + ' ' + pPlayer.lName;
-//								$timeout(function() {
-//									pickColors(colorsGameData);
-//								}, 15000);
-//							});
-//						} else {
-//							chooseRandomColor(colorsGameData).then(function(color) {
-//console.log('color:');
-//console.log(color);
-//								pPlayer.color = color;
-//console.log('colorsGameData 2:');
-//console.log(colorsGameData);
-//								gameMgmt.updateGame(colorsGameData).then(function(res) {
-//									pickColors(colorsGameData);
-//								});
-//							});
-//						}
-//					}
-//				}
-//			});
-//		});
+		pickFirstColor(colorsGameData, colorsGameData.playerOrder[0]);
+	}
+
+	function pickFirstColor(gameData, firstPlayer) {
+		$scope.firstColorPickGoing = true;
+		playerMgmt.getPlayer(firstPlayer.playerId).then(function(playerData) {
+			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
+			$timeout(function() {
+				if($scope.firstColorPickGoing) {
+					var chosenColor = chooseRandomColor(gameData);
+console.log('firstColorChosen: '+chosenColor);
+					gameData.players.forEach(function(gdPlayer) {
+						if(gdPlayer.playerId === firstPlayer.playerId) {
+							gdPlayer.color = chosenColor;
+						}
+					});
+console.log('gameData:');
+console.log(gameData);
+					gameMgmt.updateGame(gameData).then(function(res) {
+						pickSecondColor(gameData, gameData.playerOrder[1]);
+					});
+				}
+			}, 15000);
+		});
+	}
+
+	function pickSecondColor(gameData, secondPlayer) {
+		$scope.secondColorPickGoing = true;
+		playerMgmt.getPlayer(secondPlayer.playerId).then(function(playerData) {
+			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
+			$timeout(function() {
+				if($scope.secondColorPickGoing) {
+					var chosenColor = chooseRandomColor(gameData);
+console.log('secondColorChosen: '+chosenColor);
+					gameData.players.forEach(function(gdPlayer) {
+						if(gdPlayer.playerId === secondPlayer.playerId) {
+							gdPlayer.color = chosenColor;
+						}
+					});
+console.log('gameData:');
+console.log(gameData);
+					gameMgmt.updateGame(gameData).then(function(res) {
+						pickThirdColor(gameData, gameData.playerOrder[2]);
+					});
+				}
+			}, 15000);
+		});
+	}
+
+	function pickThirdColor(gameData, thirdPlayer) {
+		$scope.thirdColorPickGoing = true;
+		playerMgmt.getPlayer(thirdPlayer.playerId).then(function(playerData) {
+			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
+			$timeout(function() {
+				if($scope.thirdColorPickGoing) {
+					var chosenColor = chooseRandomColor(gameData);
+console.log('thirdColorChosen: '+chosenColor);
+					gameData.players.forEach(function(gdPlayer) {
+						if(gdPlayer.playerId === thirdPlayer.playerId) {
+							gdPlayer.color = chosenColor;
+						}
+					});
+console.log('gameData:');
+console.log(gameData);
+					gameMgmt.updateGame(gameData).then(function(res) {
+						pickFourthColor(gameData, gameData.playerOrder[3]);
+					});
+				}
+			}, 15000);
+		});
+	}
+
+	function pickFourthColor(gameData, fourthPlayer) {
+		$scope.fourthColorPickGoing = true;
+		playerMgmt.getPlayer(fourthPlayer.playerId).then(function(playerData) {
+			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
+			$timeout(function() {
+				if($scope.fourthColorPickGoing) {
+					var chosenColor = chooseRandomColor(gameData);
+console.log('fourthColorChosen: '+chosenColor);
+					gameData.players.forEach(function(gdPlayer) {
+						if(gdPlayer.playerId === fourthPlayer.playerId) {
+							gdPlayer.color = chosenColor;
+						}
+					});
+console.log('gameData:');
+console.log(gameData);
+					gameMgmt.updateGame(gameData).then(function(res) {
+						pickFifthColor(gameData, gameData.playerOrder[4]);
+					});
+				}
+			}, 15000);
+		});
+	}
+
+	function pickFifthColor(gameData, fifthPlayer) {
+		$scope.fifthColorPickGoing = true;
+		playerMgmt.getPlayer(fifthPlayer.playerId).then(function(playerData) {
+			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
+			$timeout(function() {
+				if($scope.fifthColorPickGoing) {
+					var chosenColor = chooseRandomColor(gameData);
+console.log('fifthColorChosen: '+chosenColor);
+					gameData.players.forEach(function(gdPlayer) {
+						if(gdPlayer.playerId === fifthPlayer.playerId) {
+							gdPlayer.color = chosenColor;
+						}
+					});
+console.log('gameData:');
+console.log(gameData);
+					gameMgmt.updateGame(gameData).then(function(res) {
+						return true;
+					});
+				}
+			}, 15000);
+		});
 	}
 
 	function chooseRandomColor(gameData) {
@@ -436,13 +493,15 @@ console.log(colorsGameData);
 		gameMgmt.getGame(gameData.id).then(function(thisGameData) {
 			thisGameData.players.forEach(function(player) {
 				if(player.color && player.color.length > 0) {
-					if(colors.indexof(player.color) > -1) {
-						colors.splice(colors.indexof(player.color, 1))
+					if(colors.indexOf(player.color) > -1) {
+						colors.splice(colors.indexOf(player.color, 1))
+console.log('colors (a):');
+console.log(colors);
 					}
 				}
 			});
 		});
-console.log('colors:');
+console.log('colors (b):');
 console.log(colors);
 		if(colors.length > 1) {
 			var rand = Math.random();
