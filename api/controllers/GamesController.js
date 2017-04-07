@@ -175,6 +175,32 @@ module.exports = {
 		});
 	},
 	
+	getRandomTerritories: function(req, res) {
+		Games.find({id: req.params.id}).then(function(results) {
+			var array = results[0].territories;
+			var currentIndex = array.length, temporaryValue, randomIndex;
+
+			// While there remain elements to shuffle...
+			while (0 !== currentIndex) {
+
+				// Pick a remaining element...
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+
+				// And swap it with the current element.
+				temporaryValue = array[currentIndex];
+				array[currentIndex] = array[randomIndex];
+				array[randomIndex] = temporaryValue;
+			}
+
+			res.send(JSON.stringify(array));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	byTournamentId: function(req, res) {
 		Games.find({tournamentId: req.params.id}).sort({
 		}).limit(20).then(function(results) {

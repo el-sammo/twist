@@ -325,7 +325,7 @@ console.log('firstColorChosen: '+chosenColor);
 						pickSecondColor(gameData, gameData.playerOrder[1]);
 					});
 				}
-			}, 3000);
+			}, 1000);
 		});
 	}
 
@@ -346,7 +346,7 @@ console.log('secondColorChosen: '+chosenColor);
 						pickThirdColor(gameData, gameData.playerOrder[2]);
 					});
 				}
-			}, 3000);
+			}, 1000);
 		});
 	}
 
@@ -367,7 +367,7 @@ console.log('thirdColorChosen: '+chosenColor);
 						pickFourthColor(gameData, gameData.playerOrder[3]);
 					});
 				}
-			}, 3000);
+			}, 1000);
 		});
 	}
 
@@ -388,7 +388,7 @@ console.log('fourthColorChosen: '+chosenColor);
 						pickFifthColor(gameData, gameData.playerOrder[4]);
 					});
 				}
-			}, 3000);
+			}, 1000);
 		});
 	}
 
@@ -407,16 +407,45 @@ console.log('fifthColorChosen: '+chosenColor);
 					});
 					gameMgmt.updateGame(gameData).then(function(res) {
 						// user-chosen territories
-						if(gameData.assignType === 'choose') {
-							pickTerritories(gameData);
+						if(res.data.assignType === 'choose') {
+							pickTerritories(res.data);
 						// randomly-chosen territories
 						} else {
-							assignTerritories(gameData);
+							gameMgmt.getRandomTerritories(res.data).then(function(territories) {
+								assignTerritories(res.data, territories.data);
+							});
 						}
 					});
 				}
-			}, 3000);
+			}, 1000);
 		});
+	}
+
+	function assignTerritories(gameData, territories) {
+		var gameTerritories = [];
+		var counter = 0;
+		territories.forEach(function(territory) {
+			if(counter > 4) {
+				counter = 0;
+			}
+			gameTerritories.push(
+				{
+					playerId: $scope.players[counter].playerId,
+					name: territory.name
+				}
+			)
+			counter ++;
+		});
+
+		gameData.territories = gameTerritories;
+
+		gameMgmt.updateGame(gameData).then(function(tGameData) {
+			assignTroops(tGameData.data);
+		})
+	}
+
+	function assignTroops(gameData) {
+		// use $scope.players for order, similar to color picking process
 	}
 
 	function chooseRandomColor(gameData) {
