@@ -16,40 +16,85 @@
 							<div 
 								class="col-md-2 col-md-offset-1 centerBelow clickable"
 								ng-click="selectColor('blue')"
+								ng-show="blueAvailable"
 							>
 								<span class="twistBlue">
 									Blue
 								</span>
 							</div>
 							<div 
+								class="col-md-2 col-md-offset-1 centerBelow"
+								ng-show="!blueAvailable"
+							>
+								<span class="twistBlueTaken">
+									Blue
+								</span>
+							</div>
+							<div 
 								class="col-md-2 centerBelow clickable"
 								ng-click="selectColor('green')"
+								ng-show="greenAvailable"
 							>
 								<span class="twistGreen">
 									Green
 								</span>
 							</div>
 							<div 
+								class="col-md-2 centerBelow"
+								ng-show="!greenAvailable"
+							>
+								<span class="twistGreenTaken">
+									Green
+								</span>
+							</div>
+							<div 
 								class="col-md-2 centerBelow clickable"
 								ng-click="selectColor('purple')"
+								ng-show="purpleAvailable"
 							>
 								<span class="twistPurple">
 									Purple
 								</span>
 							</div>
 							<div 
+								class="col-md-2 centerBelow"
+								ng-show="!purpleAvailable"
+							>
+								<span class="twistPurpleTaken">
+									Purple
+								</span>
+							</div>
+							<div 
 								class="col-md-2 centerBelow clickable"
 								ng-click="selectColor('red')"
+								ng-show="redAvailable"
 							>
 								<span class="twistRed">
 									Red
 								</span>
 							</div>
 							<div 
+								class="col-md-2 centerBelow"
+								ng-show="!redAvailable"
+							>
+								<span class="twistRedTaken">
+									Red
+								</span>
+							</div>
+							<div 
 								class="col-md-2 centerBelow clickable"
 								ng-click="selectColor('yellow')"
+								ng-show="yellowAvailable"
 							>
 								<span class="twistYellow">
+									Yellow
+								</span>
+							</div>
+							<div 
+								class="col-md-2 centerBelow"
+								ng-show="!yellowAvailable"
+							>
+								<span class="twistYellowTaken">
 									Yellow
 								</span>
 							</div>
@@ -66,7 +111,7 @@
 								</span>
 							</div>
 							<div 
-								class="col-md-2 centerBelow"
+								class="col-md-2 centerBelow {{player.color}}"
 								ng-repeat="player in players"
 							>
 								<span class="colorPlayerName">

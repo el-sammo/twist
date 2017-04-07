@@ -62,6 +62,11 @@ function controller(
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
 		$scope.showPickColors = false;
+		$scope.blueAvailable = true;
+		$scope.greenAvailable = true;
+		$scope.purpleAvailable = true;
+		$scope.redAvailable = true;
+		$scope.yellowAvailable = true;
 
 		playerMgmt.getSession().then(function(sessionData) {
 			if(sessionData.playerId) {
@@ -315,7 +320,7 @@ console.log('addComputerPlayers() called');
 			$timeout(function() {
 				if($scope.firstColorPickGoing) {
 					var chosenColor = chooseRandomColor(gameData);
-console.log('firstColorChosen: '+chosenColor);
+					$scope.players[0].color = chosenColor;
 					gameData.players.forEach(function(gdPlayer) {
 						if(gdPlayer.playerId === firstPlayer.playerId) {
 							gdPlayer.color = chosenColor;
@@ -325,7 +330,7 @@ console.log('firstColorChosen: '+chosenColor);
 						pickSecondColor(gameData, gameData.playerOrder[1]);
 					});
 				}
-			}, 1000);
+			}, 5000);
 		});
 	}
 
@@ -336,7 +341,7 @@ console.log('firstColorChosen: '+chosenColor);
 			$timeout(function() {
 				if($scope.secondColorPickGoing) {
 					var chosenColor = chooseRandomColor(gameData);
-console.log('secondColorChosen: '+chosenColor);
+					$scope.players[1].color = chosenColor;
 					gameData.players.forEach(function(gdPlayer) {
 						if(gdPlayer.playerId === secondPlayer.playerId) {
 							gdPlayer.color = chosenColor;
@@ -346,7 +351,7 @@ console.log('secondColorChosen: '+chosenColor);
 						pickThirdColor(gameData, gameData.playerOrder[2]);
 					});
 				}
-			}, 1000);
+			}, 5000);
 		});
 	}
 
@@ -357,7 +362,7 @@ console.log('secondColorChosen: '+chosenColor);
 			$timeout(function() {
 				if($scope.thirdColorPickGoing) {
 					var chosenColor = chooseRandomColor(gameData);
-console.log('thirdColorChosen: '+chosenColor);
+					$scope.players[2].color = chosenColor;
 					gameData.players.forEach(function(gdPlayer) {
 						if(gdPlayer.playerId === thirdPlayer.playerId) {
 							gdPlayer.color = chosenColor;
@@ -367,7 +372,7 @@ console.log('thirdColorChosen: '+chosenColor);
 						pickFourthColor(gameData, gameData.playerOrder[3]);
 					});
 				}
-			}, 1000);
+			}, 5000);
 		});
 	}
 
@@ -378,7 +383,7 @@ console.log('thirdColorChosen: '+chosenColor);
 			$timeout(function() {
 				if($scope.fourthColorPickGoing) {
 					var chosenColor = chooseRandomColor(gameData);
-console.log('fourthColorChosen: '+chosenColor);
+					$scope.players[3].color = chosenColor;
 					gameData.players.forEach(function(gdPlayer) {
 						if(gdPlayer.playerId === fourthPlayer.playerId) {
 							gdPlayer.color = chosenColor;
@@ -388,7 +393,7 @@ console.log('fourthColorChosen: '+chosenColor);
 						pickFifthColor(gameData, gameData.playerOrder[4]);
 					});
 				}
-			}, 1000);
+			}, 5000);
 		});
 	}
 
@@ -399,13 +404,14 @@ console.log('fourthColorChosen: '+chosenColor);
 			$timeout(function() {
 				if($scope.fifthColorPickGoing) {
 					var chosenColor = chooseRandomColor(gameData);
-console.log('fifthColorChosen: '+chosenColor);
+					$scope.players[4].color = chosenColor;
 					gameData.players.forEach(function(gdPlayer) {
 						if(gdPlayer.playerId === fifthPlayer.playerId) {
 							gdPlayer.color = chosenColor;
 						}
 					});
 					gameMgmt.updateGame(gameData).then(function(res) {
+						$scope.showPickColors = false;
 						// user-chosen territories
 						if(res.data.assignType === 'choose') {
 							pickTerritories(res.data);
@@ -417,7 +423,7 @@ console.log('fifthColorChosen: '+chosenColor);
 						}
 					});
 				}
-			}, 1000);
+			}, 5000);
 		});
 	}
 
@@ -458,6 +464,24 @@ console.log('fifthColorChosen: '+chosenColor);
 			$scope.allColors.splice(rand, 1);
 		} else {
 			thisRandomColor = $scope.allColors[0];
+		}
+		switch(thisRandomColor) {
+			case 'blue':
+				$scope.blueAvailable = false;
+				break;
+			case 'green':
+				$scope.greenAvailable = false;
+				break;
+			case 'purple':
+				$scope.purpleAvailable = false;
+				break;
+			case 'red':
+				$scope.redAvailable = false;
+				break;
+			case 'yellow':
+				$scope.yellowAvailable = false;
+				break;
+			default:
 		}
 		return thisRandomColor;
 	}

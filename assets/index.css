@@ -686,6 +686,36 @@ input.error {
 	position: relative;
 }
 
+.blue {
+	border: 1px solid black;
+	border-radius: 12px;
+	background-color: #0000CC;
+}
+
+.green {
+	border: 1px solid black;
+	border-radius: 12px;
+	background-color: #00CC33;
+}
+
+.purple {
+	border: 1px solid black;
+	border-radius: 12px;
+	background-color: #993399;
+}
+
+.red {
+	border: 1px solid black;
+	border-radius: 12px;
+	background-color: #FF0000;
+}
+
+.yellow {
+	border: 1px solid black;
+	border-radius: 12px;
+	background-color: #FFFF00;
+}
+
 .twistBlue {
 	font-size: 18px;
 	font-weight: 700;
@@ -714,6 +744,36 @@ input.error {
 	font-size: 18px;
 	font-weight: 700;
 	color: #FFFF00;
+}
+
+.twistBlueTaken {
+	font-size: 18px;
+	font-weight: 700;
+	color: grey;
+}
+
+.twistGreenTaken {
+	font-size: 18px;
+	font-weight: 700;
+	color: grey;
+}
+
+.twistPurpleTaken {
+	font-size: 18px;
+	font-weight: 700;
+	color: grey;
+}
+
+.twistRedTaken {
+	font-size: 18px;
+	font-weight: 700;
+	color: grey;
+}
+
+.twistYellowTaken {
+	font-size: 18px;
+	font-weight: 700;
+	color: grey;
 }
 
 .whiteSquare {
