@@ -62,16 +62,20 @@ function controller(
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
 		$scope.showPickColors = false;
+
 		$scope.blueAvailable = true;
 		$scope.greenAvailable = true;
 		$scope.purpleAvailable = true;
 		$scope.redAvailable = true;
 		$scope.yellowAvailable = true;
 
+		$scope.currentColorSelector = '';
+		$scope.currentTerritorySelector = '';
+
 		playerMgmt.getSession().then(function(sessionData) {
 			if(sessionData.playerId) {
-				$rootScope.playerId = sessionData.playerId;
-				$scope.playerId = $rootScope.playerId;
+//				$rootScope.playerId = sessionData.playerId;
+				$scope.playerId = sessionData.playerId;
 				$scope.showLogin = false;
 				$scope.showLogout = true;
 				$scope.showSignup = false;
@@ -97,31 +101,12 @@ function controller(
 			$scope.currentGameId = '';
 		}
 
-		$scope.alaska = {};
-		$scope.alaska.color = 'blue';
-		$scope.alaska.units = 23;
-
-		$scope.northwest_territory = {};
-		$scope.northwest_territory.color = 'green';
-		$scope.northwest_territory.units = 16;
-
-		$scope.greenland = {};
-		$scope.greenland.color = 'purple';
-		$scope.greenland.units = 109;
-
-		$scope.alberta = {};
-		$scope.alberta.color = 'red';
-		$scope.alberta.units = 1;
-
-		$scope.ontario = {};
-		$scope.ontario.color = 'yellow';
-		$scope.ontario.units = 55;
-
-		$scope.territoryClaim = territoryClaim;
-		$scope.territoryMenu = territoryMenu;
 		$scope.menuClose = menuClose;
 		$scope.createGame = createGame;
 		$scope.startGame = startGame;
+		$scope.selectColor = selectColor;
+		$scope.territoryClaim = territoryClaim;
+		$scope.territoryMenu = territoryMenu;
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -178,6 +163,97 @@ function controller(
 	///
 	// View methods
 	///
+
+	function selectColor(color) {
+		if($scope.playerId === $scope.currentColorSelector) {
+			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
+				var counter = 0;
+				$scope.players.forEach(function(player) {
+					if(player.playerId === $scope.playerId) {
+						switch(counter) {
+							case 0:
+								$scope.players[0].color = color;
+								gameData.players.forEach(function(gdPlayer) {
+									if(gdPlayer.playerId === $scope.playerId) {
+										gdPlayer.color = color;
+									}
+								});
+								$scope.firstColorPickGoing = false;
+								gameMgmt.updateGame(gameData).then(function(res) {
+									shadeColor(color);
+									pickSecondColor(gameData, gameData.playerOrder[1]);
+								});
+								break;
+							case 1:
+								$scope.players[1].color = color;
+								gameData.players.forEach(function(gdPlayer) {
+									if(gdPlayer.playerId === $scope.playerId) {
+										gdPlayer.color = color;
+									}
+								});
+								$scope.secondColorPickGoing = false;
+								gameMgmt.updateGame(gameData).then(function(res) {
+									shadeColor(color);
+									pickThirdColor(gameData, gameData.playerOrder[2]);
+								});
+								break;
+							case 2:
+								$scope.players[2].color = color;
+								gameData.players.forEach(function(gdPlayer) {
+									if(gdPlayer.playerId === $scope.playerId) {
+										gdPlayer.color = color;
+									}
+								});
+								$scope.thirdColorPickGoing = false;
+								gameMgmt.updateGame(gameData).then(function(res) {
+									shadeColor(color);
+									pickFourthColor(gameData, gameData.playerOrder[3]);
+								});
+								break;
+							case 3:
+								$scope.players[3].color = color;
+								gameData.players.forEach(function(gdPlayer) {
+									if(gdPlayer.playerId === $scope.playerId) {
+										gdPlayer.color = color;
+									}
+								});
+								$scope.fourthColorPickGoing = false;
+								gameMgmt.updateGame(gameData).then(function(res) {
+									shadeColor(color);
+									pickFifthColor(gameData, gameData.playerOrder[4]);
+								});
+								break;
+							case 4:
+								$scope.players[4].color = color;
+								gameData.players.forEach(function(gdPlayer) {
+									if(gdPlayer.playerId === $scope.playerId) {
+										gdPlayer.color = color;
+									}
+								});
+								$scope.fifthColorPickGoing = false;
+								$scope.showPickColors = false;
+								gameMgmt.updateGame(gameData).then(function(res) {
+									shadeColor(color);
+									// user-chosen territories
+									if(res.data.assignType === 'choose') {
+										pickTerritories(res.data);
+									// randomly-chosen territories
+									} else {
+										gameMgmt.getRandomTerritories(res.data).then(function(territories) {
+											assignTerritories(res.data, territories.data);
+										});
+									}
+								});
+								break;
+							default:
+console.log('color selector error');
+						}
+					}
+					counter ++;
+				});
+			});
+		}
+	}
 
 	function territoryClaim(obj) {
 		var territory = obj.currentTarget.parentNode.id;
@@ -315,6 +391,7 @@ console.log('addComputerPlayers() called');
 
 	function pickFirstColor(gameData, firstPlayer) {
 		$scope.firstColorPickGoing = true;
+		$scope.currentColorSelector = firstPlayer.playerId;
 		playerMgmt.getPlayer(firstPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -326,16 +403,18 @@ console.log('addComputerPlayers() called');
 							gdPlayer.color = chosenColor;
 						}
 					});
+					$scope.firstColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
 						pickSecondColor(gameData, gameData.playerOrder[1]);
 					});
 				}
-			}, 5000);
+			}, 20000);
 		});
 	}
 
 	function pickSecondColor(gameData, secondPlayer) {
 		$scope.secondColorPickGoing = true;
+		$scope.currentColorSelector = secondPlayer.playerId;
 		playerMgmt.getPlayer(secondPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -347,16 +426,18 @@ console.log('addComputerPlayers() called');
 							gdPlayer.color = chosenColor;
 						}
 					});
+					$scope.secondColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
 						pickThirdColor(gameData, gameData.playerOrder[2]);
 					});
 				}
-			}, 5000);
+			}, 20000);
 		});
 	}
 
 	function pickThirdColor(gameData, thirdPlayer) {
 		$scope.thirdColorPickGoing = true;
+		$scope.currentColorSelector = thirdPlayer.playerId;
 		playerMgmt.getPlayer(thirdPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -368,16 +449,18 @@ console.log('addComputerPlayers() called');
 							gdPlayer.color = chosenColor;
 						}
 					});
+					$scope.thirdColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
 						pickFourthColor(gameData, gameData.playerOrder[3]);
 					});
 				}
-			}, 5000);
+			}, 20000);
 		});
 	}
 
 	function pickFourthColor(gameData, fourthPlayer) {
 		$scope.fourthColorPickGoing = true;
+		$scope.currentColorSelector = fourthPlayer.playerId;
 		playerMgmt.getPlayer(fourthPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -389,16 +472,18 @@ console.log('addComputerPlayers() called');
 							gdPlayer.color = chosenColor;
 						}
 					});
+					$scope.fourthColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
 						pickFifthColor(gameData, gameData.playerOrder[4]);
 					});
 				}
-			}, 5000);
+			}, 20000);
 		});
 	}
 
 	function pickFifthColor(gameData, fifthPlayer) {
 		$scope.fifthColorPickGoing = true;
+		$scope.currentColorSelector = fifthPlayer.playerId;
 		playerMgmt.getPlayer(fifthPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -410,6 +495,7 @@ console.log('addComputerPlayers() called');
 							gdPlayer.color = chosenColor;
 						}
 					});
+					$scope.fifthColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
 						$scope.showPickColors = false;
 						// user-chosen territories
@@ -423,7 +509,7 @@ console.log('addComputerPlayers() called');
 						}
 					});
 				}
-			}, 5000);
+			}, 20000);
 		});
 	}
 
@@ -465,7 +551,12 @@ console.log('addComputerPlayers() called');
 		} else {
 			thisRandomColor = $scope.allColors[0];
 		}
-		switch(thisRandomColor) {
+		shadeColor(thisRandomColor);
+		return thisRandomColor;
+	}
+
+	function shadeColor(color) {
+		switch(color) {
 			case 'blue':
 				$scope.blueAvailable = false;
 				break;
@@ -483,7 +574,6 @@ console.log('addComputerPlayers() called');
 				break;
 			default:
 		}
-		return thisRandomColor;
 	}
 
 	function getOrder(gameData) {
