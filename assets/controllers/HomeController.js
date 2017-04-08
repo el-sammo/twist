@@ -95,6 +95,7 @@ function controller(
 			$scope.currentGameId = $routeParams.id;
 			gameMgmt.getGame($routeParams.id).then(function(gameData) {
 				$scope.gameData = gameData;
+				colorTerritories(gameData.territories);
 			});
 		} else {
 			$scope.gameExists = false;
@@ -166,6 +167,15 @@ function controller(
 
 	function selectColor(color) {
 		if($scope.playerId === $scope.currentColorSelector) {
+			var counter = 0;
+			var splicePoint;
+			$scope.allColors.forEach(function(allColorsColor) {
+				if(color === allColorsColor) {
+					splicePoint = counter
+				}
+				counter ++;
+			});
+			$scope.allColors.splice(splicePoint, 1);
 			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
 				var counter = 0;
 				$scope.players.forEach(function(player) {
@@ -239,9 +249,11 @@ function controller(
 										pickTerritories(res.data);
 									// randomly-chosen territories
 									} else {
-										gameMgmt.getRandomTerritories(res.data).then(function(territories) {
-											assignTerritories(res.data, territories.data);
-										});
+										if($scope.playerId === gameData.gameCreator) {
+											gameMgmt.getRandomTerritories(res.data).then(function(territories) {
+												assignTerritories(res.data, territories.data);
+											});
+										}
 									}
 								});
 								break;
@@ -343,27 +355,27 @@ console.log(updatedGameData);
 	}
 
 	function startGame(gameData) {
-console.log('startGame() called');
-		gameMgmt.getGame(gameData.id).then(function(thisGameData) {
-			if(thisGameData.players.length < 5) {
-				addComputerPlayers(thisGameData);
-			} else {
-				var order = getOrder(thisGameData);
-				order.forEach(function(playerObj) {
-					playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
-						playerObj.fName = playerData.fName;
-						playerObj.lName = playerData.lName;
-						playerObj.active = true;
+		if($scope.playerId === gameData.gameCreator) {
+			gameMgmt.getGame(gameData.id).then(function(thisGameData) {
+				if(thisGameData.players.length < 5) {
+					addComputerPlayers(thisGameData);
+				} else {
+					var order = getOrder(thisGameData);
+					order.forEach(function(playerObj) {
+						playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
+							playerObj.fName = playerData.fName;
+							playerObj.lName = playerData.lName;
+							playerObj.active = true;
+						});
 					});
-				});
-				$scope.players = order;
-				pickColors(thisGameData);
-			}
-		});
+					$scope.players = order;
+					pickColors(thisGameData);
+				}
+			});
+		}
 	}
 
 	function addComputerPlayers(gameData) {
-console.log('addComputerPlayers() called');
 		gameMgmt.addComputerPlayers(gameData).then(function(cpuGameData) {
 			var order = getOrder(cpuGameData.data);
 			order.forEach(function(playerObj) {
@@ -514,26 +526,166 @@ console.log('addComputerPlayers() called');
 	}
 
 	function assignTerritories(gameData, territories) {
-		var gameTerritories = [];
-		var counter = 0;
-		territories.forEach(function(territory) {
-			if(counter > 4) {
-				counter = 0;
-			}
-			gameTerritories.push(
-				{
-					playerId: $scope.players[counter].playerId,
-					name: territory.name
+		if($scope.playerId === gameData.gameCreator) {
+			var gameTerritories = [];
+			var counter = 0;
+			territories.forEach(function(territory) {
+				if(counter > 4) {
+					counter = 0;
 				}
-			)
-			counter ++;
+				gameTerritories.push(
+					{
+						playerId: $scope.players[counter].playerId,
+						color: $scope.players[counter].color,
+						units: 1,
+						name: territory.name
+					}
+				)
+				counter ++;
+			});
+
+			colorTerritories(gameTerritories);
+
+			gameData.territories = gameTerritories;
+
+			gameMgmt.updateGame(gameData).then(function(tGameData) {
+				assignTroops(tGameData.data);
+			})
+		}
+	}
+
+	function colorTerritories(territories) {
+		territories.forEach(function(territory) {
+			switch(territory.name) {
+				case 'alaska':
+					$scope.alaska = territory;
+					break;
+				case 'northwest_territory':
+					$scope.northwest_territory = territory;
+					break;
+				case 'greenland':
+					$scope.greenland = territory;
+					break;
+				case 'alberta':
+					$scope.alberta = territory;
+					break;
+				case 'ontario':
+					$scope.ontario = territory;
+					break;
+				case 'quebec':
+					$scope.quebec = territory;
+					break;
+				case 'western_us':
+					$scope.western_us = territory;
+					break;
+				case 'eastern_us':
+					$scope.eastern_us = territory;
+					break;
+				case 'central_america':
+					$scope.central_america = territory;
+					break;
+				case 'venezuela':
+					$scope.venezuela = territory;
+					break;
+				case 'peru':
+					$scope.peru = territory;
+					break;
+				case 'brazil':
+					$scope.brazil = territory;
+					break;
+				case 'argentina':
+					$scope.argentina = territory;
+					break;
+				case 'iceland':
+					$scope.iceland = territory;
+					break;
+				case 'scandinavia':
+					$scope.scandinavia = territory;
+					break;
+				case 'russia':
+					$scope.russia = territory;
+					break;
+				case 'great_britain':
+					$scope.great_britain = territory;
+					break;
+				case 'northern_europe':
+					$scope.northern_europe = territory;
+					break;
+				case 'western_europe':
+					$scope.western_europe = territory;
+					break;
+				case 'southern_europe':
+					$scope.southern_europe = territory;
+					break;
+				case 'north_africa':
+					$scope.north_africa = territory;
+					break;
+				case 'egypt':
+					$scope.egypt = territory;
+					break;
+				case 'east_africa':
+					$scope.east_africa = territory;
+					break;
+				case 'central_africa':
+					$scope.central_africa = territory;
+					break;
+				case 'south_africa':
+					$scope.south_africa = territory;
+					break;
+				case 'madagascar':
+					$scope.madagascar = territory;
+					break;
+				case 'ural':
+					$scope.ural = territory;
+					break;
+				case 'siberia':
+					$scope.siberia = territory;
+					break;
+				case 'yakutsk':
+					$scope.yakutsk = territory;
+					break;
+				case 'kamchatka':
+					$scope.kamchatka = territory;
+					break;
+				case 'irkutsk':
+					$scope.irkutsk = territory;
+					break;
+				case 'mongolia':
+					$scope.mongolia = territory;
+					break;
+				case 'japan':
+					$scope.japan = territory;
+					break;
+				case 'afghanistan':
+					$scope.afghanistan = territory;
+					break;
+				case 'china':
+					$scope.china = territory;
+					break;
+				case 'middle_east':
+					$scope.middle_east = territory;
+					break;
+				case 'india':
+					$scope.india = territory;
+					break;
+				case 'southeast_asia':
+					$scope.southeast_asia = territory;
+					break;
+				case 'indonesia':
+					$scope.indonesia = territory;
+					break;
+				case 'guinea':
+					$scope.guinea = territory;
+					break;
+				case 'western_australia':
+					$scope.western_australia = territory;
+					break;
+				case 'eastern_australia':
+					$scope.eastern_australia = territory;
+					break;
+			}
 		});
 
-		gameData.territories = gameTerritories;
-
-		gameMgmt.updateGame(gameData).then(function(tGameData) {
-			assignTroops(tGameData.data);
-		})
 	}
 
 	function assignTroops(gameData) {
