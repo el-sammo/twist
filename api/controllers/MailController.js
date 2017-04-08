@@ -58,7 +58,7 @@ console.log('sendConfirmationToCustomer() called');
 	
 			return promise.then(function(customer) {
 				var customer = customer[0];
-				return sendMail(customer.email, 'Thanks for Joining Fantasy Horse Daily!', 'signup', customer).then(function(sendMailResponse) {
+				return sendMail(customer.email, 'Thanks for Joining Risk with a Twist!', 'signup', customer).then(function(sendMailResponse) {
 console.log(' ');
 console.log('sendMailResponse:');
 console.log(sendMailResponse);
@@ -159,14 +159,14 @@ console.log('sendMail() called');
 
 	if(template === 'signup') {
 		mailOptions = {
-			from: 'Fantasy Horse Daily <info@fantasyhorsedaily.com>',
+			from: 'Risk with a Twist <info@riskwithatwist.com>',
 			to: email,
 			subject: subject,
 			text: (
-				'Thanks for joining Fantasy Horse Daily, '+data.fName+'.  We\'re glad you found us!'
+				'Thanks for joining Risk with A Twist, '+data.fName+'.  We\'re glad you found us!'
 			),
 			html: (
-				'Thanks for joining <b>Fantasy Horse Daily</b>, '+data.fName+'.  We\'re glad you ' +
+				'Thanks for joining <b>Risk with a Twist</b>, '+data.fName+'.  We\'re glad you ' +
 				'found us!'
 			),
 		};

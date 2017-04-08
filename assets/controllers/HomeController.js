@@ -58,6 +58,7 @@ function controller(
 	function init() {
 
 		$scope.showMenu = false;
+		$scope.waiting = false;
 		$scope.gameFull = false;
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
@@ -80,6 +81,23 @@ function controller(
 				$scope.showLogout = true;
 				$scope.showSignup = false;
 
+				if($routeParams.id) {
+					$scope.gameExists = true;
+					$scope.currentGameId = $routeParams.id;
+					gameMgmt.getGame($routeParams.id).then(function(gameData) {
+						$scope.gameData = gameData;
+						gameData.players.forEach(function(player) {
+							if(player.playerId === $scope.playerId) {
+								$scope.waiting = true;
+							}
+						});
+						colorTerritories(gameData.territories);
+					});
+				} else {
+					$scope.gameExists = false;
+					$scope.currentGameId = '';
+				}
+
 				playerMgmt.getPlayer($scope.playerId).then(function(player) {
 					$scope.player = player;
 				});
@@ -90,21 +108,10 @@ function controller(
 			}
 		});
 
-		if($routeParams.id) {
-			$scope.gameExists = true;
-			$scope.currentGameId = $routeParams.id;
-			gameMgmt.getGame($routeParams.id).then(function(gameData) {
-				$scope.gameData = gameData;
-				colorTerritories(gameData.territories);
-			});
-		} else {
-			$scope.gameExists = false;
-			$scope.currentGameId = '';
-		}
-
 		$scope.menuClose = menuClose;
 		$scope.createGame = createGame;
 		$scope.startGame = startGame;
+		$scope.joinGame = joinGame;
 		$scope.selectColor = selectColor;
 		$scope.territoryClaim = territoryClaim;
 		$scope.territoryMenu = territoryMenu;
@@ -304,6 +311,8 @@ console.log('color: '+color);
 	}
 
 	function joinGame(gameData) {
+console.log('joinGame() called with playerId: '+$scope.playerId+', and gameData:');
+console.log(gameData);
 		if(!$scope.playerId) {
 			layoutMgmt.logIn();
 		} else {
@@ -322,7 +331,7 @@ console.log(updatedGameData);
 			} else {
 				gameData.players = [{playerId: $scope.playerId}];
 				gameMgmt.addPlayer(gameData).then(function(updatedGameData) {
-					$window.location.href = location.origin + "/app/" + updatedGameData.data.id;
+					$scope.waiting = true;
 				});
 			}
 		}

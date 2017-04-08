@@ -49,7 +49,7 @@
 								<div 
 									id="gameStart"
 									class="clickable"
-									ng-if="gameExists && gameData.id.length > 15 && $scope.gameData.gameCreator === $scope.playerId"
+									ng-if="gameExists && (gameData.id.length > 15) && (gameData.gameCreator === playerId)"
 									ng-click="startGame(gameData)"
 								>
 									<span id="startGame" class="">Start Game</span>
@@ -57,10 +57,16 @@
 								<div 
 									id="gameJoin"
 									class="clickable"
-									ng-if="gameExists && gameData.id.length > 15 && $scope.gameData.gameCreator !== $scope.playerId"
+									ng-if="!waiting && gameExists && (gameData.id.length > 15) && (gameData.gameCreator !== playerId)"
 									ng-click="joinGame(gameData)"
 								>
 									<span id="joinGame" class="">Join Game</span>
+								</div>
+								<div 
+									id="waiting"
+									ng-if="waiting && (gameData.gameCreator !== playerId)"
+								>
+									<span id="joinGame" class="">Waiting...</span>
 								</div>
 							<div>
 						</div>

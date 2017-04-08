@@ -686,6 +686,30 @@ input.error {
 	position: relative;
 }
 
+#gameJoin {
+	width: 120px;
+	height: 24px;
+	top: 10px;
+	left: 10px;
+	border: 1px solid green;
+	border-radius: 12px;
+	background-color: white;
+	text-align: center;
+	position: relative;
+}
+
+#waiting {
+	width: 120px;
+	height: 24px;
+	top: 10px;
+	left: 10px;
+	border: 1px solid green;
+	border-radius: 12px;
+	background-color: white;
+	text-align: center;
+	position: relative;
+}
+
 .blue {
 	border: 1px solid black;
 	border-radius: 12px;
