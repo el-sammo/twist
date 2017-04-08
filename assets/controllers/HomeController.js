@@ -62,7 +62,8 @@ function controller(
 		$scope.gameFull = false;
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
-		$scope.showPickColors = false;
+		
+		hidePickColors();
 
 		$scope.blueAvailable = true;
 		$scope.greenAvailable = true;
@@ -134,6 +135,7 @@ function controller(
 		$scope.debugLog = debugLog;
 
 		$rootScope.$on('playerLoggedIn', onPlayerLoggedIn);
+		$rootScope.$on('showPickColors', showPickColors);
 	}
 
 	///
@@ -248,7 +250,7 @@ function controller(
 									}
 								});
 								$scope.fifthColorPickGoing = false;
-								$scope.showPickColors = false;
+								hidePickColors();
 								gameMgmt.updateGame(gameData).then(function(res) {
 									shadeColor(color);
 									// user-chosen territories
@@ -310,31 +312,29 @@ console.log('color: '+color);
 		$scope.showMenu = false;
 	}
 
-	function joinGame(gameData) {
-console.log('joinGame() called with playerId: '+$scope.playerId+', and gameData:');
-console.log(gameData);
-		if(!$scope.playerId) {
-			layoutMgmt.logIn();
-		} else {
-			if(gameData.players) {
-				if(gameData.players.length < 5) {
-					gameData.players.push({playerId: $scope.playerId})
-console.log('additional player');
+	function joinGame(passedGameData) {
+		gameMgmt.getGame(passedGameData.id).then(function(gameData) {
+			if(!$scope.playerId) {
+				layoutMgmt.logIn();
+			} else {
+				if(gameData.players) {
+					if(gameData.players.length < 5) {
+						gameData.players.push({playerId: $scope.playerId})
+						gameMgmt.updateGame(gameData).then(function(updatedGameData) {
+							$window.location.href = location.origin + "/app/" + updatedGameData.data.id;
+							$scope.waiting = true;
+						});
+					} else {
+						$scope.gameFull = true;
+					}
+				} else {
+					gameData.players = [{playerId: $scope.playerId}];
 					gameMgmt.addPlayer(gameData).then(function(updatedGameData) {
-console.log('updatedGameData:');
-console.log(updatedGameData);
 						$window.location.href = location.origin + "/app/" + updatedGameData.data.id;
 					});
-				} else {
-					$scope.gameFull = true;
 				}
-			} else {
-				gameData.players = [{playerId: $scope.playerId}];
-				gameMgmt.addPlayer(gameData).then(function(updatedGameData) {
-					$scope.waiting = true;
-				});
 			}
-		}
+		});
 	}
 
 	function createGame() {
@@ -358,6 +358,9 @@ console.log(updatedGameData);
 			}
 
 			gameMgmt.createNewGame(gameOptions).then(function(gameData) {
+console.log('here:');
+console.log(gameData.data);
+				gameData.players = [];
 				joinGame(gameData.data);
 			});
 		}
@@ -399,8 +402,16 @@ console.log(updatedGameData);
 		});
 	}
 
-	function pickColors(gameData) {
+	function showPickColors() {
 		$scope.showPickColors = true;
+	}
+
+	function hidePickColors() {
+		$scope.showPickColors = false;
+	}
+
+	function pickColors(gameData) {
+		$rootScope.$broadcast('showPickColors', gameData.id);
 		var colorsGameData;
 		if(gameData.data) {
 			colorsGameData = gameData.data;
@@ -518,7 +529,7 @@ console.log(updatedGameData);
 					});
 					$scope.fifthColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
-						$scope.showPickColors = false;
+						hidePickColors();
 						// user-chosen territories
 						if(res.data.assignType === 'choose') {
 							pickTerritories(res.data);

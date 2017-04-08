@@ -41,7 +41,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
@@ -58,7 +57,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
@@ -75,7 +73,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
@@ -92,7 +89,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
@@ -109,7 +105,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
@@ -126,7 +121,6 @@
 						if(status >= 400) {
 							return $q.reject(data);
 						}
-						mergeIntoGame(data, true);
 						return game;
 					}
 				).catch(function(err) {
