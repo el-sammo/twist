@@ -698,6 +698,14 @@ input.error {
 	position: relative;
 }
 
+#gameLobby {
+	top: 12px;
+	border: 1px solid green;
+	border-radius: 12px;
+	background-color: white;
+	position: relative;
+}
+
 #waiting {
 	width: 120px;
 	height: 24px;

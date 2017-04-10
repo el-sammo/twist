@@ -1,0 +1,92 @@
+						<div class="row">
+							<div 
+								id="gameLobby"
+								class="col-md-12"
+							>
+								<div 
+									class="row"
+									ng-show="!gameShow"
+								>
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12 centerBelow">
+												<span class="lobbyHead">
+													Available Games
+												</span>
+											</div>
+										</div>
+										<div class="row">
+											<div 
+												class="col-md-12"
+											>
+												<div class="row">
+													<div class="col-md-8 centerBelow">
+														<span class="gameDetails pull-left">
+															Game Creator
+														</span>
+													</div>
+													<div class="col-md-4">
+														<span class="gameDetails pull-right">
+															Players
+														</span>
+													</div>
+												</div>
+												<hr/>
+												<div 
+													class="row clickable"
+													ng-repeat="game in availGames"
+													ng-click="showGame(game.id)"
+												>
+													<div class="col-md-8">
+														<span class="gameDetails pull-left">
+															{{game.gameCreatorName}}
+														</span>
+													</div>
+													<div class="col-md-4">
+														<span class="gameDetails pull-right">
+															{{game.playersCount}} / 5
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div 
+									class="row"
+									ng-show="gameShow"
+								>
+									<div class="col-md-12">
+										<div class="row">
+											<div class="col-md-12 centerBelow">
+												<span class="gameDetailsBig">
+													{{game.gameCreatorName}}'s Game
+												</span>
+											</div>
+										</div>
+										<hr/>
+										<div 
+											class="row"
+											ng-repeat="player in gamePlayers"
+											ng-if="gamePlayers.length > 0"
+										>
+											<div class="col-md-12 centerBelow">
+												<span class="gameDetails">
+													{{gamePlayer.name}}
+												</span>
+											</div>
+										</div>
+										<div 
+											class="row"
+											ng-if="!gamePlayers || gamePlayers.length < 1"
+										>
+											<div class="col-md-12 centerBelow">
+												<span class="gameDetailsItal">
+													No Players Joined
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>

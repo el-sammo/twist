@@ -58,6 +58,7 @@ function controller(
 	function init() {
 
 		$scope.showMenu = false;
+		$scope.gameShow = false;
 		$scope.waiting = false;
 		$scope.gameFull = false;
 		$scope.showJoinGame = false;
@@ -73,6 +74,20 @@ function controller(
 
 		$scope.currentColorSelector = '';
 		$scope.currentTerritorySelector = '';
+
+		gameMgmt.getAvailGames().then(function(availGames) {
+			availGames.data.forEach(function(game) {
+console.log('game:');
+console.log(game);
+				playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
+					game.gameCreatorName = gameCreator.fName + ' ' + gameCreator.lName;
+				});
+				game.playersCount = game.players.length;
+			});
+console.log('availGames.data:');
+console.log(availGames.data);
+			$scope.availGames = availGames.data;
+		});
 
 		playerMgmt.getSession().then(function(sessionData) {
 			if(sessionData.playerId) {
@@ -112,6 +127,8 @@ function controller(
 		$scope.menuClose = menuClose;
 		$scope.createGame = createGame;
 		$scope.startGame = startGame;
+		$scope.showGame = showGame;
+		$scope.hideGame = hideGame;
 		$scope.joinGame = joinGame;
 		$scope.selectColor = selectColor;
 		$scope.territoryClaim = territoryClaim;
@@ -364,6 +381,32 @@ console.log(gameData.data);
 				joinGame(gameData.data);
 			});
 		}
+	}
+
+	function showGame(gameId) {
+		$scope.gameShow = true;
+		gameMgmt.getGame(gameId).then(function(gameData) {
+			playerMgmt.getPlayer(gameData.gameCreator).then(function(gameCreator) {
+				gameData.gameCreatorName = gameCreator.fName + ' ' + gameCreator.lName;
+				var gamePlayers = [];
+				gameData.players.forEach(function(player) {
+					if(player.playerId !== gameData.gameCreator) {
+						gamePlayers.push({
+							name: player.fName + ' ' + player.lName,
+							id: player.playerId
+						});
+					}
+				});
+				gameData.gamePlayers = gamePlayers;
+console.log('gameData:');
+console.log(gameData);
+				$scope.game = gameData;
+			});
+		});
+	}
+
+	function hideGame() {
+		$scope.gameShow = false;
 	}
 
 	function startGame(gameData) {

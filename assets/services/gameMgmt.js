@@ -130,6 +130,22 @@
 				});
 			},
 
+			getAvailGames: function() {
+				var url = '/games/getAvailGames/';
+				return $http.get(url).success(
+					function(data, status, headers, config) {
+						if(status >= 400) {
+							return $q.reject(data);
+						}
+						return data;
+					}
+				).catch(function(err) {
+					console.log('PUT ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+			},
+
 			// TODO: This probably can be replaced with client-side only code
 			logout: function() {
 				var url = '/games/logout';

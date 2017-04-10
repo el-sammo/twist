@@ -201,6 +201,16 @@ module.exports = {
 		});
 	},
 	
+	getAvailGames: function(req, res) {
+		Games.find({started: false}).then(function(results) {
+			res.send(JSON.stringify(results));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	byTournamentId: function(req, res) {
 		Games.find({tournamentId: req.params.id}).sort({
 		}).limit(20).then(function(results) {
