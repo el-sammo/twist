@@ -51,8 +51,6 @@ var jsFilesToInject = [
 	'packages/spin.js/spin.min.js',
 	'packages/angular-spinner/angular-spinner.min.js',
 	'packages/angular-native-dragdrop/draganddrop.js',
-	'packages/socket.io/lib/socket.js',
-	'packages/angular-socket-io/socket.js',
 	'app.js',
 	'local.js',
 	// 'datatables.js',
