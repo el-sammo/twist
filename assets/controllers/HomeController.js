@@ -14,7 +14,7 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'playerMgmt', 'gameMgmt',
+	'playerMgmt', 'gameMgmt', 'chatMgmt',
 	'messenger', 
 	'lodash',
 	// in angular, there are some angular-defined variables/functions/behaviors
@@ -25,7 +25,7 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	playerMgmt, gameMgmt,
+	playerMgmt, gameMgmt, chatMgmt,
 	messenger, 
 	_
 ) {
@@ -77,15 +77,11 @@ function controller(
 
 		gameMgmt.getAvailGames().then(function(availGames) {
 			availGames.data.forEach(function(game) {
-console.log('game:');
-console.log(game);
 				playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
-					game.gameCreatorName = gameCreator.fName + ' ' + gameCreator.lName;
+					game.gameCreatorName = gameCreator.username;
 				});
 				game.playersCount = game.players.length;
 			});
-console.log('availGames.data:');
-console.log(availGames.data);
 			$scope.availGames = availGames.data;
 		});
 
@@ -331,12 +327,39 @@ console.log('color: '+color);
 	}
 
 	function chatSend(gameId) {
-		var chatMsg = $('#newChatMsg').html();
-console.log('chatMsg: '+chatMsg);
-		sendChat(gameId, msg);
+		if(!$scope.player) {
+			layoutMgmt.logIn();
+		} else {
+			var chatMsg = $('#newChatMsg').val();
+			sendChat(gameId, chatMsg);
+		}
 	}
 
 	function sendChat(gameId, msg) {
+		$('#newChatMsg').val("");
+		var thisChat = {};
+		thisChat.gameId = gameId;
+		thisChat.playerId = $scope.player.id;
+		thisChat.msg = msg;
+		thisChat.username = $scope.player.username;
+		chatMgmt.createChat(thisChat).then(function(res) {
+			getChat(gameId);
+		});
+	}
+
+	function getChat(gameId) {
+		if($scope.gameShow) {
+			$timeout(function() {
+				chatMgmt.getChatByGameId(gameId).then(function(res) {
+					var gameChats = [];
+					res.forEach(function(chat) {
+						gameChats.push(chat.username +': '+ chat.msg);
+					});
+					$scope.chats = gameChats;
+				});
+				getChat(gameId);
+			}, 750);
+		}
 	}
 
 	function joinGame(passedGameData) {
@@ -395,21 +418,21 @@ console.log(gameData.data);
 
 	function showGame(gameId) {
 		$scope.gameShow = true;
+		getChat(gameId);
 		gameMgmt.getGame(gameId).then(function(gameData) {
 			playerMgmt.getPlayer(gameData.gameCreator).then(function(gameCreator) {
-				gameData.gameCreatorName = gameCreator.fName + ' ' + gameCreator.lName;
+				gameData.gameCreatorName = gameCreator.username;
 				var gamePlayers = [];
 				gameData.players.forEach(function(player) {
 					if(player.playerId !== gameData.gameCreator) {
 						gamePlayers.push({
 							name: player.fName + ' ' + player.lName,
+							username: player.username,
 							id: player.playerId
 						});
 					}
 				});
 				gameData.gamePlayers = gamePlayers;
-console.log('gameData:');
-console.log(gameData);
 				$scope.game = gameData;
 			});
 		});
@@ -430,6 +453,7 @@ console.log(gameData);
 						playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
 							playerObj.fName = playerData.fName;
 							playerObj.lName = playerData.lName;
+							playerObj.username = playerData.username;
 							playerObj.active = true;
 						});
 					});
@@ -447,6 +471,7 @@ console.log(gameData);
 				playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
 					playerObj.fName = playerData.fName;
 					playerObj.lName = playerData.lName;
+					playerObj.username = playerData.username;
 					playerObj.active = true;
 				});
 			});
