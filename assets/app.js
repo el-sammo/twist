@@ -5,7 +5,8 @@
 		'ngRoute', 'ui.bootstrap', 'angularPayments',
 		'angulartics', 'angulartics.google.analytics',
 		'uiGmapgoogle-maps', 'bm.bsTour', 'ngLodash',
-		'angularSpinner', 'timer', 'ang-drag-drop'
+		'angularSpinner', 'timer', 'ang-drag-drop',
+		'btford.socket-io'
 	]);
 	var $ = jQuery;
 

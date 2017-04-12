@@ -86,6 +86,20 @@
 												</span>
 											</div>
 										</div>
+										<div id="gameChat">
+											<ul id="messages"></ul>
+											<input id="newChatMsg" autocomplete="off" />
+											<span 
+												class="chatSend"
+												ng-click="chatSend(game.id)"
+											>
+												Send
+											</span>
+										</div>
+										<audio id="myAudio">
+											<source src="http://45.58.37.37:8978/sounds/newMsg.mp3" type="audio/mpeg">
+											Your browser does not support the audio element.
+										</audio>
 									</div>
 								</div>
 							</div>

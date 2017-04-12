@@ -14,7 +14,7 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'playerMgmt', 'gameMgmt',
+	'playerMgmt', 'gameMgmt', 'socketIO',
 	'messenger', 
 	'lodash',
 	// in angular, there are some angular-defined variables/functions/behaviors
@@ -25,7 +25,7 @@ function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
 	signupPrompter, deviceMgr, layoutMgmt, 
-	playerMgmt, gameMgmt,
+	playerMgmt, gameMgmt, socketIO,
 	messenger, 
 	_
 ) {
@@ -56,6 +56,14 @@ function controller(
 	///
 
 	function init() {
+
+		io.on('connection', function(socket){
+			socket.on('chat message', function(msg){
+console.log('chat message received: '+msg);
+			  io.emit('chat message', msg);
+			 });
+		});
+
 
 		$scope.showMenu = false;
 		$scope.gameShow = false;
@@ -130,6 +138,7 @@ console.log(availGames.data);
 		$scope.showGame = showGame;
 		$scope.hideGame = hideGame;
 		$scope.joinGame = joinGame;
+		$scope.chatSend = chatSend;
 		$scope.selectColor = selectColor;
 		$scope.territoryClaim = territoryClaim;
 		$scope.territoryMenu = territoryMenu;
@@ -327,6 +336,30 @@ console.log('color: '+color);
 
 	function menuClose() {
 		$scope.showMenu = false;
+	}
+
+	function chatSend(gameId) {
+		var chatMsg = $('#newChatMsg').html();
+console.log('chatMsg: '+chatMsg);
+		sendChat(gameId, msg);
+//		<script>
+//			$(function () {
+//				var socket = io();
+//				var audio = document.getElementById("myAudio");
+//				$('form').submit(function(){
+//					socket.emit('chat message', $('#m').val());
+//					$('#m').val('');
+//					return false;
+//				});
+//				socket.on('chat message', function(msg){
+//					$('#messages').append($('<li>').text(msg));
+//					audio.play();
+//				});
+//			});
+//		</script>
+	}
+
+	function sendChat(gameId, msg) {
 	}
 
 	function joinGame(passedGameData) {
