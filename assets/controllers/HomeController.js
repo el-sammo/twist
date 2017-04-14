@@ -14,7 +14,7 @@ controller.$inject = [
 	'$modal', '$timeout', '$window',
 
 	'signupPrompter', 'deviceMgr', 'layoutMgmt',
-	'playerMgmt', 'gameMgmt', 'chatMgmt',
+	'playerMgmt', 'gameMgmt', 'chatMgmt', 'actionMgmt',
 	'messenger', 
 	'lodash',
 	// in angular, there are some angular-defined variables/functions/behaviors
@@ -24,8 +24,8 @@ controller.$inject = [
 function controller(
 	$scope, $http, $routeParams, $rootScope, $location,
 	$modal, $timeout, $window,
-	signupPrompter, deviceMgr, layoutMgmt, 
-	playerMgmt, gameMgmt, chatMgmt,
+	signupPrompter, deviceMgr, layoutMgmt,
+	playerMgmt, gameMgmt, chatMgmt, actionMgmt,
 	messenger, 
 	_
 ) {
@@ -33,7 +33,6 @@ function controller(
 	// Variable declaration
 	///
 
-	var todayDate;
 	$scope.allColors = [
 		'blue',
 		'green',
@@ -64,26 +63,16 @@ function controller(
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
 		
-		hidePickColors();
-
 		$scope.blueAvailable = true;
 		$scope.greenAvailable = true;
 		$scope.purpleAvailable = true;
 		$scope.redAvailable = true;
 		$scope.yellowAvailable = true;
 
+		hidePickColors();
+
 		$scope.currentColorSelector = '';
 		$scope.currentTerritorySelector = '';
-
-		gameMgmt.getAvailGames().then(function(availGames) {
-			availGames.data.forEach(function(game) {
-				playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
-					game.gameCreatorName = gameCreator.username;
-				});
-				game.playersCount = game.players.length;
-			});
-			$scope.availGames = availGames.data;
-		});
 
 		playerMgmt.getSession().then(function(sessionData) {
 			if(sessionData.playerId) {
@@ -98,14 +87,54 @@ function controller(
 					$scope.currentGameId = $routeParams.id;
 					gameMgmt.getGame($routeParams.id).then(function(gameData) {
 						$scope.gameData = gameData;
+
 						gameData.players.forEach(function(player) {
 							if(player.playerId === $scope.playerId) {
 								$scope.waiting = true;
 							}
+							if(player.color === 'blue') {
+								$scope.blueAvailable = true;
+							}
+							if(player.color === 'green') {
+								$scope.greenAvailable = true;
+							}
+							if(player.color === 'purple') {
+								$scope.purpleAvailable = true;
+							}
+							if(player.color === 'red') {
+								$scope.redAvailable = true;
+							}
+							if(player.color === 'yellow') {
+								$scope.yellowAvailable = true;
+							}
 						});
+
+						if(gameData.started) {
+							actionMgmt.getActionsByGameId($routeParams.id).then(function(gameActions) {
+console.log('gameActions:');
+console.log(gameActions);
+								var currentAction;
+								gameActions.forEach(function(action) {
+									if(!action.completed) {
+										currentAction = action.actionType;
+									}
+								});
+console.log('currentAction: '+currentAction);
+							});
+						}
 						colorTerritories(gameData.territories);
 					});
 				} else {
+					gameMgmt.getAvailGames().then(function(availGames) {
+						availGames.data.forEach(function(game) {
+							playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
+								game.gameCreatorName = gameCreator.username;
+							});
+							game.playersCount = game.players.length;
+						});
+						$scope.availGames = availGames.data;
+					});
+
 					$scope.gameExists = false;
 					$scope.currentGameId = '';
 				}
@@ -408,8 +437,6 @@ console.log('color: '+color);
 			}
 
 			gameMgmt.createNewGame(gameOptions).then(function(gameData) {
-console.log('here:');
-console.log(gameData.data);
 				gameData.players = [];
 				joinGame(gameData.data);
 			});
@@ -445,21 +472,29 @@ console.log(gameData.data);
 	function startGame(gameData) {
 		if($scope.playerId === gameData.gameCreator) {
 			gameMgmt.getGame(gameData.id).then(function(thisGameData) {
-				if(thisGameData.players.length < 5) {
-					addComputerPlayers(thisGameData);
-				} else {
-					var order = getOrder(thisGameData);
-					order.forEach(function(playerObj) {
-						playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
-							playerObj.fName = playerData.fName;
-							playerObj.lName = playerData.lName;
-							playerObj.username = playerData.username;
-							playerObj.active = true;
+				var newAction = {
+					gameId: thisGameData.id,
+					actionType: 'addingPlayers',
+					playerId: thisGameData.gameCreator,
+					completed: false
+				};
+				actionMgmt.createAction(newAction).then(function(res) {
+					if(thisGameData.players.length < 5) {
+						addComputerPlayers(thisGameData);
+					} else {
+						var order = getOrder(thisGameData);
+						order.forEach(function(playerObj) {
+							playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
+								playerObj.fName = playerData.fName;
+								playerObj.lName = playerData.lName;
+								playerObj.username = playerData.username;
+								playerObj.active = true;
+							});
 						});
-					});
-					$scope.players = order;
-					pickColors(thisGameData);
-				}
+						$scope.players = order;
+						pickColors(thisGameData);
+					}
+				});
 			});
 		}
 	}
@@ -489,14 +524,38 @@ console.log(gameData.data);
 	}
 
 	function pickColors(gameData) {
-		$rootScope.$broadcast('showPickColors', gameData.id);
 		var colorsGameData;
 		if(gameData.data) {
 			colorsGameData = gameData.data;
 		} else {
 			colorsGameData = gameData;
 		}
-		pickFirstColor(colorsGameData, colorsGameData.playerOrder[0]);
+console.log('pickColors() called with colorsGameData:');
+console.log(colorsGameData);
+		actionMgmt.getActionsByGameId(colorsGameData.id).then(function(gameActions) {
+console.log('gameActions:');
+console.log(gameActions);
+			gameActions.forEach(function(gameAction) {
+				if(gameAction.actionType === 'orderingPlayers') {
+console.log('2');
+					gameAction.completed = true;
+					actionMgmt.updateAction(gameAction).then(function(updatedGameAction) {
+console.log('3');
+						var newAction = {
+							gameId: colorsGameData.id,
+							actionType: 'pickingColors',
+							playerId: colorsGameData.gameCreator,
+							completed: false
+						};
+						actionMgmt.createAction(newAction).then(function(createNewActionRes) {
+console.log('4');
+							$rootScope.$broadcast('showPickColors', colorsGameData.id);
+							pickFirstColor(colorsGameData, colorsGameData.playerOrder[0]);
+						});
+					});
+				}
+			});
+		});
 	}
 
 	function pickFirstColor(gameData, firstPlayer) {
@@ -827,31 +886,48 @@ console.log(gameData.data);
 	}
 
 	function getOrder(gameData) {
-		if(gameData.playerOrder) {
-			return gameData.playerOrder;
-		} else {
-			var array = gameData.players;
-			var currentIndex = array.length, temporaryValue, randomIndex;
-
-			// While there remain elements to shuffle...
-			while (0 !== currentIndex) {
-
-				// Pick a remaining element...
-				randomIndex = Math.floor(Math.random() * currentIndex);
-				currentIndex -= 1;
-
-				// And swap it with the current element.
-				temporaryValue = array[currentIndex];
-				array[currentIndex] = array[randomIndex];
-				array[randomIndex] = temporaryValue;
-			}
-
-			gameData.playerOrder = array;
-			gameMgmt.updateGame(gameData).then(function(res) {
+		var array = gameData.players;
+		actionMgmt.getActionsByGameId(gameData.id).then(function(actionGameData) {
+			actionGameData.forEach(function(actionData) {
+				if(actionData.actionType === 'addingPlayers') {
+					actionData.completed = true;
+					actionMgmt.updateAction(actionData).then(function(updatedAction) {
+					});
+				}
 			});
+			var newAction = {
+				gameId: gameData.id,
+				actionType: 'orderingPlayers',
+				playerId: gameData.gameCreator,
+				completed: false
+			};
+			actionMgmt.createAction(newAction).then(function(newActionRes) {
+				if(gameData.playerOrder) {
+					return gameData.playerOrder;
+				} else {
+					var currentIndex = array.length, temporaryValue, randomIndex;
+		
+					// While there remain elements to shuffle...
+					while (0 !== currentIndex) {
+		
+						// Pick a remaining element...
+						randomIndex = Math.floor(Math.random() * currentIndex);
+						currentIndex -= 1;
+		
+						// And swap it with the current element.
+						temporaryValue = array[currentIndex];
+						array[currentIndex] = array[randomIndex];
+						array[randomIndex] = temporaryValue;
+					}
+		
+					gameData.playerOrder = array;
+					gameMgmt.updateGame(gameData).then(function(res) {
+					});
+				}
+			});
+		});
 
-			return array;
-		}
+		return array;
 	}
 
 	function account() {

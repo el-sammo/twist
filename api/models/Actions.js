@@ -23,6 +23,10 @@ module.exports = {
       type: 'string',
       required: true
 		},
+    completed: {
+      type: 'boolean',
+      required: true
+		}
   }
 
 };

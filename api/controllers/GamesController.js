@@ -202,8 +202,16 @@ module.exports = {
 	},
 	
 	getAvailGames: function(req, res) {
-		Games.find({started: false}).then(function(results) {
-			res.send(JSON.stringify(results));
+		Games.find({started: false})
+		.sort({createdAt: 1})
+		.then(function(results) {
+			var gamesToJoin = [];
+			results.forEach(function(game) {
+				if(game.players.length < 5) {
+					gamesToJoin.push(game);
+				}
+			});
+			res.send(JSON.stringify(gamesToJoin));
 		}).catch(function(err) {
       res.json({error: 'Server error'}, 500);
       console.error(err);

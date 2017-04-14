@@ -21,7 +21,7 @@
 		var createNewActionpromise;
 
 		var service = {
-			getActionByGameId: function(gameId) {
+			getActionsByGameId: function(gameId) {
 				var url = '/actions/byGameId/' + gameId;
 				getActionPromise = $http.get(url).then(function(res) {
 					return res.data;
@@ -32,6 +32,22 @@
 				});
 
 				return getActionPromise;
+			},
+
+			updateAction: function(actionData) {
+				var url = '/actions/' + actionData.id;
+				return $http.put(url, actionData).success(
+					function(data, status, headers, config) {
+						if(status >= 400) {
+							return $q.reject(data);
+						}
+						return action;
+					}
+				).catch(function(err) {
+					console.log('PUT ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
 			},
 
 			createAction: function(actionData) {
