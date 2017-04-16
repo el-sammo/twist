@@ -111,7 +111,7 @@ function controller(
 
 						if(gameData.started) {
 							actionMgmt.getActionsByGameId($routeParams.id).then(function(gameActions) {
-console.log('gameActions:');
+console.log('getActionsByGameId:');
 console.log(gameActions);
 								var currentAction;
 								gameActions.forEach(function(action) {
@@ -482,17 +482,7 @@ console.log('color: '+color);
 					if(thisGameData.players.length < 5) {
 						addComputerPlayers(thisGameData);
 					} else {
-						var order = getOrder(thisGameData);
-						order.forEach(function(playerObj) {
-							playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
-								playerObj.fName = playerData.fName;
-								playerObj.lName = playerData.lName;
-								playerObj.username = playerData.username;
-								playerObj.active = true;
-							});
-						});
-						$scope.players = order;
-						pickColors(thisGameData);
+						getOrder(gameData);
 					}
 				});
 			});
@@ -501,17 +491,7 @@ console.log('color: '+color);
 
 	function addComputerPlayers(gameData) {
 		gameMgmt.addComputerPlayers(gameData).then(function(cpuGameData) {
-			var order = getOrder(cpuGameData.data);
-			order.forEach(function(playerObj) {
-				playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
-					playerObj.fName = playerData.fName;
-					playerObj.lName = playerData.lName;
-					playerObj.username = playerData.username;
-					playerObj.active = true;
-				});
-			});
-			$scope.players = order;
-			pickColors(cpuGameData);
+			getOrder(cpuGameData.data);
 		});
 	}
 
@@ -533,14 +513,16 @@ console.log('color: '+color);
 console.log('pickColors() called with colorsGameData:');
 console.log(colorsGameData);
 		actionMgmt.getActionsByGameId(colorsGameData.id).then(function(gameActions) {
-console.log('gameActions:');
+console.log('getActionsByGameId:');
 console.log(gameActions);
 			gameActions.forEach(function(gameAction) {
+console.log('gameAction:');
+console.log(gameAction);
 				if(gameAction.actionType === 'orderingPlayers') {
-console.log('2');
 					gameAction.completed = true;
 					actionMgmt.updateAction(gameAction).then(function(updatedGameAction) {
-console.log('3');
+console.log('updateAction(gameAction):');
+console.log(updatedGameAction);
 						var newAction = {
 							gameId: colorsGameData.id,
 							actionType: 'pickingColors',
@@ -548,7 +530,8 @@ console.log('3');
 							completed: false
 						};
 						actionMgmt.createAction(newAction).then(function(createNewActionRes) {
-console.log('4');
+console.log('createAction(newAction):');
+console.log(createNewActionRes);
 							$rootScope.$broadcast('showPickColors', colorsGameData.id);
 							pickFirstColor(colorsGameData, colorsGameData.playerOrder[0]);
 						});
@@ -922,6 +905,16 @@ console.log('4');
 		
 					gameData.playerOrder = array;
 					gameMgmt.updateGame(gameData).then(function(res) {
+						array.forEach(function(playerObj) {
+							playerMgmt.getPlayer(playerObj.playerId).then(function(playerData) {
+								playerObj.fName = playerData.fName;
+								playerObj.lName = playerData.lName;
+								playerObj.username = playerData.username;
+								playerObj.active = true;
+							});
+						});
+						$scope.players = array;
+						pickColors(res.data);
 					});
 				}
 			});
