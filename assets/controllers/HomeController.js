@@ -109,34 +109,14 @@ function controller(
 							}
 						});
 
-						if(gameData.started) {
-							actionMgmt.getActionsByGameId($routeParams.id).then(function(gameActions) {
-console.log('getActionsByGameId:');
-console.log(gameActions);
-								var currentAction;
-								gameActions.forEach(function(action) {
-									if(!action.completed) {
-										currentAction = action.actionType;
-									}
-								});
-console.log('currentAction: '+currentAction);
-							});
-						}
+						getGameActions(gameData);
+
 						colorTerritories(gameData.territories);
 					});
 				} else {
-					gameMgmt.getAvailGames().then(function(availGames) {
-						availGames.data.forEach(function(game) {
-							playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
-								game.gameCreatorName = gameCreator.username;
-							});
-							game.playersCount = game.players.length;
-						});
-						$scope.availGames = availGames.data;
-					});
-
 					$scope.gameExists = false;
 					$scope.currentGameId = '';
+					getAvailableGames();
 				}
 
 				playerMgmt.getPlayer($scope.playerId).then(function(player) {
@@ -216,6 +196,49 @@ console.log('currentAction: '+currentAction);
 	///
 	// View methods
 	///
+
+	function getGameActions(gameData) {
+console.log('getGameActions() called');
+		$timeout(function() {
+			actionMgmt.getActionsByGameId(gameData.id).then(function(gameActions) {
+console.log('getActionsByGameId:');
+console.log(gameActions);
+				if(gameActions && gameActions.length > 0) {
+					var currentAction;
+					gameActions.forEach(function(action) {
+						if(!action.completed) {
+							currentAction = action.actionType;
+						}
+					});
+					switch(currentAction) {
+						case 'pickingColors':
+							pickColors(gameData);
+							break;
+						default:
+console.log('ill-defined currentAction: '+currentAction);
+					}
+console.log('currentAction: '+currentAction);
+				}
+				getGameActions(gameData);
+			});
+		}, 250);
+	}
+
+	function getAvailableGames() {
+console.log('getAvailableGames() called');
+		$timeout(function() {
+			gameMgmt.getAvailGames().then(function(availGames) {
+				availGames.data.forEach(function(game) {
+					playerMgmt.getPlayer(game.gameCreator).then(function(gameCreator) {
+						game.gameCreatorName = gameCreator.username;
+					});
+					game.playersCount = game.players.length;
+				});
+				$scope.availGames = availGames.data;
+			});
+			getAvailableGames();
+		}, 3000);
+	}
 
 	function selectColor(color) {
 		if($scope.playerId === $scope.currentColorSelector) {
