@@ -1,0 +1,18 @@
+						<div 
+							class="row"
+							ng-show="players"
+						>
+							<div 
+								id="gamePlayers"
+								class="col-md-12"
+							>
+								<div 
+									class="row"
+									ng-repeat="player in players"
+								>
+									<div class="col-md-12">
+										<span style="size: 14px;color:{{player.color}};font-weight:700;">{{player.fName}} {{player.lName}} ({{player.color}})</span>
+									</div>
+								</div>
+							</div>
+						</div>

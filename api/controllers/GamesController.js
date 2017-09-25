@@ -151,6 +151,16 @@ module.exports = {
 		});
 	},
 
+	getPlayersOrder: function(req, res) {
+		Games.find({id: req.params.id}).then(function(results) {
+			res.send(JSON.stringify(results[0].playerOrder));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	addCPUPlayers: function(req, res) {
 		var cpuPlayers = [
 			'58e17f53a719ff42d05742d8',

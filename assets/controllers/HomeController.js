@@ -62,12 +62,15 @@ function controller(
 		$scope.gameFull = false;
 		$scope.showJoinGame = false;
 		$scope.showStartGame = false;
+		$scope.showLobby = true;
 		
 		$scope.blueAvailable = true;
 		$scope.greenAvailable = true;
 		$scope.purpleAvailable = true;
 		$scope.redAvailable = true;
 		$scope.yellowAvailable = true;
+
+		$scope.addTroops = false;
 
 		hidePickColors();
 
@@ -84,8 +87,10 @@ function controller(
 
 				if($routeParams.id) {
 					$scope.gameExists = true;
+					$scope.showLobby = false;
 					$scope.currentGameId = $routeParams.id;
 					gameMgmt.getGame($routeParams.id).then(function(gameData) {
+						$scope.showStartGame = true;
 						$scope.gameData = gameData;
 
 						gameData.players.forEach(function(player) {
@@ -109,7 +114,7 @@ function controller(
 							}
 						});
 
-						getGameActions(gameData);
+//						getGameActions(gameData);
 
 						colorTerritories(gameData.territories);
 					});
@@ -198,11 +203,8 @@ function controller(
 	///
 
 	function getGameActions(gameData) {
-console.log('getGameActions() called');
 		$timeout(function() {
 			actionMgmt.getActionsByGameId(gameData.id).then(function(gameActions) {
-console.log('getActionsByGameId:');
-console.log(gameActions);
 				if(gameActions && gameActions.length > 0) {
 					var currentAction;
 					gameActions.forEach(function(action) {
@@ -221,11 +223,10 @@ console.log('currentAction: '+currentAction);
 				}
 				getGameActions(gameData);
 			});
-		}, 250);
+		}, 5000);
 	}
 
 	function getAvailableGames() {
-console.log('getAvailableGames() called');
 		$timeout(function() {
 			gameMgmt.getAvailGames().then(function(availGames) {
 				availGames.data.forEach(function(game) {
@@ -493,6 +494,7 @@ console.log('color: '+color);
 	}
 
 	function startGame(gameData) {
+		$scope.showStartGame = false;
 		if($scope.playerId === gameData.gameCreator) {
 			gameMgmt.getGame(gameData.id).then(function(thisGameData) {
 				var newAction = {
@@ -533,19 +535,11 @@ console.log('color: '+color);
 		} else {
 			colorsGameData = gameData;
 		}
-console.log('pickColors() called with colorsGameData:');
-console.log(colorsGameData);
 		actionMgmt.getActionsByGameId(colorsGameData.id).then(function(gameActions) {
-console.log('getActionsByGameId:');
-console.log(gameActions);
 			gameActions.forEach(function(gameAction) {
-console.log('gameAction:');
-console.log(gameAction);
 				if(gameAction.actionType === 'orderingPlayers') {
 					gameAction.completed = true;
 					actionMgmt.updateAction(gameAction).then(function(updatedGameAction) {
-console.log('updateAction(gameAction):');
-console.log(updatedGameAction);
 						var newAction = {
 							gameId: colorsGameData.id,
 							actionType: 'pickingColors',
@@ -553,10 +547,10 @@ console.log(updatedGameAction);
 							completed: false
 						};
 						actionMgmt.createAction(newAction).then(function(createNewActionRes) {
-console.log('createAction(newAction):');
-console.log(createNewActionRes);
 							$rootScope.$broadcast('showPickColors', colorsGameData.id);
-							pickFirstColor(colorsGameData, colorsGameData.playerOrder[0]);
+							gameMgmt.getGame(colorsGameData.id).then(function(gameData) {
+								pickFirstColor(gameData, gameData.playerOrder[0]);
+							});
 						});
 					});
 				}
@@ -583,7 +577,7 @@ console.log(createNewActionRes);
 						pickSecondColor(gameData, gameData.playerOrder[1]);
 					});
 				}
-			}, 20000);
+			}, 1000);
 		});
 	}
 
@@ -606,7 +600,7 @@ console.log(createNewActionRes);
 						pickThirdColor(gameData, gameData.playerOrder[2]);
 					});
 				}
-			}, 20000);
+			}, 1000);
 		});
 	}
 
@@ -629,7 +623,7 @@ console.log(createNewActionRes);
 						pickFourthColor(gameData, gameData.playerOrder[3]);
 					});
 				}
-			}, 20000);
+			}, 1000);
 		});
 	}
 
@@ -652,7 +646,7 @@ console.log(createNewActionRes);
 						pickFifthColor(gameData, gameData.playerOrder[4]);
 					});
 				}
-			}, 20000);
+			}, 1000);
 		});
 	}
 
@@ -672,6 +666,19 @@ console.log(createNewActionRes);
 					});
 					$scope.fifthColorPickGoing = false;
 					gameMgmt.updateGame(gameData).then(function(res) {
+						actionMgmt.getActionsByGameId(gameData.id).then(function(gameActions) {
+							if(gameActions && gameActions.length > 0) {
+								var currentAction;
+								gameActions.forEach(function(action) {
+									if(!action.completed && action.actionType === 'pickingColors') {
+										action.completed = true;
+										actionMgmt.updateAction(action).then(function(updatedAction) {
+										});
+									}
+								});
+							}
+						});
+						
 						hidePickColors();
 						// user-chosen territories
 						if(res.data.assignType === 'choose') {
@@ -684,7 +691,7 @@ console.log(createNewActionRes);
 						}
 					});
 				}
-			}, 20000);
+			}, 1000);
 		});
 	}
 
@@ -852,6 +859,11 @@ console.log(createNewActionRes);
 	}
 
 	function assignTroops(gameData) {
+console.log('gameData:');
+console.log(gameData);
+		$scope.addTroops = true;
+		gameMgmt.getPlayersOrder(gameData.id).then(function(playersOrder) {
+		});
 		// use $scope.players for order, similar to color picking process
 	}
 

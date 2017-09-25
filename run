@@ -6,7 +6,7 @@ popd > /dev/null
 
 cd $SCRIPTPATH
 
-LOG="$SCRIPTPATH/../logs/tix.log"
+LOG="$SCRIPTPATH/../logs/twist.log"
 MIN_UPTIME=15000
 SPIN_SLEEP_TIME=0
 APPLICATION_PATH="app.js"

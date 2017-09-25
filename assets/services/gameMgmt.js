@@ -18,6 +18,7 @@
 	) {
 		var game;
 		var getGamePromise;
+		var getPlayersOrderPromise;
 		var createNewGamepromise;
 
 		var service = {
@@ -32,6 +33,19 @@
 				});
 
 				return getGamePromise;
+			},
+
+			getPlayersOrder: function(gameId) {
+				var url = '/games/getPlayersOrder/' + gameId;
+				getPlayersOrderPromise = $http.get(url).then(function(res) {
+					return res.data;
+				}).catch(function(err) {
+					console.log('GET ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+
+				return getPlayersOrderPromise;
 			},
 
 			createGame: function(gameData) {

@@ -49,7 +49,7 @@
 								<div 
 									id="gameStart"
 									class="clickable"
-									ng-if="gameExists && (gameData.id.length > 15) && (gameData.gameCreator === playerId)"
+									ng-if="gameExists && (gameData.id.length > 15) && (gameData.gameCreator === playerId) && showStartGame"
 									ng-click="startGame(gameData)"
 								>
 									<span id="startGame" class="">Start Game</span>
@@ -71,6 +71,7 @@
 							<div>
 						</div>
 						<ng-include src="'/templates/gameLobby.html'"></ng-include>
+						<ng-include src="'/templates/gamePlayers.html'"></ng-include>
 					</div>
 				</div>
 			</div>
