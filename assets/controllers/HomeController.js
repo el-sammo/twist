@@ -144,6 +144,7 @@ function controller(
 		$scope.selectColor = selectColor;
 		$scope.territoryClaim = territoryClaim;
 		$scope.territoryMenu = territoryMenu;
+		$scope.assignTroop = assignTroop;
 
 		$scope.logIn = layoutMgmt.logIn;
 		$scope.signUp = layoutMgmt.signUp;
@@ -349,7 +350,6 @@ console.log('territory: '+territory);
 	}
 
 	function territoryMenu(obj) {
-		menuShow();
 		$scope.territory = {};
 		$scope.territory.nameUgly = obj.currentTarget.offsetParent.id;
 		var tName = '';
@@ -364,11 +364,28 @@ console.log('territory: '+territory);
 				tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
 			}
 		})
-		$scope.territory.name = tName;
-		var colorPcs = obj.currentTarget.className.split('C');
-		var color = colorPcs[0];
+
+		if($scope.addTroops) {
+			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
+console.log('gameData:');
+console.log(gameData);
+console.log('$scope.activePlayer:');
+console.log($scope.activePlayer);
+console.log('$scope.playerId:');
+console.log($scope.playerId);
+//TODO finish validating proper player turn
+				playerMgmt.getPlayer($scope.activePlayer.playerId).then(function(playerData) {
+console.log('adding a troop to '+tName+' for '+playerData.fName +' '+playerData.lName);
+				});
+			});
+		} else {
+			menuShow();
+			$scope.territory.name = tName;
+			var colorPcs = obj.currentTarget.className.split('C');
+			var color = colorPcs[0];
 console.log('territory', $scope.territory);
 console.log('color: '+color);
+		}
 	}
 
 	function menuShow() {
@@ -717,6 +734,16 @@ console.log('color: '+color);
 			colorTerritories(gameTerritories);
 
 			gameData.territories = gameTerritories;
+			gameData.playerOrder[0].active = true;
+			gameData.playerOrder[1].active = true;
+			gameData.playerOrder[2].active = true;
+			gameData.playerOrder[3].active = true;
+			gameData.playerOrder[4].active = true;
+			gameData.playerOrder[0].current = true;
+			gameData.playerOrder[1].current = false;
+			gameData.playerOrder[2].current = false;
+			gameData.playerOrder[3].current = false;
+			gameData.playerOrder[4].current = false;
 
 			gameMgmt.updateGame(gameData).then(function(tGameData) {
 				assignTroops(tGameData.data);
@@ -859,12 +886,31 @@ console.log('color: '+color);
 	}
 
 	function assignTroops(gameData) {
-console.log('gameData:');
-console.log(gameData);
 		$scope.addTroops = true;
 		gameMgmt.getPlayersOrder(gameData.id).then(function(playersOrder) {
+			var newAction = {
+				gameId: gameData.id,
+				actionType: 'assigningTroops',
+				playerId: playersOrder[0].playerId,
+				completed: false
+			};
+			actionMgmt.createAction(newAction).then(function(newActionRes) {
+				assignFirstTroops(playersOrder[0]);
+			});
 		});
-		// use $scope.players for order, similar to color picking process
+	}
+
+	function assignFirstTroops(player) {
+		$scope.activePlayer = player;
+		$scope.firstPlayerTroops = 25;
+	}
+
+	function assignTroop(playerId, territoryName) {
+		var gameId = $scope.gameData.id;
+		gameMgmt.getGame(gameId).then(function(gameData) {
+console.log('gameData:');
+console.log(gameData);
+		});
 	}
 
 	function chooseRandomColor(gameData) {
