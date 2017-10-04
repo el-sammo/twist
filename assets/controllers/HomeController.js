@@ -56,6 +56,8 @@ function controller(
 
 	function init() {
 
+		$scope.samDebug = true;
+
 		$scope.showMenu = false;
 		$scope.gameShow = false;
 		$scope.waiting = false;
@@ -369,14 +371,54 @@ console.log('territory: '+territory);
 			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
 console.log('gameData:');
 console.log(gameData);
-console.log('$scope.activePlayer:');
-console.log($scope.activePlayer);
-console.log('$scope.playerId:');
-console.log($scope.playerId);
 //TODO finish validating proper player turn
-				playerMgmt.getPlayer($scope.activePlayer.playerId).then(function(playerData) {
+				if($scope.activePlayer.playerId === $scope.playerId) {
+					var verifiedTerritory = false;
+					gameData.territories.forEach(function(territory) {
+						if(!verifiedTerritory) {
+							var tNA = territory.name;
+							var tNB = tName.toLowerCase().replace(' ','_');
+							if(tNA === tNB && territory.playerId === $scope.activePlayer.playerId && territory.playerId === $scope.playerId) {
+								territory.units ++;
+								if(tName.toLowerCase().replace(' ','_') === 'alaska') {
+									$scope.alaska.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'northwest_territory') {
+									$scope.northwest_territory.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'greenland') {
+									$scope.greenland.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'alberta') {
+									$scope.alberta.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'ontario') {
+									$scope.ontario.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'quebec') {
+									$scope.quebec.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'western_us') {
+									$scope.western_us.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'eastern_us') {
+									$scope.eastern_us.units ++;
+								}
+								if(tName.toLowerCase().replace(' ','_') === 'central_america') {
+									$scope.central_america.units ++;
+								}
+								playerMgmt.getPlayer($scope.activePlayer.playerId).then(function(playerData) {
 console.log('adding a troop to '+tName+' for '+playerData.fName +' '+playerData.lName);
-				});
+console.log(territory);
+								});
+							}
+						}
+					});
+					$scope.gameData = gameData;
+				} else {
+console.log('not active (current) player:');
+console.log($scope.activePlayer);
+				}
 			});
 		} else {
 			menuShow();
@@ -386,6 +428,7 @@ console.log('adding a troop to '+tName+' for '+playerData.fName +' '+playerData.
 console.log('territory', $scope.territory);
 console.log('color: '+color);
 		}
+console.log('done adding a troop');
 	}
 
 	function menuShow() {
@@ -969,19 +1012,39 @@ console.log(gameData);
 				if(gameData.playerOrder) {
 					return gameData.playerOrder;
 				} else {
-					var currentIndex = array.length, temporaryValue, randomIndex;
-		
-					// While there remain elements to shuffle...
-					while (0 !== currentIndex) {
-		
-						// Pick a remaining element...
-						randomIndex = Math.floor(Math.random() * currentIndex);
-						currentIndex -= 1;
-		
-						// And swap it with the current element.
-						temporaryValue = array[currentIndex];
-						array[currentIndex] = array[randomIndex];
-						array[randomIndex] = temporaryValue;
+					if($scope.samDebug) {
+						array = [
+							{
+								"playerId" : "58e17ca2a719ff42d05742d7",
+							},
+							{
+								"playerId" : "58e17f7da719ff42d05742db",
+							},
+							{
+								"playerId" : "58e17f6ea719ff42d05742da",
+							},
+							{
+								"playerId" : "58e17f53a719ff42d05742d8",
+							},
+							{
+								"playerId" : "58e17f63a719ff42d05742d9",
+							}
+						];
+					} else {
+						var currentIndex = array.length, temporaryValue, randomIndex;
+			
+						// While there remain elements to shuffle...
+						while (0 !== currentIndex) {
+			
+							// Pick a remaining element...
+							randomIndex = Math.floor(Math.random() * currentIndex);
+							currentIndex -= 1;
+			
+							// And swap it with the current element.
+							temporaryValue = array[currentIndex];
+							array[currentIndex] = array[randomIndex];
+							array[randomIndex] = temporaryValue;
+						}
 					}
 		
 					gameData.playerOrder = array;
