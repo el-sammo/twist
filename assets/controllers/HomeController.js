@@ -351,24 +351,42 @@ console.log('color selector error');
 console.log('territory: '+territory);
 	}
 
-	function territoryMenu(obj) {
-		$scope.territory = {};
-		$scope.territory.nameUgly = obj.currentTarget.offsetParent.id;
-		var tName = '';
-		var tNamePcs = obj.currentTarget.offsetParent.id.split('_');
-		var firstTNP = true;
-		tNamePcs.forEach(function(namePc) {
-			if(firstTNP) {
-				tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
-				firstTNP = false;
-			} else {
-				tName += ' ';
-				tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
-			}
-		})
+	function territoryMenu(obj, internal) {
+		if(internal) {
+			$scope.territory = {};
+			$scope.territory.nameUgly = obj.name;
+			var tName = '';
+			var tNamePcs = obj.name.split('_');
+			var firstTNP = true;
+			tNamePcs.forEach(function(namePc) {
+				if(firstTNP) {
+					tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
+					firstTNP = false;
+				} else {
+					tName += ' ';
+					tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
+				}
+			})
+		} else {
+			$scope.territory = {};
+			$scope.territory.nameUgly = obj.currentTarget.offsetParent.id;
+			var tName = '';
+			var tNamePcs = obj.currentTarget.offsetParent.id.split('_');
+			var firstTNP = true;
+			tNamePcs.forEach(function(namePc) {
+				if(firstTNP) {
+					tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
+					firstTNP = false;
+				} else {
+					tName += ' ';
+					tName += namePc.charAt(0).toUpperCase() + namePc.substr(1);
+				}
+			})
+		}
 
 		if($scope.addTroops) {
 			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
+				var cpuPlayer = false;
 				var activePlayerInOrder;
 				var apIdx = 0;
 				var nextAPIdx = 1;
@@ -386,14 +404,47 @@ console.log('territory: '+territory);
 							} else {
 								apIdx ++;
 								nextAPIdx ++;
+								if(nextAPIdx > 4) {
+									nextAPIdx = 0;
+								}
 							}
 						}
 					}
 				})
-				if($scope.activePlayer.playerId === $scope.playerId && activePlayerInOrder === $scope.playerId) {
+				if($scope.currentPlayerTurnId === '58e17f53a719ff42d05742d8') {
+					cpuPlayer = true;
+					activePlayerInOrder = '58e17f53a719ff42d05742d8';
+				}
+				if($scope.currentPlayerTurnId === '58e17f63a719ff42d05742d9') {
+					cpuPlayer = true;
+					activePlayerInOrder = '58e17f63a719ff42d05742d9';
+				}
+				if($scope.currentPlayerTurnId === '58e17f6ea719ff42d05742da') {
+					cpuPlayer = true;
+					activePlayerInOrder = '58e17f6ea719ff42d05742da';
+				}
+				if($scope.currentPlayerTurnId === '58e17f7da719ff42d05742db') {
+					cpuPlayer = true;
+					activePlayerInOrder = '58e17f7da719ff42d05742db';
+				}
+				if($scope.currentPlayerTurnId === '58e17f89a719ff42d05742dc') {
+					cpuPlayer = true;
+					activePlayerInOrder = '58e17f89a719ff42d05742dc';
+				}
+				if(
+					(
+						$scope.activePlayer.playerId === $scope.playerId && 
+						activePlayerInOrder === $scope.playerId
+					) || (
+						cpuPlayer
+					)
+				) {
 					var troopsLeft = 0;
 					gameData.playerOrder.forEach(function(player) {
-						if(player.playerId === $scope.activePlayer.playerId) {
+						if(
+							player.playerId === $scope.activePlayer.playerId || 
+							player.playerId === activePlayerInOrder
+						) {
 							troopsLeft = player.troopsToAssign;
 						}
 					});
@@ -403,7 +454,17 @@ console.log('territory: '+territory);
 							if(!verifiedTerritory) {
 								var tNA = territory.name;
 								var tNB = tName.toLowerCase().replace(' ','_');
-								if(tNA === tNB && territory.playerId === $scope.activePlayer.playerId && territory.playerId === $scope.playerId) {
+								if(
+									tNA === tNB && 
+									(
+										(territory.playerId === $scope.activePlayer.playerId) ||
+										(territory.playerId === activePlayerInOrder)
+									) && 
+									(
+										(territory.playerId === $scope.playerId) ||
+										(territory.playerId === activePlayerInOrder)
+									)
+								) {
 									territory.units ++;
 									if(tName.toLowerCase().replace(' ','_') === 'alaska') {
 										$scope.alaska.units ++;
@@ -532,7 +593,10 @@ console.log('territory: '+territory);
 										$scope.eastern_australia.units ++;
 									}
 									gameData.playerOrder.forEach(function(player) {
-										if(player.playerId === $scope.activePlayer.playerId) {
+										if(
+											(player.playerId === $scope.activePlayer.playerId) ||
+											(player.playerId === activePlayerInOrder)
+										) {
 											player.troopsToAssign --;
 										}
 									});
@@ -541,8 +605,20 @@ console.log('territory: '+territory);
 									gameMgmt.updateGame(gameData).then(function(uGameData) {
 										$scope.currentPlayerTurnId = gameData.playerOrder[nextAPIdx].playerId;
 										$scope.gameData = gameData;
-console.log('$scope.gameData after:');
-console.log($scope.gameData);
+										// have computer players assign troops
+										if(
+											$scope.currentPlayerTurnId === '58e17f53a719ff42d05742d8' ||
+											$scope.currentPlayerTurnId === '58e17f63a719ff42d05742d9' ||
+											$scope.currentPlayerTurnId === '58e17f6ea719ff42d05742da' ||
+											$scope.currentPlayerTurnId === '58e17f7da719ff42d05742db' ||
+											$scope.currentPlayerTurnId === '58e17f89a719ff42d05742dc'
+										) {
+											var gamePlayerHash = $scope.gameData.id +'-'+ $scope.currentPlayerTurnId;
+											gameMgmt.getPlayerTerritories(gamePlayerHash).then(function(playerTerritories) {
+												playerTerritories.sort(dynamicSort("units"));
+												territoryMenu(playerTerritories[0], true);
+											});
+										}
 									});
 								}
 							}
@@ -561,7 +637,6 @@ console.log($scope.activePlayer);
 console.log('territory', $scope.territory);
 console.log('color: '+color);
 		}
-console.log('done adding a troop');
 	}
 
 	function menuShow() {

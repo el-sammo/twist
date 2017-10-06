@@ -19,6 +19,7 @@
 		var game;
 		var getGamePromise;
 		var getPlayersOrderPromise;
+		var getPlayerTerritoriesPromise;
 		var createNewGamepromise;
 
 		var service = {
@@ -46,6 +47,19 @@
 				});
 
 				return getPlayersOrderPromise;
+			},
+
+			getPlayerTerritories: function(gamePlayerHash) {
+				var url = '/games/getPlayerTerritories/' + gamePlayerHash;
+				getPlayerTerritoriesPromise = $http.get(url).then(function(res) {
+					return res.data;
+				}).catch(function(err) {
+					console.log('GET ' + url + ': ajax failed');
+					console.error(err);
+					return $q.reject(err);
+				});
+
+				return getPlayerTerritoriesPromise;
 			},
 
 			createGame: function(gameData) {

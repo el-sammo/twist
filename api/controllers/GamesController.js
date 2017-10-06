@@ -161,6 +161,25 @@ module.exports = {
 		});
 	},
 	
+	getPlayerTerritories: function(req, res) {
+		reqPcs = req.params.id.split('-');
+		gameId = reqPcs[0];
+		playerId = reqPcs[1];
+		Games.find({id: gameId}).then(function(results) {
+			var playerTerritories = [];
+			results[0].territories.forEach(function(territory) {
+				if(territory.playerId === playerId) {
+					playerTerritories.push(territory);
+				}
+			});
+			res.send(JSON.stringify(playerTerritories));
+		}).catch(function(err) {
+      res.json({error: 'Server error'}, 500);
+      console.error(err);
+      throw err;
+		});
+	},
+	
 	addCPUPlayers: function(req, res) {
 		var cpuPlayers = [
 			'58e17f53a719ff42d05742d8',
