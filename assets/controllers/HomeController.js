@@ -385,6 +385,7 @@ console.log('territory: '+territory);
 		}
 
 		if($scope.addTroops) {
+// TODO must prevent players from adding troops out-of-turn
 			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
 				var cpuPlayer = false;
 				var activePlayerInOrder;
@@ -439,191 +440,211 @@ console.log('territory: '+territory);
 						cpuPlayer
 					)
 				) {
-					var troopsLeft = 0;
-					gameData.playerOrder.forEach(function(player) {
-						if(
-							player.playerId === $scope.activePlayer.playerId || 
-							player.playerId === activePlayerInOrder
-						) {
-							troopsLeft = player.troopsToAssign;
-						}
-					});
-					if(troopsLeft) {
-						var verifiedTerritory = false;
-						gameData.territories.forEach(function(territory) {
-							if(!verifiedTerritory) {
-								var tNA = territory.name;
-								var tNB = tName.toLowerCase().replace(' ','_');
-								if(
-									tNA === tNB && 
-									(
-										(territory.playerId === $scope.activePlayer.playerId) ||
-										(territory.playerId === activePlayerInOrder)
-									) && 
-									(
-										(territory.playerId === $scope.playerId) ||
-										(territory.playerId === activePlayerInOrder)
-									)
-								) {
-									territory.units ++;
-									if(tName.toLowerCase().replace(' ','_') === 'alaska') {
-										$scope.alaska.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'northwest_territory') {
-										$scope.northwest_territory.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'greenland') {
-										$scope.greenland.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'alberta') {
-										$scope.alberta.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'ontario') {
-										$scope.ontario.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'quebec') {
-										$scope.quebec.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'western_us') {
-										$scope.western_us.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'eastern_us') {
-										$scope.eastern_us.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'central_america') {
-										$scope.central_america.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'venezuela') {
-										$scope.venezuela.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'peru') {
-										$scope.peru.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'brazil') {
-										$scope.brazil.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'argentina') {
-										$scope.argentina.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'iceland') {
-										$scope.iceland.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'scandinavia') {
-										$scope.scandinavia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'russia') {
-										$scope.russia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'great_britain') {
-										$scope.great_britain.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'northern_europe') {
-										$scope.northern_europe.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'western_europe') {
-										$scope.western_europe.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'southern_europe') {
-										$scope.southern_europe.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'north_africa') {
-										$scope.north_africa.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'egypt') {
-										$scope.egypt.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'east_africa') {
-										$scope.east_africa.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'central_africa') {
-										$scope.central_africa.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'south_africa') {
-										$scope.south_africa.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'madagascar') {
-										$scope.madagascar.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'ural') {
-										$scope.ural.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'siberia') {
-										$scope.siberia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'yakutsk') {
-										$scope.yakutsk.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'kamchatka') {
-										$scope.kamchatka.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'irkutsk') {
-										$scope.irkutsk.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'mongolia') {
-										$scope.mongolia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'japan') {
-										$scope.japan.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'afghanistan') {
-										$scope.afghanistan.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'china') {
-										$scope.china.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'middle_east') {
-										$scope.middle_east.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'india') {
-										$scope.india.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'southeast_asia') {
-										$scope.southeast_asia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'indonesia') {
-										$scope.indonesia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'guinea') {
-										$scope.guinea.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'western_australia') {
-										$scope.western_australia.units ++;
-									}
-									if(tName.toLowerCase().replace(' ','_') === 'eastern_australia') {
-										$scope.eastern_australia.units ++;
-									}
-									gameData.playerOrder.forEach(function(player) {
-										if(
-											(player.playerId === $scope.activePlayer.playerId) ||
-											(player.playerId === activePlayerInOrder)
-										) {
-											player.troopsToAssign --;
+					var troopsLeft = 25;
+					gameMgmt.getPlayerTerritories(gameData.id+'-'+activePlayerInOrder).then(function(playerTerritories) {
+						playerTerritories.forEach(function(territory) {
+							troopsLeft = troopsLeft - territory.units;
+						});
+						if(troopsLeft) {
+							var verifiedTerritory = false;
+							gameData.territories.forEach(function(territory) {
+								if(!verifiedTerritory) {
+									var tNA = territory.name;
+									var tNB = tName.toLowerCase().replace(' ','_');
+									if(
+										tNA === tNB && 
+										(
+											(territory.playerId === $scope.activePlayer.playerId) ||
+											(territory.playerId === activePlayerInOrder)
+										) && 
+										(
+											(territory.playerId === $scope.playerId) ||
+											(territory.playerId === activePlayerInOrder)
+										)
+									) {
+										territory.units ++;
+										if(tName.toLowerCase().replace(' ','_') === 'alaska') {
+											$scope.alaska.units ++;
 										}
-									});
-									gameData.playerOrder[apIdx].current = false;
-									gameData.playerOrder[nextAPIdx].current = true;
-									gameMgmt.updateGame(gameData).then(function(uGameData) {
-										$scope.currentPlayerTurnId = gameData.playerOrder[nextAPIdx].playerId;
-										$scope.gameData = gameData;
-										// have computer players assign troops
-										if(
-											$scope.currentPlayerTurnId === '58e17f53a719ff42d05742d8' ||
-											$scope.currentPlayerTurnId === '58e17f63a719ff42d05742d9' ||
-											$scope.currentPlayerTurnId === '58e17f6ea719ff42d05742da' ||
-											$scope.currentPlayerTurnId === '58e17f7da719ff42d05742db' ||
-											$scope.currentPlayerTurnId === '58e17f89a719ff42d05742dc'
-										) {
-											var gamePlayerHash = $scope.gameData.id +'-'+ $scope.currentPlayerTurnId;
-											gameMgmt.getPlayerTerritories(gamePlayerHash).then(function(playerTerritories) {
-												playerTerritories.sort(dynamicSort("units"));
-												territoryMenu(playerTerritories[0], true);
-											});
+										if(tName.toLowerCase().replace(' ','_') === 'northwest_territory') {
+											$scope.northwest_territory.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'greenland') {
+											$scope.greenland.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'alberta') {
+											$scope.alberta.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'ontario') {
+											$scope.ontario.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'quebec') {
+											$scope.quebec.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'western_us') {
+											$scope.western_us.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'eastern_us') {
+											$scope.eastern_us.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'central_america') {
+											$scope.central_america.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'venezuela') {
+											$scope.venezuela.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'peru') {
+											$scope.peru.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'brazil') {
+											$scope.brazil.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'argentina') {
+											$scope.argentina.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'iceland') {
+											$scope.iceland.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'scandinavia') {
+											$scope.scandinavia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'russia') {
+											$scope.russia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'great_britain') {
+											$scope.great_britain.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'northern_europe') {
+											$scope.northern_europe.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'western_europe') {
+											$scope.western_europe.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'southern_europe') {
+											$scope.southern_europe.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'north_africa') {
+											$scope.north_africa.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'egypt') {
+											$scope.egypt.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'east_africa') {
+											$scope.east_africa.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'central_africa') {
+											$scope.central_africa.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'south_africa') {
+											$scope.south_africa.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'madagascar') {
+											$scope.madagascar.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'ural') {
+											$scope.ural.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'siberia') {
+											$scope.siberia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'yakutsk') {
+											$scope.yakutsk.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'kamchatka') {
+											$scope.kamchatka.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'irkutsk') {
+											$scope.irkutsk.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'mongolia') {
+											$scope.mongolia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'japan') {
+											$scope.japan.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'afghanistan') {
+											$scope.afghanistan.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'china') {
+											$scope.china.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'middle_east') {
+											$scope.middle_east.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'india') {
+											$scope.india.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'southeast_asia') {
+											$scope.southeast_asia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'indonesia') {
+											$scope.indonesia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'guinea') {
+											$scope.guinea.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'western_australia') {
+											$scope.western_australia.units ++;
+										}
+										if(tName.toLowerCase().replace(' ','_') === 'eastern_australia') {
+											$scope.eastern_australia.units ++;
+										}
+										gameData.playerOrder.forEach(function(player) {
+											if(
+												(player.playerId === $scope.activePlayer.playerId) ||
+												(player.playerId === activePlayerInOrder)
+											) {
+												player.troopsToAssign --;
+											}
+										});
+										gameData.playerOrder[apIdx].current = false;
+										gameData.playerOrder[nextAPIdx].current = true;
+										gameMgmt.updateGame(gameData).then(function(uGameData) {
+											$scope.currentPlayerTurnId = gameData.playerOrder[nextAPIdx].playerId;
+											$scope.gameData = gameData;
+											// have computer players assign troops
+											if(
+												$scope.currentPlayerTurnId === '58e17f53a719ff42d05742d8' ||
+												$scope.currentPlayerTurnId === '58e17f63a719ff42d05742d9' ||
+												$scope.currentPlayerTurnId === '58e17f6ea719ff42d05742da' ||
+												$scope.currentPlayerTurnId === '58e17f7da719ff42d05742db' ||
+												$scope.currentPlayerTurnId === '58e17f89a719ff42d05742dc'
+											) {
+												var gamePlayerHash = $scope.gameData.id +'-'+ $scope.currentPlayerTurnId;
+												gameMgmt.getPlayerTerritories(gamePlayerHash).then(function(playerTerritories) {
+													playerTerritories.sort(dynamicSort("units"));
+													territoryMenu(playerTerritories[0], true);
+												});
+											}
+										});
+									}
+								}
+							});
+						} else {
+console.log('no troops left to assign');
+// TODO debug why we aren't advancing to the next player with troops left to assign
+							var foundUnassigned = false;
+							gameData.playerOrder.forEach(function(orderedPlayer) {
+								if(!foundUnassigned) {
+									var gamePlayerHash = $scope.gameData.id +'-'+ orderedPlayer.playerId;
+									var playerTroops = 0;
+									gameMgmt.getPlayerTerritories(gamePlayerHash).then(function(playerTerritories) {
+										playerTerritories.forEach(function(playerTerritory) {
+											if(playerTerritory.units) {
+												playerTroops += playerTerritory.units;
+											}
+										});
+										var troopDiff = (25 - playerTroops);
+										if(troopDiff > 0) {
+											foundUnassigned = true;
+											playerTerritories.sort(dynamicSort("units"));
+											territoryMenu(playerTerritories[0], true);
 										}
 									});
 								}
-							}
-						});
-					}
+							});
+						}
+					});
 				} else {
 console.log('not active (current) player:');
 console.log($scope.activePlayer);
