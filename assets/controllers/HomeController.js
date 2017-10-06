@@ -369,10 +369,28 @@ console.log('territory: '+territory);
 
 		if($scope.addTroops) {
 			gameMgmt.getGame($scope.gameData.id).then(function(gameData) {
-console.log('gameData before:');
-console.log(gameData);
-//TODO finish validating proper player turn
-				if($scope.activePlayer.playerId === $scope.playerId) {
+				var activePlayerInOrder;
+				var apIdx = 0;
+				var nextAPIdx = 1;
+				var orderedCurrentPlayerFound = false;
+				gameData.playerOrder.forEach(function(playerInOrder) {
+					if(!orderedCurrentPlayerFound) {
+						if(playerInOrder.current) {
+							activePlayerInOrder = playerInOrder.playerId;
+							$scope.currentPlayerTurnId = playerInOrder.playerId;
+							orderedCurrentPlayerFound = true;
+						} else {
+							if(apIdx > 3) {
+								apIdx = 0;
+								nextAPIdx = 1;
+							} else {
+								apIdx ++;
+								nextAPIdx ++;
+							}
+						}
+					}
+				})
+				if($scope.activePlayer.playerId === $scope.playerId && activePlayerInOrder === $scope.playerId) {
 					var troopsLeft = 0;
 					gameData.playerOrder.forEach(function(player) {
 						if(player.playerId === $scope.activePlayer.playerId) {
@@ -518,10 +536,11 @@ console.log(gameData);
 											player.troopsToAssign --;
 										}
 									});
-									playerMgmt.getPlayer($scope.activePlayer.playerId).then(function(playerData) {
-console.log('adding a troop to '+tName+' for '+playerData.fName +' '+playerData.lName);
-console.log(territory);
-						$scope.gameData = gameData;
+									gameData.playerOrder[apIdx].current = false;
+									gameData.playerOrder[nextAPIdx].current = true;
+									gameMgmt.updateGame(gameData).then(function(uGameData) {
+										$scope.currentPlayerTurnId = gameData.playerOrder[nextAPIdx].playerId;
+										$scope.gameData = gameData;
 console.log('$scope.gameData after:');
 console.log($scope.gameData);
 									});
@@ -735,6 +754,7 @@ console.log('done adding a troop');
 	function pickFirstColor(gameData, firstPlayer) {
 		$scope.firstColorPickGoing = true;
 		$scope.currentColorSelector = firstPlayer.playerId;
+		$scope.currentPlayerTurnId = firstPlayer.playerId;
 		playerMgmt.getPlayer(firstPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -758,6 +778,7 @@ console.log('done adding a troop');
 	function pickSecondColor(gameData, secondPlayer) {
 		$scope.secondColorPickGoing = true;
 		$scope.currentColorSelector = secondPlayer.playerId;
+		$scope.currentPlayerTurnId = secondPlayer.playerId;
 		playerMgmt.getPlayer(secondPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -781,6 +802,7 @@ console.log('done adding a troop');
 	function pickThirdColor(gameData, thirdPlayer) {
 		$scope.thirdColorPickGoing = true;
 		$scope.currentColorSelector = thirdPlayer.playerId;
+		$scope.currentPlayerTurnId = thirdPlayer.playerId;
 		playerMgmt.getPlayer(thirdPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -804,6 +826,7 @@ console.log('done adding a troop');
 	function pickFourthColor(gameData, fourthPlayer) {
 		$scope.fourthColorPickGoing = true;
 		$scope.currentColorSelector = fourthPlayer.playerId;
+		$scope.currentPlayerTurnId = fourthPlayer.playerId;
 		playerMgmt.getPlayer(fourthPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -827,6 +850,7 @@ console.log('done adding a troop');
 	function pickFifthColor(gameData, fifthPlayer) {
 		$scope.fifthColorPickGoing = true;
 		$scope.currentColorSelector = fifthPlayer.playerId;
+		$scope.currentPlayerTurnId = fifthPlayer.playerId;
 		playerMgmt.getPlayer(fifthPlayer.playerId).then(function(playerData) {
 			$scope.currentColorPicker = playerData.fName + ' ' + playerData.lName;
 			$timeout(function() {
@@ -854,6 +878,7 @@ console.log('done adding a troop');
 						});
 						
 						hidePickColors();
+						$scope.currentPlayerTurnId = '';
 						// user-chosen territories
 						if(res.data.assignType === 'choose') {
 							pickTerritories(res.data);
@@ -1044,6 +1069,7 @@ console.log('done adding a troop');
 
 	function assignTroops(gameData) {
 		$scope.addTroops = true;
+		$scope.currentPlayerTurnId = gameData.playerOrder[0].playerId;
 		gameMgmt.getPlayersOrder(gameData.id).then(function(playersOrder) {
 			var newAction = {
 				gameId: gameData.id,

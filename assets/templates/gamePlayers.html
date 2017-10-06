@@ -11,6 +11,11 @@
 									ng-repeat="player in players"
 								>
 									<div class="col-md-12">
+										<span
+											ng-show="currentPlayerTurnId && currentPlayerTurnId === player.playerId"
+										> 
+											>
+										</span>
 										<span style="size: 14px;color:{{player.color}};font-weight:700;">{{player.fName}} {{player.lName}} ({{player.color}})</span>
 									</div>
 								</div>
