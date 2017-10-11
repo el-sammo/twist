@@ -39,6 +39,7 @@
 													class="row clickable"
 													ng-repeat="game in availGames"
 													ng-click="showGame(game.id)"
+													style="margin: 4px; border-radius: 8px; border: 1px solid blue;"
 												>
 													<div class="col-md-8">
 														<span class="gameDetails pull-left">
@@ -46,7 +47,7 @@
 														</span>
 													</div>
 													<div class="col-md-4">
-														<span class="gameDetails pull-right">
+														<span class="gameDetails pull-right nowrap">
 															{{game.playersCount}} / 5
 														</span>
 													</div>
@@ -70,18 +71,19 @@
 										<hr/>
 										<div 
 											class="row"
-											ng-repeat="player in gamePlayers"
-											ng-if="gamePlayers.length > 0"
+											ng-repeat="player in game.gamePlayers"
+											ng-if="game.gamePlayers.length > 0"
+											track by $index
 										>
 											<div class="col-md-12 centerBelow">
-												<span class="gameDetails">
-													{{gamePlayer.name}}
+												<span class="gameDetails pull-left">
+													{{$index + 1}}. {{player.username}}
 												</span>
 											</div>
 										</div>
 										<div 
 											class="row"
-											ng-if="!gamePlayers || gamePlayers.length < 1"
+											ng-if="!game.gamePlayers || game.gamePlayers.length < 1"
 										>
 											<div class="col-md-12 centerBelow">
 												<span class="gameDetailsItal">
@@ -90,6 +92,36 @@
 											</div>
 										</div>
 										<hr/>
+										<div
+											class="row"
+											id="joinGame"
+											ng-if="joinPossible"
+										>
+											<div class="col-md-6 col-md-offset-3">
+												<span 
+													class="joinGame clickable"
+													ng-click="joinGame(game)"
+													style="color: blue;"
+												>
+													Join Game
+												</span>
+											</div>
+										</div>
+										<div
+											class="row"
+											id="goTo"
+											ng-if="goToPossible"
+										>
+											<div class="col-md-6 col-md-offset-3">
+												<span 
+													class="goTo clickable"
+													ng-click="goToGame(game.id)"
+													style="color: blue;"
+												>
+													Go To Game
+												</span>
+											</div>
+										</div>
 										<div 
 											class="row"
 											id="gameChat"

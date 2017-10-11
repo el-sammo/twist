@@ -3,12 +3,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!alaska.color || alaska.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="alaska.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alaska.units}}
@@ -17,7 +17,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="alaska.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alaska.units}}
@@ -26,7 +26,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="alaska.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alaska.units}}
@@ -35,7 +35,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="alaska.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alaska.units}}
@@ -44,7 +44,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="alaska.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alaska.units}}
@@ -56,12 +56,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!northwest_territory.color || northwest_territory.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="northwest_territory.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{northwest_territory.units}}
@@ -70,7 +70,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="northwest_territory.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{northwest_territory.units}}
@@ -79,7 +79,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="northwest_territory.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{northwest_territory.units}}
@@ -88,7 +88,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="northwest_territory.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{northwest_territory.units}}
@@ -97,7 +97,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="northwest_territory.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{northwest_territory.units}}
@@ -109,12 +109,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!greenland.color || greenland.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="greenland.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{greenland.units}}
@@ -123,7 +123,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="greenland.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{greenland.units}}
@@ -132,7 +132,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="greenland.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{greenland.units}}
@@ -141,7 +141,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="greenland.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{greenland.units}}
@@ -150,7 +150,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="greenland.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{greenland.units}}
@@ -162,12 +162,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!alberta.color || alberta.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="alberta.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alberta.units}}
@@ -176,7 +176,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="alberta.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alberta.units}}
@@ -185,7 +185,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="alberta.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alberta.units}}
@@ -194,7 +194,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="alberta.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alberta.units}}
@@ -203,7 +203,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="alberta.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{alberta.units}}
@@ -215,12 +215,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!ontario.color || ontario.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="ontario.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{ontario.units}}
@@ -229,7 +229,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="ontario.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{ontario.units}}
@@ -238,7 +238,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="ontario.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{ontario.units}}
@@ -247,7 +247,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="ontario.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{ontario.units}}
@@ -256,7 +256,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="ontario.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{ontario.units}}
@@ -268,12 +268,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!quebec.color || quebec.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="quebec.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{quebec.units}}
@@ -282,7 +282,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="quebec.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{quebec.units}}
@@ -291,7 +291,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="quebec.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{quebec.units}}
@@ -300,7 +300,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="quebec.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{quebec.units}}
@@ -309,7 +309,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="quebec.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{quebec.units}}
@@ -321,12 +321,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!western_us.color || western_us.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="western_us.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{western_us.units}}
@@ -335,7 +335,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="western_us.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{western_us.units}}
@@ -344,7 +344,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="western_us.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{western_us.units}}
@@ -353,7 +353,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="western_us.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{western_us.units}}
@@ -362,7 +362,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="western_us.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{western_us.units}}
@@ -374,12 +374,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!eastern_us.color || eastern_us.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="eastern_us.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{eastern_us.units}}
@@ -388,7 +388,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="eastern_us.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{eastern_us.units}}
@@ -397,7 +397,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="eastern_us.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{eastern_us.units}}
@@ -406,7 +406,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="eastern_us.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{eastern_us.units}}
@@ -415,7 +415,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="eastern_us.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{eastern_us.units}}
@@ -427,12 +427,12 @@
 						class="fa fa-flag-o circle-centered clickable" 
 						aria-hidden="true"
 						ng-show="!central_america.color || central_america.color === ''"
-						ng-click="territoryClaim($event)"
+						ng-click="territoryClaim($event, false)"
 					></i>
 					<div 
 						class="blueCircle clickable"
 						ng-show="central_america.color === 'blue'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{central_america.units}}
@@ -441,7 +441,7 @@
 					<div 
 						class="greenCircle clickable"
 						ng-show="central_america.color === 'green'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{central_america.units}}
@@ -450,7 +450,7 @@
 					<div 
 						class="purpleCircle clickable"
 						ng-show="central_america.color === 'purple'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{central_america.units}}
@@ -459,7 +459,7 @@
 					<div 
 						class="redCircle clickable"
 						ng-show="central_america.color === 'red'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{central_america.units}}
@@ -468,7 +468,7 @@
 					<div 
 						class="yellowCircle clickable"
 						ng-show="central_america.color === 'yellow'"
-						ng-click="territoryMenu($event)"
+						ng-click="territoryMenu($event, false)"
 					>
 						<span class="territoryUnits">
 							{{central_america.units}}
